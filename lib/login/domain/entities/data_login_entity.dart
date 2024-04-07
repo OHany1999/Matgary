@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class Data extends Equatable {
+class DataLoginEntity extends Equatable {
   final int id;
   final String name;
   final String email;
@@ -10,7 +10,7 @@ class Data extends Equatable {
   final int credit;
   final String token;
 
-  const Data({
+  const DataLoginEntity({
     required this.id,
     required this.name,
     required this.email,
