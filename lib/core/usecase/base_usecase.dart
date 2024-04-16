@@ -1,7 +1,9 @@
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import 'package:matgary/core/error/failure.dart';
 
 abstract class BaseUseCase<T,Parameters>{
-Future<T> call(Parameters parameters);
+Future<Either<Failure,T>> call(Parameters parameters);
 
 }
 
