@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:matgary/core/network/api_constance.dart';
+import 'package:matgary/core/services/services_locator.dart';
 
 void main() {
+  ServicesLocator().init();
   runApp(const MyApp());
 }
 
