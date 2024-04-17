@@ -3,11 +3,14 @@ import 'package:matgary/login/data/datasource/login_remote_data_source.dart';
 import 'package:matgary/login/data/repository/login_repository.dart';
 import 'package:matgary/login/domain/repository/base_login_repository.dart';
 import 'package:matgary/login/domain/usecase/get_login_usecase.dart';
+import 'package:matgary/login/presentation/controller/login_bloc.dart';
 
 final sl = GetIt.instance;
 
 class ServicesLocator {
   void init() {
+
+    sl.registerFactory(() => LoginBloc(sl()));
 
     /// USE CASES
     sl.registerLazySingleton(() => GetLoginUseCase(sl()));

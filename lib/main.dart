@@ -1,7 +1,6 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:matgary/core/network/api_constance.dart';
 import 'package:matgary/core/services/services_locator.dart';
+import 'package:matgary/login/presentation/screens/login_screen.dart';
 
 void main() {
   ServicesLocator().init();
@@ -20,7 +19,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: Scaffold(body: Container(),),
+      home: LoginScreen(),
     );
   }
 }
