@@ -9,7 +9,7 @@ class LoginState extends Equatable {
 
   const LoginState({
     this.loginEntity,
-    this.requestState = RequestState.loading,
+    this.requestState = RequestState.initial,
     this.loginMessage = '',
   });
 
