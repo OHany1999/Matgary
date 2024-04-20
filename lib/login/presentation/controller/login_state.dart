@@ -7,6 +7,7 @@ class LoginState extends Equatable {
   final RequestState requestState;
   final String loginMessage;
 
+
   const LoginState({
     this.loginEntity,
     this.requestState = RequestState.initial,
@@ -30,3 +31,20 @@ class LoginState extends Equatable {
   // TODO: implement props
   List<Object?> get props => [loginEntity, requestState, loginMessage];
 }
+
+
+class PasswordObscureState extends Equatable {
+  final bool obscurePassword ;
+
+
+  const PasswordObscureState({this.obscurePassword = true});
+
+
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [obscurePassword];
+}
+
+
+

@@ -10,6 +10,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   LoginBloc(this.getLoginUseCase) : super(const LoginState()) {
     on<GetLoginEvent>(_getNowLogin);
+
   }
 
   FutureOr<void> _getNowLogin(GetLoginEvent event, Emitter<LoginState> emit) async {
@@ -20,4 +21,25 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       (r) => emit(state.copyWith(loginEntity: r,requestState: RequestState.success)),
     );
   }
+
 }
+
+//////////////////////////////////////////////////////////
+class PasswordObsBloc extends Bloc<String, PasswordObscureState> {
+  PasswordObsBloc():super(const PasswordObscureState()){
+    on<String>(_obscure);
+  }
+
+
+
+
+  FutureOr<void> _obscure(String event, Emitter<PasswordObscureState> emit) {
+    if(event == '+') {
+      emit(PasswordObscureState(obscurePassword: !state.obscurePassword));
+    }
+  }
+}
+
+
+
+

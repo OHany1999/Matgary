@@ -11,6 +11,6 @@ ThemeData getThemeDataLight() => ThemeData(
         headlineLarge: TextStyle(fontSize: 36,color: Colors.black),
         bodyLarge: TextStyle(fontSize: 16,color: Colors.white),
         bodyMedium: TextStyle(fontSize: 14,color: Colors.black),
-        bodySmall: TextStyle(fontSize: 12,color: AppColorsLight.color2),
+        bodySmall: TextStyle(fontSize: 12,color: AppColorsLight.grayColor),
       ),
     );
