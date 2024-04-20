@@ -22,7 +22,7 @@ class LoginScreen extends StatelessWidget {
         create: (context) => sl<LoginBloc>(),
         child: Scaffold(
           appBar: AppBar(
-            title: const Text('Login Screen'),
+            title:  Text('Login Screen',style: Theme.of(context).textTheme.displayLarge,),
           ),
           body: Center(
             child: Column(
