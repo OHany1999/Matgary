@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:matgary/core/services/services_locator.dart';
 import 'package:matgary/core/utils/enum.dart';
 import 'package:matgary/login/presentation/controller/login_bloc.dart';
@@ -9,6 +10,9 @@ import 'package:matgary/login/presentation/screens/new_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
+
+  static const routeName = '/login';
+
   String textEmail = '';
   String textPassword = '';
 
@@ -32,7 +36,7 @@ class LoginScreen extends StatelessWidget {
                     labelText: 'Email',
                   ),
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16.h),
                 TextField(
                   onChanged: (value) {
                     textPassword = value;
@@ -42,66 +46,15 @@ class LoginScreen extends StatelessWidget {
                     labelText: 'Password',
                   ),
                 ),
-                const SizedBox(height: 16),
-                // BlocBuilder<LoginBloc, LoginState>(
-                //   builder: (context, state) {
-                //     print(state.requestState);
-                //     print(state.loginEntity);
-                //     print(state.loginMessage);
-                //
-                //     switch (state.requestState){
-                //       case RequestState.initial:
-                //         return ElevatedButton(
-                //           onPressed: () {
-                //             context.read<LoginBloc>().add(GetLoginEvent(
-                //                 email: 'omar1999@gmail.com', password: '123456'));
-                //           },
-                //           style: ElevatedButton.styleFrom(
-                //               shape: RoundedRectangleBorder(
-                //                   borderRadius: BorderRadius.circular(10)),
-                //               padding: const EdgeInsets.symmetric(
-                //                   horizontal: 40, vertical: 15)),
-                //           child: const Text(
-                //             "Login",
-                //             style: TextStyle(
-                //               fontSize: 20,
-                //               fontWeight: FontWeight.bold,
-                //             ),
-                //           ),
-                //         );
-                //       case RequestState.loading:
-                //         return CircularProgressIndicator();
-                //       case RequestState.success:
-                //         return ElevatedButton(
-                //           onPressed: () {
-                //             context.read<LoginBloc>().add(GetLoginEvent(
-                //                 email: 'omar1999@gmail.com', password: '123456'));
-                //           },
-                //           style: ElevatedButton.styleFrom(
-                //               shape: RoundedRectangleBorder(
-                //                   borderRadius: BorderRadius.circular(10)),
-                //               padding: const EdgeInsets.symmetric(
-                //                   horizontal: 40, vertical: 15)),
-                //           child: const Text(
-                //             "Login",
-                //             style: TextStyle(
-                //               fontSize: 20,
-                //               fontWeight: FontWeight.bold,
-                //             ),
-                //           ),
-                //         );
-                //       case RequestState.error:
-                //         return Text('${state.loginMessage}');
-                //     }
-                //
-                //   },
-                // ),
+                SizedBox(height: 16.h),
                 BlocConsumer<LoginBloc, LoginState>(
+                  buildWhen: (previous, current) => previous.requestState != current.requestState,
+                    listenWhen: (previous, current) => previous.requestState != current.requestState,
                     builder: (context,state){
+                    print(state.hashCode);
                       print(state.requestState);
                       print(state.loginEntity);
                       print(state.loginMessage);
-
                       switch (state.requestState){
                         case RequestState.initial:
                           return ElevatedButton(
@@ -114,10 +67,10 @@ class LoginScreen extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(10)),
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 40, vertical: 15)),
-                            child: const Text(
+                            child:  Text(
                               "Login",
                               style: TextStyle(
-                                fontSize: 20,
+                                fontSize: 20.sp,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -133,12 +86,12 @@ class LoginScreen extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10)),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 40, vertical: 15)),
-                            child: const Text(
+                                padding:  EdgeInsets.symmetric(
+                                    horizontal: 40.w, vertical: 15.h)),
+                            child:  Text(
                               "Login",
                               style: TextStyle(
-                                fontSize: 20,
+                                fontSize: 20.sp,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -150,7 +103,7 @@ class LoginScreen extends StatelessWidget {
                     },
                     listener: (context,state){
                       if(state.requestState == RequestState.success){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>NewScreen(email: state.loginEntity!.data.email,)));
+                        Navigator.pushNamed(context, NewScreen.routeName,arguments: state.loginEntity);
                       }
                     },
                 ),
@@ -162,78 +115,3 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-
-//class LoginScreen extends StatelessWidget {
-//   LoginScreen({Key? key}) : super(key: key);
-//   String textEmail = '';
-//   String textPassword = '';
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return BlocProvider(
-//       create: (context) => LoginBloc(sl()),
-//       child: BlocBuilder<LoginBloc, LoginState>(
-//         builder: (context, state) {
-//           print(state.requestState);
-//           print(state.loginEntity);
-//           print(state.loginMessage);
-//           if(state.requestState == RequestState.success){
-//             Navigator.push(context, MaterialPageRoute(builder: (context)=>NewScreen()));
-//           }else{}
-//           return Scaffold(
-//             appBar: AppBar(
-//               title: const Text('Login Screen'),
-//             ),
-//             body: Center(
-//               child: Column(
-//                 mainAxisAlignment: MainAxisAlignment.center,
-//                 children: [
-//                   TextField(
-//                     onChanged: (value) {
-//                       textEmail = value;
-//                     },
-//                     decoration: InputDecoration(
-//                       labelText: 'Email',
-//                     ),
-//                   ),
-//                   const SizedBox(height: 16),
-//                   TextField(
-//                     onChanged: (value) {
-//                       textPassword = value;
-//                     },
-//                     obscureText: true,
-//                     decoration: InputDecoration(
-//                       labelText: 'Password',
-//                     ),
-//                   ),
-//                   const SizedBox(height: 16),
-//                   ElevatedButton(
-//                     onPressed: () {
-//                         context.read<LoginBloc>().add(GetLoginEvent(email: 'omar1999@gmail.com', password: '123456'));
-//                         print(state.requestState);
-//                         print(state.loginEntity);
-//                         print(state.loginMessage);
-//
-//                     },
-//                     style: ElevatedButton.styleFrom(
-//                         shape: RoundedRectangleBorder(
-//                             borderRadius: BorderRadius.circular(10)),
-//                         padding: const EdgeInsets.symmetric(
-//                             horizontal: 40, vertical: 15)),
-//                     child: const Text(
-//                       "Login",
-//                       style: TextStyle(
-//                         fontSize: 20,
-//                         fontWeight: FontWeight.bold,
-//                       ),
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           );
-//         },
-//       ),
-//     );
-//   }
-// }
