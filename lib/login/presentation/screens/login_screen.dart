@@ -28,7 +28,6 @@ class LoginScreen extends StatelessWidget {
         BlocProvider(create: (context) => PasswordObsBloc()),
       ],
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         body: Form(
           key: _formKey,
           child: SingleChildScrollView(
@@ -37,13 +36,8 @@ class LoginScreen extends StatelessWidget {
               children: [
                 const SizedBox(height: 150),
                 Text(
-                  "Welcome back",
+                  "Log in",
                   style: Theme.of(context).textTheme.headlineLarge,
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  "Login to your account",
-                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 const SizedBox(height: 60),
                 TextFormField(
