@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:matgary/core/global/toast/toast.dart';
 import 'package:matgary/core/services/services_locator.dart';
 import 'package:matgary/core/utils/enum.dart';
 import 'package:matgary/login/presentation/controller/login_bloc.dart';
@@ -115,8 +116,8 @@ class LoginScreen extends StatelessWidget {
                           onPressed: () {
                             if (_formKey.currentState?.validate() ?? false) {
                               context.read<LoginBloc>().add(GetLoginEvent(
-                                  email: 'omar1999@gmail.com',
-                                  password: '123456'));
+                                  email: _controllerUsername.text,
+                                  password: _controllerPassword.text));
                             }
 
                           },
@@ -140,8 +141,8 @@ class LoginScreen extends StatelessWidget {
                           onPressed: () {
                             if (_formKey.currentState?.validate() ?? false) {
                               context.read<LoginBloc>().add(GetLoginEvent(
-                                  email: 'omar1999@gmail.com',
-                                  password: '123456'));
+                                  email: _controllerUsername.text,
+                                  password: _controllerPassword.text));
                             }
                           },
                           style: ElevatedButton.styleFrom(
@@ -158,13 +159,35 @@ class LoginScreen extends StatelessWidget {
                           ),
                         );
                       case RequestState.error:
-                        return Text('${state.loginMessage}');
+                        return ElevatedButton(
+                          onPressed: () {
+                            if (_formKey.currentState?.validate() ?? false) {
+                              context.read<LoginBloc>().add(GetLoginEvent(
+                                  email: _controllerUsername.text,
+                                  password: _controllerPassword.text));
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 40.w, vertical: 15.h)),
+                          child: Text(
+                            "Login",
+                            style: TextStyle(
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        );
                     }
                   },
                   listener: (context, state) {
                     if (state.requestState == RequestState.success) {
                       Navigator.pushNamed(context, NewScreen.routeName,
                           arguments: state.loginEntity);
+                    }else if(state.requestState == RequestState.error){
+                      ToastMessages.showToast(message: 'Wrong Email or Password');
                     }
                   },
                 ),
