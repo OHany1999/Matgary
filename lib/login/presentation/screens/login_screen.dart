@@ -159,35 +159,17 @@ class LoginScreen extends StatelessWidget {
                           ),
                         );
                       case RequestState.error:
-                        return ElevatedButton(
-                          onPressed: () {
-                            if (_formKey.currentState?.validate() ?? false) {
-                              context.read<LoginBloc>().add(GetLoginEvent(
-                                  email: _controllerUsername.text,
-                                  password: _controllerPassword.text));
-                            }
-                          },
-                          style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 40.w, vertical: 15.h)),
-                          child: Text(
-                            "Login",
-                            style: TextStyle(
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        );
+                        return Text('there is error');
                     }
                   },
                   listener: (context, state) {
                     if (state.requestState == RequestState.success) {
-                      Navigator.pushNamed(context, NewScreen.routeName,
-                          arguments: state.loginEntity);
-                    }else if(state.requestState == RequestState.error){
-                      ToastMessages.showToast(message: 'Wrong Email or Password');
+                      if(state.loginEntity!.data != null){
+                        Navigator.pushNamed(context, NewScreen.routeName,
+                            arguments: state.loginEntity);
+                      }else{
+                        ToastMessages.showToast(message: 'Wrong Email or Password');
+                      }
                     }
                   },
                 ),

@@ -1,14 +1,14 @@
 import 'package:equatable/equatable.dart';
 
 class DataLoginEntity extends Equatable {
-  final int id;
-  final String name;
-  final String email;
-  final String phone;
-  final String image;
-  final int points;
-  final int credit;
-  final String token;
+  final int? id;
+  final String? name;
+  final String? email;
+  final String? phone;
+  final String? image;
+  final int? points;
+  final int? credit;
+  final String? token;
 
   const DataLoginEntity({
     required this.id,

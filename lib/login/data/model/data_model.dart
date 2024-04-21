@@ -1,7 +1,7 @@
 import 'package:matgary/login/domain/entities/data_login_entity.dart';
 
 class DataLoginModel extends DataLoginEntity {
-  const DataLoginModel({
+  DataLoginModel({
     required super.id,
     required super.name,
     required super.email,

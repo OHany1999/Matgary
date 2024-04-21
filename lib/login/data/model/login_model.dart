@@ -11,6 +11,6 @@ class LoginModel extends LoginEntity {
   factory LoginModel.fromJson(Map<String, dynamic> json) => LoginModel(
         status: json['status'],
         message: json['message'],
-        data: DataLoginModel.fromJson(json['data']),
+        data:json['data'] !=null ? DataLoginModel.fromJson(json['data']): null,
       );
 }

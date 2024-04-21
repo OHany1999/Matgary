@@ -8,7 +8,7 @@ class NewScreen extends StatelessWidget {
     final args = ModalRoute.of(context)!.settings.arguments as LoginModel;
     return Scaffold(
       body: Center(
-        child: Text(args.data.email),
+        child: Text(args.data!.email ?? ''),
       ),
     );
   }
