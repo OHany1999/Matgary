@@ -77,7 +77,8 @@ class LoginScreen extends StatelessWidget {
                           },
                           icon: state.obscurePassword
                               ? const Icon(Icons.visibility_outlined)
-                              : const Icon(Icons.visibility_off_outlined)),
+                              : const Icon(Icons.visibility_off_outlined)
+                      ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
