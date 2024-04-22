@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:matgary/core/global/toast/toast.dart';
 import 'package:matgary/core/services/services_locator.dart';
+import 'package:matgary/core/shared_widgets/textField.dart';
 import 'package:matgary/core/utils/enum.dart';
 import 'package:matgary/login/presentation/controller/login_bloc.dart';
 import 'package:matgary/login/presentation/controller/login_event.dart';
@@ -40,21 +41,14 @@ class LoginScreen extends StatelessWidget {
                   style: Theme.of(context).textTheme.headlineLarge,
                 ),
                 const SizedBox(height: 60),
-                TextFormField(
-                  controller: _controllerUsername,
-                  keyboardType: TextInputType.name,
-                  decoration: InputDecoration(
-                    labelText: "Username",
-                    prefixIcon: const Icon(Icons.person_outline),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
+                GlobalTextField(
+                  textEditingController: _controllerUsername,
+                  keyboardType: TextInputType.emailAddress,
+                  prefixIcon: const Icon(Icons.person_outline),
+                  inputBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  onEditingComplete: () => _focusNodePassword.requestFocus(),
-                  validator: (String? value) {
+                  validator:  (String? value) {
                     if (value == null || value.isEmpty) {
                       return "Please enter username.";
                     }
@@ -62,29 +56,22 @@ class LoginScreen extends StatelessWidget {
                   },
                 ),
                 const SizedBox(height: 10),
-                BlocBuilder<PasswordObsBloc,PasswordObscureState>(
-                  builder: (context,state)=>TextFormField(
-                    controller: _controllerPassword,
+                BlocBuilder<PasswordObsBloc, PasswordObscureState>(
+                  builder: (context, state) => GlobalTextField(
+                    textEditingController: _controllerPassword,
                     focusNode: _focusNodePassword,
                     obscureText: state.obscurePassword,
                     keyboardType: TextInputType.visiblePassword,
-                    decoration: InputDecoration(
-                      labelText: "Password",
-                      prefixIcon: const Icon(Icons.password_outlined),
-                      suffixIcon: IconButton(
-                          onPressed: () {
-                            context.read<PasswordObsBloc>().add('+');
-                          },
-                          icon: state.obscurePassword
-                              ? const Icon(Icons.visibility_outlined)
-                              : const Icon(Icons.visibility_off_outlined)
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+                    prefixIcon: const Icon(Icons.password_outlined),
+                    addSuffixIcon: true,
+                    suffixIconImage: state.obscurePassword
+                        ? const Icon(Icons.visibility_outlined)
+                        : const Icon(Icons.visibility_off_outlined),
+                    suffixIconOnPress: () {
+                      context.read<PasswordObsBloc>().add('+');
+                    },
+                    inputBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
@@ -97,9 +84,9 @@ class LoginScreen extends StatelessWidget {
                 const SizedBox(height: 60),
                 BlocConsumer<LoginBloc, LoginState>(
                   buildWhen: (previous, current) =>
-                  previous.requestState != current.requestState,
+                      previous.requestState != current.requestState,
                   listenWhen: (previous, current) =>
-                  previous.requestState != current.requestState,
+                      previous.requestState != current.requestState,
                   builder: (context, state) {
                     print(state.hashCode);
                     print(state.requestState);
@@ -114,7 +101,6 @@ class LoginScreen extends StatelessWidget {
                                   email: _controllerUsername.text,
                                   password: _controllerPassword.text));
                             }
-
                           },
                           style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(
@@ -159,11 +145,12 @@ class LoginScreen extends StatelessWidget {
                   },
                   listener: (context, state) {
                     if (state.requestState == RequestState.success) {
-                      if(state.loginEntity!.data != null){
+                      if (state.loginEntity!.data != null) {
                         Navigator.pushNamed(context, NewScreen.routeName,
                             arguments: state.loginEntity);
-                      }else{
-                        ToastMessages.showToast(message: 'Wrong Email or Password');
+                      } else {
+                        ToastMessages.showToast(
+                            message: 'Wrong Email or Password');
                       }
                     }
                   },
@@ -176,7 +163,3 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
-
-
-
-
