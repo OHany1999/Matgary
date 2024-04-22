@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:matgary/core/global/theme/app_color/app_color_light.dart';
 import 'package:matgary/core/global/toast/toast.dart';
 import 'package:matgary/core/services/services_locator.dart';
 import 'package:matgary/core/shared_widgets/textField.dart';
@@ -44,16 +45,16 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 100),
-                Text('E-mail',style: Theme.of(context).textTheme.bodyMedium,),
+                Text(
+                  'E-mail',
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
                 const SizedBox(height: 10),
                 GlobalTextField(
                   textEditingController: _controllerUsername,
                   keyboardType: TextInputType.emailAddress,
-                  prefixIcon: const Icon(Icons.person_outline),
-                  inputBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  validator:  (String? value) {
+                  prefixIcon: null,
+                  validator: (String? value) {
                     if (value == null || value.isEmpty) {
                       return "Please enter username.";
                     }
@@ -61,7 +62,10 @@ class LoginScreen extends StatelessWidget {
                   },
                 ),
                 const SizedBox(height: 30),
-                Text('Password',style: Theme.of(context).textTheme.bodyMedium,),
+                Text(
+                  'Password',
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
                 const SizedBox(height: 10),
                 BlocBuilder<PasswordObsBloc, PasswordObscureState>(
                   builder: (context, state) => GlobalTextField(
@@ -69,7 +73,7 @@ class LoginScreen extends StatelessWidget {
                     focusNode: _focusNodePassword,
                     obscureText: state.obscurePassword,
                     keyboardType: TextInputType.visiblePassword,
-                    prefixIcon: const Icon(Icons.password_outlined),
+                    prefixIcon: null,
                     addSuffixIcon: true,
                     suffixIconImage: state.obscurePassword
                         ? const Icon(Icons.visibility_outlined)
@@ -77,9 +81,6 @@ class LoginScreen extends StatelessWidget {
                     suffixIconOnPress: () {
                       context.read<PasswordObsBloc>().add('+');
                     },
-                    inputBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
                         return "Please enter password.";

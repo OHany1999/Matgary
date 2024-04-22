@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:matgary/core/global/theme/app_color/app_color_light.dart';
 
 class GlobalTextField extends StatelessWidget {
   final TextEditingController? textEditingController;
@@ -10,9 +11,10 @@ class GlobalTextField extends StatelessWidget {
   final bool addSuffixIcon;
   final void Function()? suffixIconOnPress;
   final Widget suffixIconImage;
-  final InputBorder? inputBorder;
+  final Color borderSideColor;
   final String? Function(String?)? validator;
   final Color? textColor;
+
 
   GlobalTextField({
     required this.textEditingController,
@@ -23,7 +25,7 @@ class GlobalTextField extends StatelessWidget {
     this.addSuffixIcon = false,
     this.suffixIconOnPress = null,
     this.suffixIconImage = const SizedBox(),
-    required this.inputBorder,
+    this.borderSideColor = AppColorsLight.textFieldColor,
     required this.validator,
     this.textColor =Colors.black,
   });
@@ -37,13 +39,31 @@ class GlobalTextField extends StatelessWidget {
       obscureText: obscureText,
       keyboardType: keyboardType,
       decoration: InputDecoration(
+        filled: true,
+        fillColor: AppColorsLight.textFieldColor,
         prefixIcon: prefixIcon,
         suffixIcon: addSuffixIcon == true ? IconButton(
             onPressed: suffixIconOnPress,
             icon: suffixIconImage,
         ):null,
-        border: inputBorder,
-        enabledBorder: inputBorder,
+        border: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: borderSideColor,
+          ),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide:  BorderSide(
+            color: borderSideColor,
+          ),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide:  BorderSide(
+            color: borderSideColor,
+          ),
+          borderRadius: BorderRadius.circular(10),
+        ),
       ),
       validator: validator,
     );
