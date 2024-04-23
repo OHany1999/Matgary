@@ -122,7 +122,28 @@ class LoginScreen extends StatelessWidget {
                             }
                           });
                         case RequestState.error:
-                          return Text('there is error');
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              OutlinedButton(
+                                  onPressed: (){
+                                    BlocProvider.of<LoginBloc>(context);
+                                  },
+                                  style: OutlinedButton.styleFrom(
+                                  ),
+                                  child: Text(
+                                    "Retry",
+                                  )),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              Text(
+                                state.loginMessage,
+                                textAlign: TextAlign.center,
+                              )
+                            ],
+                          );
                       }
                     },
                     listener: (context, state) {

@@ -20,6 +20,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       (l) => emit(state.copyWith(loginMessage: l.message,requestState: RequestState.error)),
       (r) => emit(state.copyWith(loginEntity: r,requestState: RequestState.success)),
     );
+
   }
 
 }
