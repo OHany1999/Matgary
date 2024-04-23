@@ -1,24 +1,32 @@
 import 'package:equatable/equatable.dart';
 
-enum ConnectionStateTypes{
+enum ConnectionStateTypes {
   initial,
   isConnected,
   isNotConnected,
 }
 
+
+
 class CheckConnectionState extends Equatable {
-  final ConnectionStateTypes isConnected;
 
+  final ConnectionStateTypes connectionStateTypes;
 
+  const CheckConnectionState({
+    this.connectionStateTypes = ConnectionStateTypes.initial,
+  });
 
-  const CheckConnectionState({this.isConnected = ConnectionStateTypes.initial});
-
-
-  @override
-  // TODO: implement props
-  List<Object?> get props => [];
+  CheckConnectionState copyWith({
+    ConnectionStateTypes? connectionStateTypes,
+}){
+    return CheckConnectionState(
+      connectionStateTypes: connectionStateTypes ?? this.connectionStateTypes,
+    );
 }
 
 
 
-
+  @override
+  // TODO: implement props
+  List<Object?> get props => [connectionStateTypes];
+}

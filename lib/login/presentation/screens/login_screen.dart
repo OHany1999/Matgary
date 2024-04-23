@@ -36,11 +36,9 @@ class LoginScreen extends StatelessWidget {
         BlocProvider(create: (context) => PasswordObsBloc()),
       ],
       child: BlocBuilder<CheckConnectionBloc, CheckConnectionState>(
-        buildWhen: (previous, current) =>
-        previous.isConnected != current.isConnected,
         builder: (context, state) {
-          print('connnnnnnnnnnnnnnnn${state.isConnected}');
-          switch(state.isConnected){
+          print('connnnnnnnnnnnnnnnn${state.connectionStateTypes}');
+          switch(state.connectionStateTypes){
             case ConnectionStateTypes.initial:
              return const Center(child:  CircularProgressIndicator(),);
             case ConnectionStateTypes.isConnected:
@@ -185,14 +183,9 @@ class LoginScreen extends StatelessWidget {
              return  Scaffold(
                body: Column(
                  mainAxisAlignment: MainAxisAlignment.center,
-                 crossAxisAlignment: CrossAxisAlignment.center,
+                 crossAxisAlignment: CrossAxisAlignment.end,
                  children: [
-                   GlobalElevatedButton(
-                      bottomText: 'reload',
-                       onPress: () {
-                        BlocProvider.of<CheckConnectionBloc>(context).add(CheckConnectionEvent());
-                   }
-                   ),
+                   ElevatedButton(onPressed:() =>BlocProvider.of<CheckConnectionBloc>(context).add(CheckConnectionEvent()), child: Text('reloadww')),
                    const SizedBox(
                      height: 8,
                    ),

@@ -30,12 +30,11 @@ class CheckConnectionBloc extends Bloc<CheckConnectionEvent, CheckConnectionStat
 
   FutureOr<void> _checkConnection(CheckConnectionEvent event, Emitter<CheckConnectionState> emit) async{
     if(await networkInfo.isConnected){
-      emit(CheckConnectionState(isConnected: ConnectionStateTypes.isConnected));
+      emit(state.copyWith(connectionStateTypes: ConnectionStateTypes.isConnected));
       print('ddddddddddddddddddddd');
 
     }else{
-
-      emit(CheckConnectionState(isConnected: ConnectionStateTypes.isNotConnected));
+      emit(state.copyWith(connectionStateTypes: ConnectionStateTypes.isNotConnected));
       print('ffffffffffffffffffffffff');
     }
 
