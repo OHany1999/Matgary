@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:matgary/core/global/check_connection_bloc/check_connection_bloc.dart';
 import 'package:matgary/core/network/netword_info.dart';
 import 'package:matgary/login/data/datasource/login_remote_data_source.dart';
 import 'package:matgary/login/data/repository/login_repository.dart';
@@ -13,6 +14,7 @@ class ServicesLocator {
   void init() {
 
     sl.registerFactory(() => LoginBloc(sl()));
+    sl.registerFactory(() => CheckConnectionBloc(sl()));
 
     ///NetworkInfo instance
     sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(InternetConnectionChecker()));

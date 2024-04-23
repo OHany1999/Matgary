@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:matgary/core/global/check_connection_bloc/check_connection_bloc.dart';
+import 'package:matgary/core/global/check_connection_bloc/check_connection_event.dart';
+import 'package:matgary/core/global/check_connection_bloc/check_connection_state.dart';
 import 'package:matgary/core/global/shared_widgets/elvated_bottom.dart';
 import 'package:matgary/core/global/shared_widgets/textField.dart';
 import 'package:matgary/core/global/theme/app_color/app_color_light.dart';
@@ -15,6 +18,7 @@ import 'package:matgary/login/presentation/screens/new_screen.dart';
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
 
+
   static const routeName = '/login';
 
   final GlobalKey<FormState> _formKey = GlobalKey();
@@ -27,141 +31,181 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (context) => sl<CheckConnectionBloc>()..add( CheckConnectionEvent())),
         BlocProvider(create: (context) => sl<LoginBloc>()),
         BlocProvider(create: (context) => PasswordObsBloc()),
       ],
-      child: Scaffold(
-        body: Form(
-          key: _formKey,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(30.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 150),
-                Center(
-                  child: Text(
-                    "Log in",
-                    style: Theme.of(context).textTheme.headlineLarge,
-                  ),
-                ),
-                const SizedBox(height: 100),
-                Text(
-                  'E-mail',
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-                const SizedBox(height: 10),
-                GlobalTextField(
-                  textEditingController: _controllerUsername,
-                  keyboardType: TextInputType.emailAddress,
-                  prefixIcon: null,
-                  validator: (String? value) {
-                    if (value == null || value.isEmpty) {
-                      return "Please enter username.";
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 30),
-                Text(
-                  'Password',
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-                const SizedBox(height: 10),
-                BlocBuilder<PasswordObsBloc, PasswordObscureState>(
-                  builder: (context, state) => GlobalTextField(
-                    textEditingController: _controllerPassword,
-                    focusNode: _focusNodePassword,
-                    obscureText: state.obscurePassword,
-                    keyboardType: TextInputType.visiblePassword,
-                    prefixIcon: null,
-                    addSuffixIcon: true,
-                    suffixIconImage: state.obscurePassword
-                        ? const Icon(Icons.visibility_outlined)
-                        : const Icon(Icons.visibility_off_outlined),
-                    suffixIconOnPress: () {
-                      context.read<PasswordObsBloc>().add('+');
-                    },
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return "Please enter password.";
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                const SizedBox(height: 60),
-                Center(
-                  child: BlocConsumer<LoginBloc, LoginState>(
-                    buildWhen: (previous, current) =>
-                        previous.requestState != current.requestState,
-                    listenWhen: (previous, current) =>
-                        previous.requestState != current.requestState,
-                    builder: (context, state) {
-                      print(state.hashCode);
-                      print(state.requestState);
-                      print(state.loginEntity);
-                      print(state.loginMessage);
-                      switch (state.requestState) {
-                        case RequestState.initial:
-                          return GlobalElevatedButton(onPress: () {
-                            if (_formKey.currentState?.validate() ?? false) {
-                              context.read<LoginBloc>().add(GetLoginEvent(
-                                  email: _controllerUsername.text,
-                                  password: _controllerPassword.text));
+      child: BlocBuilder<CheckConnectionBloc, CheckConnectionState>(
+        buildWhen: (previous, current) =>
+        previous.isConnected != current.isConnected,
+        builder: (context, state) {
+          print('connnnnnnnnnnnnnnnn${state.isConnected}');
+          switch(state.isConnected){
+            case ConnectionStateTypes.initial:
+             return const Center(child:  CircularProgressIndicator(),);
+            case ConnectionStateTypes.isConnected:
+              return Scaffold(
+                body: Form(
+                  key: _formKey,
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.all(30.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 150),
+                        Center(
+                          child: Text(
+                            "Log in",
+                            style: Theme.of(context).textTheme.headlineLarge,
+                          ),
+                        ),
+                        const SizedBox(height: 100),
+                        Text(
+                          'E-mail',
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                        const SizedBox(height: 10),
+                        GlobalTextField(
+                          textEditingController: _controllerUsername,
+                          keyboardType: TextInputType.emailAddress,
+                          prefixIcon: null,
+                          validator: (String? value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please enter username.";
                             }
-                          });
-                        case RequestState.loading:
-                          return CircularProgressIndicator();
-                        case RequestState.success:
-                          return GlobalElevatedButton(onPress: () {
-                            if (_formKey.currentState?.validate() ?? false) {
-                              context.read<LoginBloc>().add(GetLoginEvent(
-                                  email: _controllerUsername.text,
-                                  password: _controllerPassword.text));
-                            }
-                          });
-                        case RequestState.error:
-                          return Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              GlobalElevatedButton(onPress: () {
-                                if (_formKey.currentState?.validate() ??
-                                    false) {
-                                  context.read<LoginBloc>().add(GetLoginEvent(
-                                      email: _controllerUsername.text,
-                                      password: _controllerPassword.text));
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 30),
+                        Text(
+                          'Password',
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                        const SizedBox(height: 10),
+                        BlocBuilder<PasswordObsBloc, PasswordObscureState>(
+                          builder: (context, state) => GlobalTextField(
+                            textEditingController: _controllerPassword,
+                            focusNode: _focusNodePassword,
+                            obscureText: state.obscurePassword,
+                            keyboardType: TextInputType.visiblePassword,
+                            prefixIcon: null,
+                            addSuffixIcon: true,
+                            suffixIconImage: state.obscurePassword
+                                ? const Icon(Icons.visibility_outlined)
+                                : const Icon(Icons.visibility_off_outlined),
+                            suffixIconOnPress: () {
+                              context.read<PasswordObsBloc>().add('+');
+                            },
+                            validator: (String? value) {
+                              if (value == null || value.isEmpty) {
+                                return "Please enter password.";
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        const SizedBox(height: 60),
+                        Center(
+                          child: BlocConsumer<LoginBloc, LoginState>(
+                            buildWhen: (previous, current) =>
+                            previous.requestState != current.requestState,
+                            listenWhen: (previous, current) =>
+                            previous.requestState != current.requestState,
+                            builder: (context, state) {
+                              print(state.hashCode);
+                              print(state.requestState);
+                              print(state.loginEntity);
+                              print(state.loginMessage);
+                              switch (state.requestState) {
+                                case RequestState.initial:
+                                  return GlobalElevatedButton(onPress: () {
+                                    if (_formKey.currentState?.validate() ??
+                                        false) {
+                                      context.read<LoginBloc>().add(GetLoginEvent(
+                                          email: _controllerUsername.text,
+                                          password: _controllerPassword.text));
+                                    }
+                                  });
+                                case RequestState.loading:
+                                  return CircularProgressIndicator();
+                                case RequestState.success:
+                                  return GlobalElevatedButton(onPress: () {
+                                    if (_formKey.currentState?.validate() ??
+                                        false) {
+                                      context.read<LoginBloc>().add(GetLoginEvent(
+                                          email: _controllerUsername.text,
+                                          password: _controllerPassword.text));
+                                    }
+                                  });
+                                case RequestState.error:
+                                  return Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      GlobalElevatedButton(onPress: () {
+                                        if (_formKey.currentState?.validate() ??
+                                            false) {
+                                          context.read<LoginBloc>().add(
+                                              GetLoginEvent(
+                                                  email: _controllerUsername.text,
+                                                  password:
+                                                  _controllerPassword.text));
+                                        }
+                                      }),
+                                      const SizedBox(
+                                        height: 8,
+                                      ),
+                                      Text(
+                                        state.loginMessage,
+                                        textAlign: TextAlign.center,
+                                      )
+                                    ],
+                                  );
+                              }
+                            },
+                            listener: (context, state) {
+                              if (state.requestState == RequestState.success) {
+                                if (state.loginEntity!.data != null) {
+                                  Navigator.pushNamed(context, NewScreen.routeName,
+                                      arguments: state.loginEntity);
+                                } else {
+                                  ToastMessages.showToast(
+                                      message: 'Wrong Email or Password');
                                 }
-                              }),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Text(
-                                state.loginMessage,
-                                textAlign: TextAlign.center,
-                              )
-                            ],
-                          );
-                      }
-                    },
-                    listener: (context, state) {
-                      if (state.requestState == RequestState.success) {
-                        if (state.loginEntity!.data != null) {
-                          Navigator.pushNamed(context, NewScreen.routeName,
-                              arguments: state.loginEntity);
-                        } else {
-                          ToastMessages.showToast(
-                              message: 'Wrong Email or Password');
-                        }
-                      }
-                    },
+                              }
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ],
-            ),
-          ),
-        ),
+              );
+            case ConnectionStateTypes.isNotConnected:
+             return  Scaffold(
+               body: Column(
+                 mainAxisAlignment: MainAxisAlignment.center,
+                 crossAxisAlignment: CrossAxisAlignment.center,
+                 children: [
+                   GlobalElevatedButton(
+                      bottomText: 'reload',
+                       onPress: () {
+                        BlocProvider.of<CheckConnectionBloc>(context).add(CheckConnectionEvent());
+                   }
+                   ),
+                   const SizedBox(
+                     height: 8,
+                   ),
+                   Text(
+                     'Check your network',
+                     textAlign: TextAlign.center,
+                   )
+                 ],
+               ),
+             );
+          }
+
+        },
       ),
     );
   }

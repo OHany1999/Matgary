@@ -21,14 +21,6 @@ final NetworkInfo _networkInfo;
     }catch (error){
       return Left(ErrorHandler.handle(error).failure);
     }
-    // if(await _networkInfo.isConnected){
-    //   print('network is working');
-    //
-    // }else{
-    //   print('network is nooooot working');
-    //   return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
-    // }
-
 
   }
 
