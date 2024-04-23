@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:matgary/core/global/shared_widgets/elvated_bottom.dart';
+import 'package:matgary/core/global/shared_widgets/textField.dart';
 import 'package:matgary/core/global/theme/app_color/app_color_light.dart';
 import 'package:matgary/core/global/toast/toast.dart';
 import 'package:matgary/core/services/services_locator.dart';
-import 'package:matgary/core/shared_widgets/textField.dart';
 import 'package:matgary/core/utils/enum.dart';
 import 'package:matgary/login/presentation/controller/login_bloc.dart';
 import 'package:matgary/login/presentation/controller/login_event.dart';
@@ -103,51 +104,23 @@ class LoginScreen extends StatelessWidget {
                       print(state.loginMessage);
                       switch (state.requestState) {
                         case RequestState.initial:
-                          return ElevatedButton(
-                            onPressed: () {
-                              if (_formKey.currentState?.validate() ?? false) {
-                                context.read<LoginBloc>().add(GetLoginEvent(
-                                    email: _controllerUsername.text,
-                                    password: _controllerPassword.text));
-                              }
-                            },
-                            style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 40, vertical: 15)),
-                            child: Text(
-                              "Login",
-                              style: TextStyle(
-                                fontSize: 20.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          );
+                          return GlobalElevatedButton(onPress: () {
+                            if (_formKey.currentState?.validate() ?? false) {
+                              context.read<LoginBloc>().add(GetLoginEvent(
+                                  email: _controllerUsername.text,
+                                  password: _controllerPassword.text));
+                            }
+                          });
                         case RequestState.loading:
                           return CircularProgressIndicator();
                         case RequestState.success:
-                          return ElevatedButton(
-                            onPressed: () {
-                              if (_formKey.currentState?.validate() ?? false) {
-                                context.read<LoginBloc>().add(GetLoginEvent(
-                                    email: _controllerUsername.text,
-                                    password: _controllerPassword.text));
-                              }
-                            },
-                            style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 40.w, vertical: 15.h)),
-                            child: Text(
-                              "Login",
-                              style: TextStyle(
-                                fontSize: 20.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          );
+                          return GlobalElevatedButton(onPress: () {
+                            if (_formKey.currentState?.validate() ?? false) {
+                              context.read<LoginBloc>().add(GetLoginEvent(
+                                  email: _controllerUsername.text,
+                                  password: _controllerPassword.text));
+                            }
+                          });
                         case RequestState.error:
                           return Text('there is error');
                       }
