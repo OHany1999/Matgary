@@ -15,18 +15,19 @@ final NetworkInfo _networkInfo;
 
   @override
   Future<Either<Failure, LoginEntity>> getLoginData(LoginParameters loginParameters) async{
-    if(await _networkInfo.isConnected){
-      print('network is working');
-      try{
-        final result = await baseLoginRemoteDataSource.getLoginData(loginParameters);
-        return Right(result);
-      }catch (error){
-        return Left(ErrorHandler.handle(error).failure);
-      }
-    }else{
-      print('network is nooooot working');
-      return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+    try{
+      final result = await baseLoginRemoteDataSource.getLoginData(loginParameters);
+      return Right(result);
+    }catch (error){
+      return Left(ErrorHandler.handle(error).failure);
     }
+    // if(await _networkInfo.isConnected){
+    //   print('network is working');
+    //
+    // }else{
+    //   print('network is nooooot working');
+    //   return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+    // }
 
 
   }

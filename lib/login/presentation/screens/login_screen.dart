@@ -126,15 +126,14 @@ class LoginScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              OutlinedButton(
-                                  onPressed: (){
-                                    BlocProvider.of<LoginBloc>(context);
-                                  },
-                                  style: OutlinedButton.styleFrom(
-                                  ),
-                                  child: Text(
-                                    "Retry",
-                                  )),
+                              GlobalElevatedButton(onPress: () {
+                                if (_formKey.currentState?.validate() ??
+                                    false) {
+                                  context.read<LoginBloc>().add(GetLoginEvent(
+                                      email: _controllerUsername.text,
+                                      password: _controllerPassword.text));
+                                }
+                              }),
                               const SizedBox(
                                 height: 8,
                               ),
