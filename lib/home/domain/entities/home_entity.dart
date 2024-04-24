@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
   class HomeEntity extends Equatable{
   final bool? status;
   final Null message;
-  final Data? data;
+  final DataEntity? data;
 
   HomeEntity({required this.status,required this.message,required this.data});
 
@@ -16,12 +16,12 @@ import 'package:equatable/equatable.dart';
 
 
 
-class Data extends Equatable{
-    final  List<Banners>? banners;
-    final List<Products>? products;
+class DataEntity extends Equatable{
+    final  List<BannersEntity>? banners;
+    final List<ProductsEntity>? products;
     final String? ad;
 
-  Data({required this.banners, required this.products, required this.ad});
+    DataEntity({required this.banners, required this.products, required this.ad});
 
 
   @override
@@ -31,13 +31,13 @@ class Data extends Equatable{
 }
 
 
-class Banners extends Equatable{
+class BannersEntity extends Equatable{
   final int? id;
   final String? image;
   final Null category;
   final Null product;
 
-  Banners({required this.id, required this.image, required this.category, required this.product});
+  BannersEntity({required this.id, required this.image, required this.category, required this.product});
 
 
   @override
@@ -46,7 +46,7 @@ class Banners extends Equatable{
 
 }
 
-class Products extends Equatable{
+class ProductsEntity extends Equatable{
   final int? id;
   final double? price;
   final double? oldPrice;
@@ -58,7 +58,7 @@ class Products extends Equatable{
   final bool? inFavorites;
   final bool? inCart;
 
-  Products({required this.id, required this.price, required this.oldPrice, required this.discount, required this.image, required this.name, required this.description, required this.images, required this.inFavorites, required this.inCart});
+  ProductsEntity({required this.id, required this.price, required this.oldPrice, required this.discount, required this.image, required this.name, required this.description, required this.images, required this.inFavorites, required this.inCart});
 
 
   @override
