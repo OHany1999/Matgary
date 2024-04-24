@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:matgary/core/global/app_shared_pref.dart';
 import 'package:matgary/core/global/check_connection_bloc/check_connection_bloc.dart';
 import 'package:matgary/core/global/check_connection_bloc/check_connection_event.dart';
@@ -17,8 +16,7 @@ import 'package:matgary/login/presentation/controller/login_state.dart';
 import 'package:matgary/login/presentation/screens/new_screen.dart';
 
 class LoginScreen extends StatelessWidget {
-  LoginScreen({Key? key}) : super(key: key);
-
+  LoginScreen({super.key});
 
   static const routeName = '/login';
   final AppPreferences _appPref = sl<AppPreferences>();
@@ -31,15 +29,21 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => sl<CheckConnectionBloc>()..add( CheckConnectionEvent())),
+        BlocProvider(
+            create: (context) =>
+                sl<CheckConnectionBloc>()..add(const CheckConnectionEvent())),
         BlocProvider(create: (context) => sl<LoginBloc>()),
         BlocProvider(create: (context) => PasswordObsBloc()),
       ],
       child: BlocBuilder<CheckConnectionBloc, CheckConnectionState>(
         builder: (context, state) {
-          switch(state.connectionStateTypes){
+          switch (state.connectionStateTypes) {
             case ConnectionStateTypes.initial:
-             return const Center(child:  CircularProgressIndicator(),);
+              return const Scaffold(
+                body: Center(
+                  child: CircularProgressIndicator(color: AppColorsLight.orangeColor3,),
+                ),
+              );
             case ConnectionStateTypes.isConnected:
               return Scaffold(
                 body: Form(
@@ -105,9 +109,9 @@ class LoginScreen extends StatelessWidget {
                         Center(
                           child: BlocConsumer<LoginBloc, LoginState>(
                             buildWhen: (previous, current) =>
-                            previous.requestState != current.requestState,
+                                previous.requestState != current.requestState,
                             listenWhen: (previous, current) =>
-                            previous.requestState != current.requestState,
+                                previous.requestState != current.requestState,
                             builder: (context, state) {
                               print(state.hashCode);
                               print(state.requestState);
@@ -118,35 +122,41 @@ class LoginScreen extends StatelessWidget {
                                   return GlobalElevatedButton(onPress: () {
                                     if (_formKey.currentState?.validate() ??
                                         false) {
-                                      context.read<LoginBloc>().add(GetLoginEvent(
-                                          email: _controllerUsername.text,
-                                          password: _controllerPassword.text));
+                                      context.read<LoginBloc>().add(
+                                          GetLoginEvent(
+                                              email: _controllerUsername.text,
+                                              password:
+                                                  _controllerPassword.text));
                                     }
                                   });
                                 case RequestState.loading:
-                                  return CircularProgressIndicator();
+                                  return const CircularProgressIndicator(color: AppColorsLight.orangeColor3,);
                                 case RequestState.success:
                                   return GlobalElevatedButton(onPress: () {
                                     if (_formKey.currentState?.validate() ??
                                         false) {
-                                      context.read<LoginBloc>().add(GetLoginEvent(
-                                          email: _controllerUsername.text,
-                                          password: _controllerPassword.text));
+                                      context.read<LoginBloc>().add(
+                                          GetLoginEvent(
+                                              email: _controllerUsername.text,
+                                              password:
+                                                  _controllerPassword.text));
                                     }
                                   });
                                 case RequestState.error:
                                   return Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
                                       GlobalElevatedButton(onPress: () {
                                         if (_formKey.currentState?.validate() ??
                                             false) {
                                           context.read<LoginBloc>().add(
                                               GetLoginEvent(
-                                                  email: _controllerUsername.text,
-                                                  password:
-                                                  _controllerPassword.text));
+                                                  email:
+                                                      _controllerUsername.text,
+                                                  password: _controllerPassword
+                                                      .text));
                                         }
                                       }),
                                       const SizedBox(
@@ -163,8 +173,10 @@ class LoginScreen extends StatelessWidget {
                             listener: (context, state) {
                               if (state.requestState == RequestState.success) {
                                 if (state.loginEntity!.data != null) {
-                                  _appPref.addToken(token: state.loginEntity!.data!.token!);
-                                  Navigator.pushNamed(context, NewScreen.routeName,
+                                  _appPref.addToken(
+                                      token: state.loginEntity!.data!.token!);
+                                  Navigator.pushNamed(
+                                      context, NewScreen.routeName,
                                       arguments: state.loginEntity);
                                 } else {
                                   ToastMessages.showToast(
@@ -180,24 +192,27 @@ class LoginScreen extends StatelessWidget {
                 ),
               );
             case ConnectionStateTypes.isNotConnected:
-             return  Scaffold(
-               body: Column(
-                 mainAxisAlignment: MainAxisAlignment.center,
-                 crossAxisAlignment: CrossAxisAlignment.end,
-                 children: [
-                   ElevatedButton(onPressed:() =>BlocProvider.of<CheckConnectionBloc>(context).add(CheckConnectionEvent()), child: Text('reloadww')),
-                   const SizedBox(
-                     height: 8,
-                   ),
-                   Text(
-                     'Check your network',
-                     textAlign: TextAlign.center,
-                   )
-                 ],
-               ),
-             );
+              return Scaffold(
+                body: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    ElevatedButton(
+                        onPressed: () =>
+                            BlocProvider.of<CheckConnectionBloc>(context)
+                                .add(const CheckConnectionEvent()),
+                        child: const Text('reload')),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    const Text(
+                      'Check your network',
+                      textAlign: TextAlign.center,
+                    )
+                  ],
+                ),
+              );
           }
-
         },
       ),
     );
