@@ -1,8 +1,7 @@
-abstract class LandingPageEvent {}
+abstract class BaseTabChangeEvent {}
 
-class TabChangeEvent extends LandingPageEvent{
+class TabChangeEvent extends BaseTabChangeEvent{
   final int tabIndex;
-
   TabChangeEvent({required this.tabIndex});
 
 }
