@@ -10,7 +10,7 @@ import 'package:matgary/core/global/theme/app_color/app_color_light.dart';
 import 'package:matgary/core/global/toast/toast.dart';
 import 'package:matgary/core/services/services_locator.dart';
 import 'package:matgary/core/utils/enum.dart';
-import 'package:matgary/home/presentation/screens/home_screen.dart';
+import 'package:matgary/home/presentation/screens/my_navbar_screen.dart';
 import 'package:matgary/login/presentation/controller/login_bloc.dart';
 import 'package:matgary/login/presentation/controller/login_event.dart';
 import 'package:matgary/login/presentation/controller/login_state.dart';
@@ -176,7 +176,7 @@ class LoginScreen extends StatelessWidget {
                                   _appPref.addToken(
                                       token: state.loginEntity!.data!.token!);
                                   Navigator.pushNamed(
-                                      context, HomeScreen.routeName,
+                                      context, MyNavBarScreen.routeName,
                                       arguments: state.loginEntity);
                                 } else {
                                   ToastMessages.showToast(
