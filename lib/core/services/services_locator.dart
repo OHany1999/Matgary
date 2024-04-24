@@ -3,6 +3,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:matgary/core/global/app_shared_pref.dart';
 import 'package:matgary/core/global/check_connection_bloc/check_connection_bloc.dart';
 import 'package:matgary/core/network/netword_info.dart';
+import 'package:matgary/home/domain/usecase/get_home_usecase.dart';
 import 'package:matgary/login/data/datasource/login_remote_data_source.dart';
 import 'package:matgary/login/data/repository/login_repository.dart';
 import 'package:matgary/login/domain/repository/base_login_repository.dart';
@@ -31,11 +32,29 @@ class ServicesLocator {
     sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(InternetConnectionChecker()));
     // print("${GetIt.I.isRegistered<NetworkInfo>()} " + "NetworkInfo");
 
-    /// USE CASES
+
+
+    // Home
+/////////////////////////////////////////////////////////////
+    /// USE CASES For Home
+    // sl.registerLazySingleton(() => GetHomeUseCase(sl()));
+    /// Repository For Home
+    // sl.registerLazySingleton<BaseLoginRepository>(() => LoginRepository(sl(),sl()));
+    // /// DATA SOURCE For Home
+    // sl.registerLazySingleton<BaseLoginRemoteDataSource>(() => LoginRemoteDataSource());
+
+    //////////////////////////////////////////////////////////
+
+
+    // Login
+/////////////////////////////////////////////////////////////
+    /// USE CASES For Login
     sl.registerLazySingleton(() => GetLoginUseCase(sl()));
-    /// Repository
-    sl.registerLazySingleton<BaseLoginRepository>(() => LoginRepository(sl(),sl()));
-    /// DATA SOURCE
+    /// Repository For Login
+    sl.registerLazySingleton<BaseLoginRepository>(() => LoginRepository(sl()));
+    /// DATA SOURCE For Login
     sl.registerLazySingleton<BaseLoginRemoteDataSource>(() => LoginRemoteDataSource());
+
+    //////////////////////////////////////////////////////////
   }
 }

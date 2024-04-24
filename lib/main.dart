@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:matgary/core/global/app_shared_pref.dart';
 import 'package:matgary/core/global/routes/routes.dart';
 import 'package:matgary/core/global/theme/theme_data/theme_data_light.dart';
 import 'package:matgary/core/services/services_locator.dart';
