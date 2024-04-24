@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:matgary/core/error/failure.dart';
-import 'package:matgary/core/global/app_Strings.dart';
+import 'package:matgary/core/error/app_Strings.dart';
 import 'package:matgary/main.dart';
 
 

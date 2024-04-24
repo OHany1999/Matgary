@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:matgary/core/global/app_shared_pref.dart';
 import 'package:matgary/core/global/check_connection_bloc/check_connection_bloc.dart';
 import 'package:matgary/core/global/check_connection_bloc/check_connection_event.dart';
 import 'package:matgary/core/global/check_connection_bloc/check_connection_state.dart';
@@ -20,9 +21,8 @@ class LoginScreen extends StatelessWidget {
 
 
   static const routeName = '/login';
-
+  final AppPreferences _appPref = sl<AppPreferences>();
   final GlobalKey<FormState> _formKey = GlobalKey();
-
   final FocusNode _focusNodePassword = FocusNode();
   final TextEditingController _controllerUsername = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
@@ -37,7 +37,6 @@ class LoginScreen extends StatelessWidget {
       ],
       child: BlocBuilder<CheckConnectionBloc, CheckConnectionState>(
         builder: (context, state) {
-          print('connnnnnnnnnnnnnnnn${state.connectionStateTypes}');
           switch(state.connectionStateTypes){
             case ConnectionStateTypes.initial:
              return const Center(child:  CircularProgressIndicator(),);
@@ -164,6 +163,7 @@ class LoginScreen extends StatelessWidget {
                             listener: (context, state) {
                               if (state.requestState == RequestState.success) {
                                 if (state.loginEntity!.data != null) {
+                                  _appPref.addToken(token: state.loginEntity!.data!.token!);
                                   Navigator.pushNamed(context, NewScreen.routeName,
                                       arguments: state.loginEntity);
                                 } else {
