@@ -8,7 +8,6 @@ abstract class HomeEvent extends Equatable {
 
 class GetHomeEvent extends HomeEvent {
 
-
   const GetHomeEvent();
 
   @override

@@ -15,8 +15,8 @@ class HomeRepository extends BaseHomeRepository{
     try{
       final result = await baseHomeRemoteDataSource.getHomeData();
       return Right(result);
-    }catch(error){
-      return Left(ErrorHandler.handle(error).failure);
+    }on Exception catch(error){
+      return left(Failure(error.hashCode, error.toString()));
     }
   }
 }

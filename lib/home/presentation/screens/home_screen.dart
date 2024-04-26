@@ -33,16 +33,7 @@ class HomeScreen extends StatelessWidget {
               return Center(child: CircularProgressIndicator(),);
             case RequestState.success:
               return Scaffold(
-                body: ListView.builder(
-                  itemCount: state.homeEntity!.data!.products!.length,
-                  itemBuilder: (context, index) {
-                    return Image.network(
-                      state.homeEntity!.data!.products![index].images as String,
-                      height: 40,
-                      width: 40,
-                    );
-                  },
-                ),
+                body: Center(child: Text('${state.homeEntity!.status.toString()}')),
               );
             case RequestState.error:
               return Center(
