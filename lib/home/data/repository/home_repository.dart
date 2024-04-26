@@ -20,3 +20,10 @@ class HomeRepository extends BaseHomeRepository{
     }
   }
 }
+
+
+
+//catch(error){
+//       return Left(ErrorHandler.handle(error).failure);
+//     }
+//   }
