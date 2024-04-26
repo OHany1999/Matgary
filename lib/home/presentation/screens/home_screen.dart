@@ -25,16 +25,32 @@ class HomeScreen extends StatelessWidget {
             previous.requestState != current.requestState,
         builder: (context, state) {
           print(state.requestState);
-          print(state.homeMessage);
+
           switch (state.requestState) {
             case RequestState.initial:
-              return Center(child: Text('initial'),);
-            case RequestState.loading:
-              return Center(child: CircularProgressIndicator(),);
-            case RequestState.success:
-              return Scaffold(
-                body: Center(child: Text('${state.homeEntity!.status.toString()}')),
+              return Center(
+                child: Text('initial'),
               );
+            case RequestState.loading:
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            case RequestState.success:
+              print(state.homeEntity?.status);
+              var productList = state.homeEntity!.data!.products;
+              return Scaffold(
+                body: ListView.builder(
+                  itemCount: productList!.length,
+                  itemBuilder: (context, index) {
+                    return Image.network(
+                      productList[index].image.toString(),
+                      width: 60,
+                      height: 60,
+                    );
+                  },
+                ),
+              );
+              return Center(child: Text('success'));
             case RequestState.error:
               return Center(
                 child: Text('error'),
