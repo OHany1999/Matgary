@@ -18,7 +18,8 @@ class HomeRemoteDataSource extends BaseHomeRemoteDataSource {
       queryParameters: {
         'Content-Type':'application/json',
         'lang':'en',
-        'Authorization':'${_appPref.getToken()}',
+        // 'Authorization':'${_appPref.getToken()}',
+        'Authorization':'MhOMspLM0KoAPp9abie2ChidbTbr7NTD3eujzOPQVDuUY8OnAgGN5bJQit5IJvhh3BlQoK',
       },
     );
     return HomeModel.fromJson(response.data);

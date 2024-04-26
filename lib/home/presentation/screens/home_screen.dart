@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:matgary/core/services/services_locator.dart';
+import 'package:matgary/core/utils/enum.dart';
+import 'package:matgary/home/presentation/controller/home_bloc/home_bloc.dart';
+import 'package:matgary/home/presentation/controller/home_bloc/home_event.dart';
+import 'package:matgary/home/presentation/controller/home_bloc/home_state.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/home';
@@ -8,8 +14,43 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('rebuilllllllllllllllllllllllllllllllld hoooooome');
-    return Center(
-      child: Text('Home'),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => HomeBloc(sl())..add(const GetHomeEvent()),
+        ),
+      ],
+      child: BlocBuilder<HomeBloc, HomeState>(
+        buildWhen: (previous, current) =>
+            previous.requestState != current.requestState,
+        builder: (context, state) {
+          print(state.requestState);
+          print(state.homeMessage);
+          switch (state.requestState) {
+            case RequestState.initial:
+              return Center(child: Text('initial'),);
+            case RequestState.loading:
+              return Center(child: CircularProgressIndicator(),);
+            case RequestState.success:
+              return Scaffold(
+                body: ListView.builder(
+                  itemCount: state.homeEntity!.data!.products!.length,
+                  itemBuilder: (context, index) {
+                    return Image.network(
+                      state.homeEntity!.data!.products![index].images as String,
+                      height: 40,
+                      width: 40,
+                    );
+                  },
+                ),
+              );
+            case RequestState.error:
+              return Center(
+                child: Text('error'),
+              );
+          }
+        },
+      ),
     );
   }
 }
