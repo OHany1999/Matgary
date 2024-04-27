@@ -41,7 +41,7 @@ class LoginScreen extends StatelessWidget {
             case ConnectionStateTypes.initial:
               return const Scaffold(
                 body: Center(
-                  child: CircularProgressIndicator(color: AppColorsLight.orangeColor3,),
+                  child: CircularProgressIndicator(),
                 ),
               );
             case ConnectionStateTypes.isConnected:

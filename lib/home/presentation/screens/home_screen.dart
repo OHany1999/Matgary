@@ -1,5 +1,7 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:matgary/core/services/services_locator.dart';
 import 'package:matgary/core/utils/enum.dart';
 import 'package:matgary/home/presentation/controller/home_bloc/home_bloc.dart';
@@ -13,7 +15,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('rebuilllllllllllllllllllllllllllllllld hoooooome');
+    print('rebuild home');
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -25,34 +27,48 @@ class HomeScreen extends StatelessWidget {
             previous.requestState != current.requestState,
         builder: (context, state) {
           print(state.requestState);
-
           switch (state.requestState) {
             case RequestState.initial:
-              return Center(
+              return const Center(
                 child: Text('initial'),
               );
             case RequestState.loading:
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             case RequestState.success:
               print(state.homeEntity?.status);
               var productList = state.homeEntity!.data!.products;
+              var bannertList = state.homeEntity!.data!.banners;
+              List<Widget> imageWidgets = bannertList!
+                  .map((myList) => Image.network(
+                        myList.image!,
+                        width: double.maxFinite.w,
+                        height: double.maxFinite.h,
+                        fit: BoxFit.fill,
+                      ))
+                  .toList();
               return Scaffold(
-                body: ListView.builder(
-                  itemCount: productList!.length,
-                  itemBuilder: (context, index) {
-                    return Image.network(
-                      productList[index].image.toString(),
-                      width: 60,
-                      height: 60,
-                    );
-                  },
+                body: Column(
+                  children: [
+                    SizedBox(
+                      height: 50.h,
+                    ),
+                    CarouselSlider(
+                      items: imageWidgets,
+                      options: CarouselOptions(
+                        height: 150.h,
+                        autoPlay: true,
+                        enlargeCenterPage: true,
+                        enableInfiniteScroll: true,
+                      ),
+                    ),
+                  ],
                 ),
               );
-              return Center(child: Text('success'));
+              return const Center(child: Text('success'));
             case RequestState.error:
-              return Center(
+              return const Center(
                 child: Text('error'),
               );
           }

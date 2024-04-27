@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
       designSize:const Size(360, 690),
       child: MaterialApp(
         title: 'Matgary',
+        debugShowCheckedModeBanner: false,
         routes: myRoutes(),
         initialRoute: myInitialRoute(),
         theme: getThemeDataLight(),
