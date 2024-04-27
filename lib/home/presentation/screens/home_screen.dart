@@ -16,7 +16,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('rebuild home');
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -38,7 +37,6 @@ class HomeScreen extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             case RequestState.success:
-              print(state.homeEntity?.status);
               var productList = state.homeEntity!.data!.products;
               var bannertList = state.homeEntity!.data!.banners;
               List<Widget> imageWidgets = bannertList!
