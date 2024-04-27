@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -63,9 +64,28 @@ class HomeScreen extends StatelessWidget {
                         enableInfiniteScroll: true,
                       ),
                     ),
-                    SizedBox(height: 10.h,),
+                    SizedBox(
+                      height: 10.h,
+                    ),
                     // Container(width: double.maxFinite,height: 0.6,color: Colors.grey,),
-
+                    Flexible(
+                      child: GridView.builder(
+                        scrollDirection: Axis.vertical,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2, // number of items in each row
+                          mainAxisSpacing: 8.0, // spacing between rows
+                          crossAxisSpacing: 8.0, // spacing between columns
+                        ),
+                        padding: const EdgeInsets.all(8.0),
+                        // padding around the grid
+                        itemCount: productList!.length,
+                        // total number of items
+                        itemBuilder: (context, index) {
+                          return const Text('whhaaaaaat');
+                        },
+                      ),
+                    ),
                   ],
                 ),
               );
