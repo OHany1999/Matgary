@@ -63,6 +63,9 @@ class HomeScreen extends StatelessWidget {
                         enableInfiniteScroll: true,
                       ),
                     ),
+                    SizedBox(height: 10.h,),
+                    // Container(width: double.maxFinite,height: 0.6,color: Colors.grey,),
+
                   ],
                 ),
               );
