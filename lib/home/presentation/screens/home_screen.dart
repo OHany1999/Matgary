@@ -96,6 +96,8 @@ class HomeScreen extends StatelessWidget {
                             // total number of items
                             itemBuilder: (context, index) {
                               return Card(
+                                color: Colors.white,
+                                elevation: 0.0,
                                 child: Column(
                                   children: [
                                     Stack(
@@ -104,7 +106,7 @@ class HomeScreen extends StatelessWidget {
                                           productList[index].image!,
                                           height: 110,
                                           width: double.infinity,
-                                          fit: BoxFit.fitWidth,
+                                          fit: BoxFit.fill,
                                           errorBuilder:
                                               (context, object, stackTrac) {
                                             return const Center(
