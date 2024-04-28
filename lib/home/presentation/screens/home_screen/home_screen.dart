@@ -10,6 +10,7 @@ import 'package:matgary/core/utils/enum.dart';
 import 'package:matgary/home/presentation/controller/home_bloc/home_bloc.dart';
 import 'package:matgary/home/presentation/controller/home_bloc/home_event.dart';
 import 'package:matgary/home/presentation/controller/home_bloc/home_state.dart';
+import 'package:matgary/home/presentation/screens/home_screen/product_card_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/home';
@@ -41,8 +42,7 @@ class HomeScreen extends StatelessWidget {
             case RequestState.success:
               var productList = state.homeEntity!.data!.products;
               var bannertList = state.homeEntity!.data!.banners;
-              List<Widget> imageWidgets = bannertList!
-                  .map((myList) => Image.network(
+              List<Widget> imageWidgets = bannertList!.map((myList) => Image.network(
                         myList.image!,
                         width: double.maxFinite.w,
                         height: double.maxFinite.h,
@@ -52,8 +52,8 @@ class HomeScreen extends StatelessWidget {
                             child: Text('error load image'),
                           );
                         },
-                      ))
-                  .toList();
+                      )).toList();
+
               return Scaffold(
                 body: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
@@ -95,62 +95,11 @@ class HomeScreen extends StatelessWidget {
                             itemCount: productList!.length,
                             // total number of items
                             itemBuilder: (context, index) {
-                              return Card(
-                                color: Colors.white,
-                                elevation: 0.0,
-                                child: Column(
-                                  children: [
-                                    Stack(
-                                      children: [
-                                        Image.network(
-                                          productList[index].image!,
-                                          height: 110,
-                                          width: double.infinity,
-                                          fit: BoxFit.fill,
-                                          errorBuilder:
-                                              (context, object, stackTrac) {
-                                            return const Center(
-                                              child: Text('error load image'),
-                                            );
-                                          },
-                                        ),
-                                        if (productList[index].discount != 0)
-                                          Positioned(
-                                            child: Container(
-                                              color: AppColorsLight.orangeColor3,
-                                              width: 60,
-                                              height: 30,
-                                              child: Text(
-                                                '${productList[index].discount.toString()}% off',
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            ),
-                                          ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 20.h,
-                                    ),
-                                    Text(
-                                      '...${productList[index].name!.substring(0, 15)}',
-                                      overflow: TextOverflow.clip,
-                                      maxLines: 1,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    SizedBox(
-                                      height: 2.h,
-                                    ),
-                                    if (productList[index].discount != 0)
-                                    Text(
-                                        '${productList[index].oldPrice!} EGP',
-                                        textAlign: TextAlign.center,
-                                      style: TextStyle(decoration: TextDecoration.lineThrough,color: Colors.red,),
-                                    ),
-                                    Text(
-                                        '${productList[index].price!.toString()} EGP',
-                                        textAlign: TextAlign.center),
-                                  ],
-                                ),
+                              return GestureDetector(
+                                onTap: (){
+
+                                },
+                                child: ProductCardWidget(productList: productList,index: index,),
                               );
                             },
                           ),

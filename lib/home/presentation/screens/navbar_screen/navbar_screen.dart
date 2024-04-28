@@ -4,11 +4,11 @@ import 'package:matgary/core/global/theme/app_color/app_color_light.dart';
 import 'package:matgary/home/presentation/controller/nav_bar_bloc/nav_bar_bloc.dart';
 import 'package:matgary/home/presentation/controller/nav_bar_bloc/nav_bar_event.dart';
 import 'package:matgary/home/presentation/controller/nav_bar_bloc/nav_bar_state.dart';
-import 'package:matgary/home/presentation/screens/category_screen.dart';
-import 'package:matgary/home/presentation/screens/favorite_screen.dart';
-import 'package:matgary/home/presentation/screens/home_screen.dart';
+import 'package:matgary/home/presentation/screens/category_screen/category_screen.dart';
+import 'package:matgary/home/presentation/screens/favorite_screen/favorite_screen.dart';
+import 'package:matgary/home/presentation/screens/home_screen/home_screen.dart';
 
-class MyNavBarScreen extends StatelessWidget {
+class NavBarScreen extends StatelessWidget {
   static const routeName = '/navBar';
 
 
