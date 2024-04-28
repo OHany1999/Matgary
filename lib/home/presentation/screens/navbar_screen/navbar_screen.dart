@@ -43,6 +43,7 @@ class NavBarScreen extends StatelessWidget {
               onTap: (index){
                 BlocProvider.of<BottomNavigationBloc>(context).add(TabChangeEvent(tabIndex: index));
               },
+
             ),
           );
         },

@@ -15,4 +15,5 @@ class AppPreferences{
   String? getToken(){
     return _sharedPreferences.getString(API_TOKEN);
   }
+
 }

@@ -9,7 +9,7 @@ class CategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('rebuilllllllllllllllllllllllllllllllld catt');
-    return const Center(
+    return  Center(
       child: Column(
         children: [
           Text('Category'),

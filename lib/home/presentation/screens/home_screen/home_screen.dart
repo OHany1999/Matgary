@@ -26,19 +26,26 @@ class HomeScreen extends StatelessWidget {
         ),
       ],
       child: BlocBuilder<HomeBloc, HomeState>(
-        buildWhen: (previous, current) =>
-            previous.requestState != current.requestState,
+        buildWhen: (previous, current) {
+          print('previous state${previous.requestState}');
+          print('current state${current.requestState}');
+          if(previous.requestState != current.requestState){
+            return true;
+          }else{
+            return false;
+          }
+        },
+
         builder: (context, state) {
-          print(state.requestState);
           switch (state.requestState) {
             case RequestState.initial:
               return const Center(
                 child: Text('initial'),
               );
             case RequestState.loading:
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
             case RequestState.success:
               var productList = state.homeEntity!.data!.products;
               var bannertList = state.homeEntity!.data!.banners;
@@ -53,7 +60,6 @@ class HomeScreen extends StatelessWidget {
                           );
                         },
                       )).toList();
-
               return Scaffold(
                 body: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
@@ -120,3 +126,6 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+
+
+//  if (context.bloc<MyDataBloc>().state is MyDataLoaded)
