@@ -69,7 +69,7 @@ class ProductsModel extends ProductsEntity {
   factory ProductsModel.fromJson(Map<String, dynamic> json) => ProductsModel(
         id: json['id'],
         price: json['price'].toDouble(),
-        oldPrice: json['oldPrice'],
+        oldPrice: json['oldPrice'].toInt(),
         discount: json['discount'],
         image: json['image'],
         name: json['name'],

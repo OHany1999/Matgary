@@ -1,8 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:matgary/core/global/theme/app_color/app_color_light.dart';
 import 'package:matgary/core/services/services_locator.dart';
 import 'package:matgary/core/utils/enum.dart';
 import 'package:matgary/home/presentation/controller/home_bloc/home_bloc.dart';
@@ -78,7 +80,7 @@ class HomeScreen extends StatelessWidget {
                           crossAxisCount: 2, // number of items in each row
                           mainAxisSpacing: 8.0, // spacing between rows
                           crossAxisSpacing: 8.0, // spacing between columns
-                          childAspectRatio: 1/1.2, // (width/height)
+                          childAspectRatio: 1 / 1.2, // (width/height)
                         ),
                         padding: const EdgeInsets.all(8.0),
                         // padding around the grid
@@ -88,22 +90,55 @@ class HomeScreen extends StatelessWidget {
                           return Card(
                             child: Column(
                               children: [
-                                Image.network(
-                                  productList[index].image!,
-                                  height: 110,
-                                  width: double.infinity,
-                                  fit: BoxFit.fitWidth,
-                                  errorBuilder:
-                                      (context, object, stackTrac) {
-                                    return const Center(
-                                      child: Text('error load image'),
-                                    );
-                                  },
+                                Stack(
+                                  children: [
+                                    Image.network(
+                                      productList[index].image!,
+                                      height: 110,
+                                      width: double.infinity,
+                                      fit: BoxFit.fitWidth,
+                                      errorBuilder:
+                                          (context, object, stackTrac) {
+                                        return const Center(
+                                          child: Text('error load image'),
+                                        );
+                                      },
+                                    ),
+                                    if (productList[index].discount != 0)
+                                      Positioned(
+                                        child: Container(
+                                          color: AppColorsLight.orangeColor3,
+                                          width: 30,
+                                          height: 30,
+                                          child: Text(
+                                            '${productList[index].discount.toString()}%',
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      ),
+                                  ],
                                 ),
-                                SizedBox(height: 20.h,),
-                                Text('...${productList[index].name!.substring(0,15)}',overflow: TextOverflow.clip,maxLines: 1,textAlign: TextAlign.center,),
-                                SizedBox(height: 2.h,),
-                                Text('${productList[index].price!.toString()} EGP',textAlign: TextAlign.center),
+                                SizedBox(
+                                  height: 20.h,
+                                ),
+                                Text(
+                                  '...${productList[index].name!.substring(0, 15)}',
+                                  overflow: TextOverflow.clip,
+                                  maxLines: 1,
+                                  textAlign: TextAlign.center,
+                                ),
+                                SizedBox(
+                                  height: 2.h,
+                                ),
+                                if (productList[index].discount != 0)
+                                Text(
+                                    '${productList[index].price!.toString()} EGP',
+                                    textAlign: TextAlign.center,
+                                  style: TextStyle(decoration: TextDecoration.lineThrough,color: Colors.red,),
+                                ),
+                                Text(
+                                    '${productList[index].price!.toString()} EGP',
+                                    textAlign: TextAlign.center),
                               ],
                             ),
                           );

@@ -22,10 +22,7 @@ class MyNavBarScreen extends StatelessWidget {
       child: BlocBuilder<BottomNavigationBloc,BottomNavigationState>(
         builder: (context,state){
           return Scaffold(
-            body: IndexedStack(
-              index: state.selectedIndex,
-              children: homeWidget,
-            ),
+            body: homeWidget.elementAt(state.selectedIndex),
             bottomNavigationBar: BottomNavigationBar(
               selectedItemColor: AppColorsLight.orangeColor3,
               items: const <BottomNavigationBarItem>[
@@ -61,3 +58,9 @@ class MyNavBarScreen extends StatelessWidget {
 
 
 }
+
+//for keep Alive
+//body: IndexedStack(
+//               index: state.selectedIndex,
+//               children: homeWidget,
+//             ),
