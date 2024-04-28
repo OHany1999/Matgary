@@ -55,97 +55,107 @@ class HomeScreen extends StatelessWidget {
                       ))
                   .toList();
               return Scaffold(
-                body: Column(
-                  children: [
-                    SizedBox(
-                      height: 50.h,
-                    ),
-                    CarouselSlider(
-                      items: imageWidgets,
-                      options: CarouselOptions(
-                        height: 150.h,
-                        autoPlay: true,
-                        enlargeCenterPage: true,
-                        enableInfiniteScroll: true,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 30.h,
-                    ),
-                    Flexible(
-                      child: GridView.builder(
-                        scrollDirection: Axis.vertical,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2, // number of items in each row
-                          mainAxisSpacing: 8.0, // spacing between rows
-                          crossAxisSpacing: 8.0, // spacing between columns
-                          childAspectRatio: 1 / 1.2, // (width/height)
+                body: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height - 50,
+                    width: MediaQuery.of(context).size.width,
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 50.h,
                         ),
-                        padding: const EdgeInsets.all(8.0),
-                        // padding around the grid
-                        itemCount: productList!.length,
-                        // total number of items
-                        itemBuilder: (context, index) {
-                          return Card(
-                            child: Column(
-                              children: [
-                                Stack(
+                        Container(
+                          height: 200,
+                          child: CarouselSlider(
+                            items: imageWidgets,
+                            options: CarouselOptions(
+                              height: 150.h,
+                              autoPlay: true,
+                              enlargeCenterPage: true,
+                              enableInfiniteScroll: true,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 30.h,
+                        ),
+                        Flexible(
+                          child: GridView.builder(
+                            scrollDirection: Axis.vertical,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2, // number of items in each row
+                              mainAxisSpacing: 8.0, // spacing between rows
+                              crossAxisSpacing: 8.0, // spacing between columns
+                              childAspectRatio: 1 / 1.2, // (width/height)
+                            ),
+                            padding: const EdgeInsets.all(8.0),
+                            // padding around the grid
+                            itemCount: productList!.length,
+                            // total number of items
+                            itemBuilder: (context, index) {
+                              return Card(
+                                child: Column(
                                   children: [
-                                    Image.network(
-                                      productList[index].image!,
-                                      height: 110,
-                                      width: double.infinity,
-                                      fit: BoxFit.fitWidth,
-                                      errorBuilder:
-                                          (context, object, stackTrac) {
-                                        return const Center(
-                                          child: Text('error load image'),
-                                        );
-                                      },
+                                    Stack(
+                                      children: [
+                                        Image.network(
+                                          productList[index].image!,
+                                          height: 110,
+                                          width: double.infinity,
+                                          fit: BoxFit.fitWidth,
+                                          errorBuilder:
+                                              (context, object, stackTrac) {
+                                            return const Center(
+                                              child: Text('error load image'),
+                                            );
+                                          },
+                                        ),
+                                        if (productList[index].discount != 0)
+                                          Positioned(
+                                            child: Container(
+                                              color: AppColorsLight.orangeColor3,
+                                              width: 60,
+                                              height: 30,
+                                              child: Text(
+                                                '${productList[index].discount.toString()}% off',
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 20.h,
+                                    ),
+                                    Text(
+                                      '...${productList[index].name!.substring(0, 15)}',
+                                      overflow: TextOverflow.clip,
+                                      maxLines: 1,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    SizedBox(
+                                      height: 2.h,
                                     ),
                                     if (productList[index].discount != 0)
-                                      Positioned(
-                                        child: Container(
-                                          color: AppColorsLight.orangeColor3,
-                                          width: 60,
-                                          height: 30,
-                                          child: Text(
-                                            '${productList[index].discount.toString()}% off',
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ),
-                                      ),
+                                    Text(
+                                        '${productList[index].oldPrice!} EGP',
+                                        textAlign: TextAlign.center,
+                                      style: TextStyle(decoration: TextDecoration.lineThrough,color: Colors.red,),
+                                    ),
+                                    Text(
+                                        '${productList[index].price!.toString()} EGP',
+                                        textAlign: TextAlign.center),
                                   ],
                                 ),
-                                SizedBox(
-                                  height: 20.h,
-                                ),
-                                Text(
-                                  '...${productList[index].name!.substring(0, 15)}',
-                                  overflow: TextOverflow.clip,
-                                  maxLines: 1,
-                                  textAlign: TextAlign.center,
-                                ),
-                                SizedBox(
-                                  height: 2.h,
-                                ),
-                                if (productList[index].discount != 0)
-                                Text(
-                                    '${productList[index].oldPrice!} EGP',
-                                    textAlign: TextAlign.center,
-                                  style: TextStyle(decoration: TextDecoration.lineThrough,color: Colors.red,),
-                                ),
-                                Text(
-                                    '${productList[index].price!.toString()} EGP',
-                                    textAlign: TextAlign.center),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               );
               return const Center(child: Text('success'));
