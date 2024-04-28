@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lazy_load_indexed_stack/lazy_load_indexed_stack.dart';
 import 'package:matgary/core/global/theme/app_color/app_color_light.dart';
 import 'package:matgary/home/presentation/controller/nav_bar_bloc/nav_bar_bloc.dart';
 import 'package:matgary/home/presentation/controller/nav_bar_bloc/nav_bar_event.dart';
@@ -11,18 +12,20 @@ import 'package:matgary/home/presentation/screens/home_screen/home_screen.dart';
 class NavBarScreen extends StatelessWidget {
   static const routeName = '/navBar';
 
-
   @override
   Widget build(BuildContext context) {
-
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context)=> BottomNavigationBloc()),
+        BlocProvider(create: (context) => BottomNavigationBloc()),
       ],
-      child: BlocBuilder<BottomNavigationBloc,BottomNavigationState>(
-        builder: (context,state){
+      child: BlocBuilder<BottomNavigationBloc, BottomNavigationState>(
+        builder: (context, state) {
           return Scaffold(
-            body: homeWidget.elementAt(state.selectedIndex),
+            // package
+            body: LazyLoadIndexedStack(
+              index: state.selectedIndex,
+              children: homeWidget,
+            ),
             bottomNavigationBar: BottomNavigationBar(
               selectedItemColor: AppColorsLight.orangeColor3,
               items: const <BottomNavigationBarItem>[
@@ -40,10 +43,10 @@ class NavBarScreen extends StatelessWidget {
                 ),
               ],
               currentIndex: state.selectedIndex,
-              onTap: (index){
-                BlocProvider.of<BottomNavigationBloc>(context).add(TabChangeEvent(tabIndex: index));
+              onTap: (index) {
+                BlocProvider.of<BottomNavigationBloc>(context)
+                    .add(TabChangeEvent(tabIndex: index));
               },
-
             ),
           );
         },
@@ -56,12 +59,10 @@ class NavBarScreen extends StatelessWidget {
     const CategoryScreen(),
     const FavoriteScreen(),
   ];
-
-
 }
 
 //for keep Alive
-//body: IndexedStack(
+// body: IndexedStack(
 //               index: state.selectedIndex,
 //               children: homeWidget,
 //             ),

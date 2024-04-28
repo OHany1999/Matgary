@@ -45,6 +45,7 @@ dependencies:
   internet_connection_checker: ^1.0.0+1
   shared_preferences: ^2.2.3
   carousel_slider: ^4.2.1
+  lazy_load_indexed_stack: ^1.1.0
 
 dev_dependencies:
   flutter_test:
