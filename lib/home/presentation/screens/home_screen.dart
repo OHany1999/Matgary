@@ -78,7 +78,7 @@ class HomeScreen extends StatelessWidget {
                           crossAxisCount: 2, // number of items in each row
                           mainAxisSpacing: 8.0, // spacing between rows
                           crossAxisSpacing: 8.0, // spacing between columns
-
+                          childAspectRatio: 1/1.2, // (width/height)
                         ),
                         padding: const EdgeInsets.all(8.0),
                         // padding around the grid
@@ -101,7 +101,7 @@ class HomeScreen extends StatelessWidget {
                                   },
                                 ),
                                 SizedBox(height: 20.h,),
-                                Text(productList[index].name!,overflow: TextOverflow.clip,maxLines: 1,textAlign: TextAlign.center,),
+                                Text('...${productList[index].name!.substring(0,15)}',overflow: TextOverflow.clip,maxLines: 1,textAlign: TextAlign.center,),
                                 SizedBox(height: 2.h,),
                                 Text('${productList[index].price!.toString()} EGP',textAlign: TextAlign.center),
                               ],
