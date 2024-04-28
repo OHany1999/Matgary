@@ -78,6 +78,7 @@ class HomeScreen extends StatelessWidget {
                           crossAxisCount: 2, // number of items in each row
                           mainAxisSpacing: 8.0, // spacing between rows
                           crossAxisSpacing: 8.0, // spacing between columns
+
                         ),
                         padding: const EdgeInsets.all(8.0),
                         // padding around the grid
@@ -89,9 +90,9 @@ class HomeScreen extends StatelessWidget {
                               children: [
                                 Image.network(
                                   productList[index].image!,
-                                  height: 90,
+                                  height: 110,
                                   width: double.infinity,
-                                  fit: BoxFit.fill,
+                                  fit: BoxFit.fitWidth,
                                   errorBuilder:
                                       (context, object, stackTrac) {
                                     return const Center(
@@ -100,9 +101,9 @@ class HomeScreen extends StatelessWidget {
                                   },
                                 ),
                                 SizedBox(height: 20.h,),
-                                Text(productList[index].name!,overflow: TextOverflow.clip,maxLines: 1,),
+                                Text(productList[index].name!,overflow: TextOverflow.clip,maxLines: 1,textAlign: TextAlign.center,),
                                 SizedBox(height: 2.h,),
-                                Text('${productList[index].price!.toString()} EGP'),
+                                Text('${productList[index].price!.toString()} EGP',textAlign: TextAlign.center),
                               ],
                             ),
                           );
