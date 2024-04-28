@@ -46,7 +46,9 @@ class HomeScreen extends StatelessWidget {
                         height: double.maxFinite.h,
                         fit: BoxFit.fill,
                         errorBuilder: (context, object, stakTrac) {
-                          return const Center(child: Text('error load image'),);
+                          return const Center(
+                            child: Text('error load image'),
+                          );
                         },
                       ))
                   .toList();
@@ -87,12 +89,20 @@ class HomeScreen extends StatelessWidget {
                               children: [
                                 Image.network(
                                   productList[index].image!,
-                                  width: 100,
-                                  height: 100,
-                                  errorBuilder: (context, object, stakTrac) {
-                                    return Text('error load image');
+                                  height: 90,
+                                  width: double.infinity,
+                                  fit: BoxFit.fill,
+                                  errorBuilder:
+                                      (context, object, stackTrac) {
+                                    return const Center(
+                                      child: Text('error load image'),
+                                    );
                                   },
                                 ),
+                                SizedBox(height: 20.h,),
+                                Text(productList[index].name!,overflow: TextOverflow.clip,maxLines: 1,),
+                                SizedBox(height: 2.h,),
+                                Text('${productList[index].price!.toString()} EGP'),
                               ],
                             ),
                           );
