@@ -108,10 +108,10 @@ class HomeScreen extends StatelessWidget {
                                       Positioned(
                                         child: Container(
                                           color: AppColorsLight.orangeColor3,
-                                          width: 30,
+                                          width: 60,
                                           height: 30,
                                           child: Text(
-                                            '${productList[index].discount.toString()}%',
+                                            '${productList[index].discount.toString()}% off',
                                             textAlign: TextAlign.center,
                                           ),
                                         ),
@@ -132,7 +132,7 @@ class HomeScreen extends StatelessWidget {
                                 ),
                                 if (productList[index].discount != 0)
                                 Text(
-                                    '${productList[index].price!.toString()} EGP',
+                                    '${productList[index].oldPrice!} EGP',
                                     textAlign: TextAlign.center,
                                   style: TextStyle(decoration: TextDecoration.lineThrough,color: Colors.red,),
                                 ),
