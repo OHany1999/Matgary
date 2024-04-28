@@ -45,6 +45,9 @@ class HomeScreen extends StatelessWidget {
                         width: double.maxFinite.w,
                         height: double.maxFinite.h,
                         fit: BoxFit.fill,
+                        errorBuilder: (context, object, stakTrac) {
+                          return const Center(child: Text('error load image'),);
+                        },
                       ))
                   .toList();
               return Scaffold(
@@ -86,6 +89,9 @@ class HomeScreen extends StatelessWidget {
                                   productList[index].image!,
                                   width: 100,
                                   height: 100,
+                                  errorBuilder: (context, object, stakTrac) {
+                                    return Text('error load image');
+                                  },
                                 ),
                               ],
                             ),
