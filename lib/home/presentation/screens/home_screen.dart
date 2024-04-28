@@ -63,9 +63,8 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 10.h,
+                      height: 30.h,
                     ),
-                    // Container(width: double.maxFinite,height: 0.6,color: Colors.grey,),
                     Flexible(
                       child: GridView.builder(
                         scrollDirection: Axis.vertical,
@@ -80,7 +79,17 @@ class HomeScreen extends StatelessWidget {
                         itemCount: productList!.length,
                         // total number of items
                         itemBuilder: (context, index) {
-                          return const Text('whhaaaaaat');
+                          return Card(
+                            child: Column(
+                              children: [
+                                Image.network(
+                                  productList[index].image!,
+                                  width: 100,
+                                  height: 100,
+                                ),
+                              ],
+                            ),
+                          );
                         },
                       ),
                     ),
