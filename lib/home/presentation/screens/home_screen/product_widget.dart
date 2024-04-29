@@ -10,28 +10,15 @@ class ProductWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      child: GridView.builder(
-        scrollDirection: Axis.vertical,
-        gridDelegate:
-        const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          // number of items in each row
-          mainAxisSpacing: 8.0,
-          // spacing between rows
-          crossAxisSpacing: 8.0,
-          // spacing between columns
-          childAspectRatio: 1 / 1.2, // (width/height)
-        ),
-        padding: const EdgeInsets.all(8.0),
-        // padding around the grid
-        itemCount: myList!.length,
-        // total number of items
-        itemBuilder: (context, index) {
+    return SliverGrid(
+      delegate: SliverChildBuilderDelegate(
+        childCount: myList!.length,
+            (context, index) {
           return GestureDetector(
             onTap: () {},
             child: Card(
-              color: Colors.white,
+              margin: const EdgeInsets.symmetric(horizontal: 8,vertical: 10),
+
               elevation: 0.0,
               child: Column(
                 children: [
@@ -39,9 +26,9 @@ class ProductWidget extends StatelessWidget {
                     children: [
                       Image.network(
                         myList![index].image!,
-                        height: 110,
+                        height: 120,
                         width: double.infinity,
-                        fit: BoxFit.fill,
+                        fit: BoxFit.fitHeight,
                         errorBuilder:
                             (context, object, stackTrac) {
                           return const Center(
@@ -52,8 +39,10 @@ class ProductWidget extends StatelessWidget {
                       if (myList![index].discount != 0)
                         Positioned(
                           child: Container(
-                            color:
-                            AppColorsLight.orangeColor3,
+                            decoration: const BoxDecoration(
+                              color: AppColorsLight.orangeColor3,
+                              borderRadius: BorderRadius.only(topLeft: Radius.circular(8),bottomRight: Radius.circular(8)),
+                            ),
                             width: 60,
                             height: 30,
                             child: Text(
@@ -94,6 +83,16 @@ class ProductWidget extends StatelessWidget {
             ),
           );
         },
+      ),
+      gridDelegate:
+      const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        // number of items in each row
+        mainAxisSpacing: 8.0,
+        // spacing between rows
+        crossAxisSpacing: 8.0,
+        // spacing between columns
+        childAspectRatio: 1 / 1.2, // (width/height)
       ),
     );
   }

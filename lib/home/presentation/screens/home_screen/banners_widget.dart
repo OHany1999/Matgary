@@ -9,8 +9,9 @@ class BannersWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 200,
+    return Container(
+      margin: EdgeInsets.only(top:9.h ),
+      height: 200.h,
       child: CarouselSlider(
         items: myList!.map(
             (item){

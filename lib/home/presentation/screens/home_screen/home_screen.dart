@@ -1,6 +1,9 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:matgary/core/global/theme/app_color/app_color_light.dart';
 import 'package:matgary/core/services/services_locator.dart';
 import 'package:matgary/core/utils/enum.dart';
 import 'package:matgary/home/presentation/controller/home_bloc/home_bloc.dart';
@@ -14,7 +17,6 @@ class HomeScreen extends StatelessWidget {
 
   const HomeScreen({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -25,8 +27,12 @@ class HomeScreen extends StatelessWidget {
       ],
       child: BlocBuilder<HomeBloc, HomeState>(
         buildWhen: (previous, current) {
-          print('previous state${previous.requestState}');
-          print('current state${current.requestState}');
+          if (kDebugMode) {
+            print('previous state${previous.requestState}');
+          }
+          if (kDebugMode) {
+            print('current state${current.requestState}');
+          }
           if (previous.requestState != current.requestState) {
             return true;
           } else {
@@ -44,37 +50,31 @@ class HomeScreen extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             case RequestState.success:
-              var productList = state.homeEntity!.data!.products;
               var bannertList = state.homeEntity!.data!.banners;
+              var productList = state.homeEntity!.data!.products;
               return Scaffold(
                 body: RefreshIndicator(
                   onRefresh: () {
                     context.read<HomeBloc>().add(const GetHomeEvent());
                     return Future(() => null);
                   },
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: SizedBox(
-                      height: MediaQuery.of(context).size.height - 50,
-                      width: MediaQuery.of(context).size.width,
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 50.h,
+                  child: SafeArea(
+                    child: CustomScrollView(
+                      scrollDirection: Axis.vertical,
+                      slivers: [
+                        SliverToBoxAdapter(
+                          child: BannersWidget(
+                            myList: bannertList,
                           ),
-                         BannersWidget(myList: bannertList,),
-                          SizedBox(
-                            height: 30.h,
-                          ),
-                          ProductWidget(myList: productList),
-                        ],
-                      ),
+                        ),
+                        ProductWidget(myList: productList),
+                      ],
                     ),
                   ),
                 ),
               );
             case RequestState.error:
-              return  SizedBox(
+              return SizedBox(
                 width: MediaQuery.of(context).size.width,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -85,7 +85,9 @@ class HomeScreen extends StatelessWidget {
                       },
                       child: const Text('Reload'),
                     ),
-                    const SizedBox(height: 6,),
+                    const SizedBox(
+                      height: 6,
+                    ),
                     const Text('There is error')
                   ],
                 ),
