@@ -1,7 +1,4 @@
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:matgary/core/services/services_locator.dart';
@@ -9,6 +6,7 @@ import 'package:matgary/core/utils/enum.dart';
 import 'package:matgary/home/presentation/controller/home_bloc/home_bloc.dart';
 import 'package:matgary/home/presentation/controller/home_bloc/home_event.dart';
 import 'package:matgary/home/presentation/controller/home_bloc/home_state.dart';
+import 'package:matgary/home/presentation/screens/home_screen/banners_widget.dart';
 import 'package:matgary/home/presentation/screens/home_screen/product_widget.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -48,23 +46,10 @@ class HomeScreen extends StatelessWidget {
             case RequestState.success:
               var productList = state.homeEntity!.data!.products;
               var bannertList = state.homeEntity!.data!.banners;
-              List<Widget> imageWidgets = bannertList!
-                  .map((myList) => Image.network(
-                        myList.image!,
-                        width: double.maxFinite.w,
-                        height: double.maxFinite.h,
-                        fit: BoxFit.fill,
-                        errorBuilder: (context, object, stakTrac) {
-                          return const Center(
-                            child: Text('error load image'),
-                          );
-                        },
-                      ))
-                  .toList();
               return Scaffold(
                 body: RefreshIndicator(
                   onRefresh: () {
-                    context.read<HomeBloc>().add(GetHomeEvent());
+                    context.read<HomeBloc>().add(const GetHomeEvent());
                     return Future(() => null);
                   },
                   child: SingleChildScrollView(
@@ -77,18 +62,7 @@ class HomeScreen extends StatelessWidget {
                           SizedBox(
                             height: 50.h,
                           ),
-                          Container(
-                            height: 200,
-                            child: CarouselSlider(
-                              items: imageWidgets,
-                              options: CarouselOptions(
-                                height: 150.h,
-                                autoPlay: true,
-                                enlargeCenterPage: true,
-                                enableInfiniteScroll: true,
-                              ),
-                            ),
-                          ),
+                         BannersWidget(myList: bannertList,),
                           SizedBox(
                             height: 30.h,
                           ),
@@ -99,21 +73,20 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               );
-              return const Center(child: Text('success'));
             case RequestState.error:
-              return  Container(
+              return  SizedBox(
                 width: MediaQuery.of(context).size.width,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        context.read<HomeBloc>().add(GetHomeEvent());
+                        context.read<HomeBloc>().add(const GetHomeEvent());
                       },
-                      child: Text('Reload'),
+                      child: const Text('Reload'),
                     ),
-                    SizedBox(height: 6,),
-                    Text('There is error')
+                    const SizedBox(height: 6,),
+                    const Text('There is error')
                   ],
                 ),
               );
