@@ -9,7 +9,7 @@ import 'package:matgary/core/utils/enum.dart';
 import 'package:matgary/home/presentation/controller/home_bloc/home_bloc.dart';
 import 'package:matgary/home/presentation/controller/home_bloc/home_event.dart';
 import 'package:matgary/home/presentation/controller/home_bloc/home_state.dart';
-import 'package:matgary/home/presentation/screens/home_screen/product_card_widget.dart';
+import 'package:matgary/home/presentation/screens/home_screen/product_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/home';
@@ -92,34 +92,7 @@ class HomeScreen extends StatelessWidget {
                           SizedBox(
                             height: 30.h,
                           ),
-                          Flexible(
-                            child: GridView.builder(
-                              scrollDirection: Axis.vertical,
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                // number of items in each row
-                                mainAxisSpacing: 8.0,
-                                // spacing between rows
-                                crossAxisSpacing: 8.0,
-                                // spacing between columns
-                                childAspectRatio: 1 / 1.2, // (width/height)
-                              ),
-                              padding: const EdgeInsets.all(8.0),
-                              // padding around the grid
-                              itemCount: productList!.length,
-                              // total number of items
-                              itemBuilder: (context, index) {
-                                return GestureDetector(
-                                  onTap: () {},
-                                  child: ProductCardWidget(
-                                    productList: productList,
-                                    index: index,
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
+                          ProductWidget(myList: productList),
                         ],
                       ),
                     ),
