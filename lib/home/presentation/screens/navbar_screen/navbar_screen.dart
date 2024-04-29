@@ -22,10 +22,7 @@ class NavBarScreen extends StatelessWidget {
         builder: (context, state) {
           return Scaffold(
             // package
-            body: LazyLoadIndexedStack(
-              index: state.selectedIndex,
-              children: homeWidget,
-            ),
+            body: homeWidget.elementAt(state.selectedIndex),
             bottomNavigationBar: BottomNavigationBar(
               selectedItemColor: AppColorsLight.orangeColor3,
               items: const <BottomNavigationBarItem>[
@@ -61,8 +58,9 @@ class NavBarScreen extends StatelessWidget {
   ];
 }
 
-//for keep Alive
-// body: IndexedStack(
-//               index: state.selectedIndex,
-//               children: homeWidget,
-//             ),
+// package
+//for keep alive
+// body: LazyLoadIndexedStack(
+// index: state.selectedIndex,
+// children: homeWidget,
+// ),

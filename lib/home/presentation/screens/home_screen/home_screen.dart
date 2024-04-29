@@ -29,13 +29,12 @@ class HomeScreen extends StatelessWidget {
         buildWhen: (previous, current) {
           print('previous state${previous.requestState}');
           print('current state${current.requestState}');
-          if(previous.requestState != current.requestState){
+          if (previous.requestState != current.requestState) {
             return true;
-          }else{
+          } else {
             return false;
           }
         },
-
         builder: (context, state) {
           switch (state.requestState) {
             case RequestState.initial:
@@ -43,13 +42,14 @@ class HomeScreen extends StatelessWidget {
                 child: Text('initial'),
               );
             case RequestState.loading:
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
             case RequestState.success:
               var productList = state.homeEntity!.data!.products;
               var bannertList = state.homeEntity!.data!.banners;
-              List<Widget> imageWidgets = bannertList!.map((myList) => Image.network(
+              List<Widget> imageWidgets = bannertList!
+                  .map((myList) => Image.network(
                         myList.image!,
                         width: double.maxFinite.w,
                         height: double.maxFinite.h,
@@ -59,7 +59,8 @@ class HomeScreen extends StatelessWidget {
                             child: Text('error load image'),
                           );
                         },
-                      )).toList();
+                      ))
+                  .toList();
               return Scaffold(
                 body: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
@@ -67,9 +68,9 @@ class HomeScreen extends StatelessWidget {
                     height: MediaQuery.of(context).size.height - 50,
                     width: MediaQuery.of(context).size.width,
                     child: RefreshIndicator(
-                      onRefresh: (){
-                         context.read<HomeBloc>().add(GetHomeEvent());
-                         return Future(() => null);
+                      onRefresh: () {
+                        context.read<HomeBloc>().add(GetHomeEvent());
+                        return Future(() => null);
                       },
                       child: Column(
                         children: [
@@ -96,9 +97,12 @@ class HomeScreen extends StatelessWidget {
                               scrollDirection: Axis.vertical,
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2, // number of items in each row
-                                mainAxisSpacing: 8.0, // spacing between rows
-                                crossAxisSpacing: 8.0, // spacing between columns
+                                crossAxisCount: 2,
+                                // number of items in each row
+                                mainAxisSpacing: 8.0,
+                                // spacing between rows
+                                crossAxisSpacing: 8.0,
+                                // spacing between columns
                                 childAspectRatio: 1 / 1.2, // (width/height)
                               ),
                               padding: const EdgeInsets.all(8.0),
@@ -107,10 +111,11 @@ class HomeScreen extends StatelessWidget {
                               // total number of items
                               itemBuilder: (context, index) {
                                 return GestureDetector(
-                                  onTap: (){
-
-                                  },
-                                  child: ProductCardWidget(productList: productList,index: index,),
+                                  onTap: () {},
+                                  child: ProductCardWidget(
+                                    productList: productList,
+                                    index: index,
+                                  ),
                                 );
                               },
                             ),
@@ -123,8 +128,21 @@ class HomeScreen extends StatelessWidget {
               );
               return const Center(child: Text('success'));
             case RequestState.error:
-              return const Center(
-                child: Text('error'),
+              return  Container(
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        context.read<HomeBloc>().add(GetHomeEvent());
+                      },
+                      child: Text('Reload'),
+                    ),
+                    SizedBox(height: 6,),
+                    Text('There is error')
+                  ],
+                ),
               );
           }
         },
@@ -132,6 +150,5 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
 
 //  if (context.bloc<MyDataBloc>().state is MyDataLoaded)
