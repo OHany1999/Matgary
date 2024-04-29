@@ -62,16 +62,16 @@ class HomeScreen extends StatelessWidget {
                       ))
                   .toList();
               return Scaffold(
-                body: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: SizedBox(
-                    height: MediaQuery.of(context).size.height - 50,
-                    width: MediaQuery.of(context).size.width,
-                    child: RefreshIndicator(
-                      onRefresh: () {
-                        context.read<HomeBloc>().add(GetHomeEvent());
-                        return Future(() => null);
-                      },
+                body: RefreshIndicator(
+                  onRefresh: () {
+                    context.read<HomeBloc>().add(GetHomeEvent());
+                    return Future(() => null);
+                  },
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height - 50,
+                      width: MediaQuery.of(context).size.width,
                       child: Column(
                         children: [
                           SizedBox(
