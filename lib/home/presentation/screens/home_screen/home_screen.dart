@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:linked_scroll_controller/linked_scroll_controller.dart';
 import 'package:matgary/core/services/services_locator.dart';
 import 'package:matgary/core/utils/enum.dart';
 import 'package:matgary/home/presentation/controller/home_bloc/home_bloc.dart';
