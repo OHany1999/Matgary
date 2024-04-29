@@ -12,36 +12,11 @@ import 'package:matgary/home/presentation/controller/home_bloc/home_event.dart';
 import 'package:matgary/home/presentation/controller/home_bloc/home_state.dart';
 import 'package:matgary/home/presentation/screens/home_screen/product_card_widget.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   static const routeName = '/home';
 
   const HomeScreen({super.key});
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  LinkedScrollControllerGroup _controllers;
-  ScrollController _letters;
-  ScrollController _numbers;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _controllers = LinkedScrollControllerGroup();
-    _letters = _controllers.addAndGet();
-    _numbers = _controllers.addAndGet();
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    _letters.dispose();
-    _numbers.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
