@@ -22,7 +22,6 @@ class ServicesLocator {
     sl.registerFactory(() => LoginBloc(sl()));
     sl.registerFactory(() => CheckConnectionBloc(sl()));
 
-
     // SharedPreferences instance
     final sharedPreferences = await SharedPreferences.getInstance();
     sl.registerLazySingleton<SharedPreferences>(() => sharedPreferences);

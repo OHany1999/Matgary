@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:matgary/core/global/theme/app_color/app_color_light.dart';
+import 'package:linked_scroll_controller/linked_scroll_controller.dart';
 import 'package:matgary/core/services/services_locator.dart';
 import 'package:matgary/core/utils/enum.dart';
 import 'package:matgary/home/presentation/controller/home_bloc/home_bloc.dart';
@@ -12,10 +12,36 @@ import 'package:matgary/home/presentation/controller/home_bloc/home_event.dart';
 import 'package:matgary/home/presentation/controller/home_bloc/home_state.dart';
 import 'package:matgary/home/presentation/screens/home_screen/product_card_widget.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   static const routeName = '/home';
 
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  LinkedScrollControllerGroup _controllers;
+  ScrollController _letters;
+  ScrollController _numbers;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _controllers = LinkedScrollControllerGroup();
+    _letters = _controllers.addAndGet();
+    _numbers = _controllers.addAndGet();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _letters.dispose();
+    _numbers.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
