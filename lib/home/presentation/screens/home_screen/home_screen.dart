@@ -9,6 +9,8 @@ import 'package:matgary/core/utils/enum.dart';
 import 'package:matgary/home/presentation/controller/home_bloc/home_bloc.dart';
 import 'package:matgary/home/presentation/controller/home_bloc/home_event.dart';
 import 'package:matgary/home/presentation/controller/home_bloc/home_state.dart';
+import 'package:matgary/home/presentation/controller/slider_indicator_bloc/slider_indicator_bloc.dart';
+import 'package:matgary/home/presentation/controller/slider_indicator_bloc/slider_indicator_state.dart';
 import 'package:matgary/home/presentation/screens/home_screen/banners_widget.dart';
 import 'package:matgary/home/presentation/screens/home_screen/product_widget.dart';
 
@@ -23,6 +25,9 @@ class HomeScreen extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => HomeBloc(sl())..add(const GetHomeEvent()),
+        ),
+        BlocProvider(
+          create: (context) => SliderIndicatorBloc(),
         ),
       ],
       child: BlocBuilder<HomeBloc, HomeState>(
