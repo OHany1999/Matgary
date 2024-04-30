@@ -24,6 +24,7 @@ class BannersWidget extends StatelessWidget {
         builder: (context, state) {
       return Container(
         height: 200.h,
+        margin: EdgeInsets.symmetric(horizontal: 20,),
         child: Stack(
           alignment: Alignment.center,
           children: [
