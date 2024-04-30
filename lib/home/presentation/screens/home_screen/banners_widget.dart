@@ -25,7 +25,7 @@ class BannersWidget extends StatelessWidget {
       return Container(
         height: 200.h,
         child: Stack(
-          alignment: Alignment.bottomCenter,
+          alignment: Alignment.center,
           children: [
             CarouselSlider(
               items: myList!.map((item) {
@@ -47,18 +47,22 @@ class BannersWidget extends StatelessWidget {
                       .read<SliderIndicatorBloc>()
                       .add(SliderIndicatorEvent(tabIndex: index));
                 },
+                viewportFraction: 1,
                 height: 150.h,
                 autoPlay: true,
-                enlargeCenterPage: true,
+                enlargeCenterPage: false,
                 enableInfiniteScroll: true,
               ),
             ),
-            DotsIndicator(
-              dotsCount: myList!.length,
-              position: state.selectedIndex,
-              decorator: DotsDecorator(
-                color: AppColorsLight.grayColor,
-                activeColor: AppColorsLight.orangeColor3,
+            Container(
+              alignment: Alignment.bottomCenter,
+              child: DotsIndicator(
+                dotsCount: myList!.length,
+                position: state.selectedIndex,
+                decorator: DotsDecorator(
+                  color: AppColorsLight.grayColor,
+                  activeColor: AppColorsLight.orangeColor3,
+                ),
               ),
             ),
           ],
