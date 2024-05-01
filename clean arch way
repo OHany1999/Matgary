@@ -1,0 +1,258 @@
+Domain Folder
+------------
+
+1- entities
+
+
+import 'package:equatable/equatable.dart';
+
+  class HomeEntity extends Equatable{
+  final bool? status;
+  final Null message;
+  final DataEntity? data;
+
+  HomeEntity({required this.status,required this.message,required this.data});
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [status,message,data];
+
+}
+
+
+
+
+class DataEntity extends Equatable{
+    final  List<BannersEntity>? banners;
+    final List<ProductsEntity>? products;
+    final String? ad;
+
+    DataEntity({required this.banners, required this.products, required this.ad});
+
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [banners, products,ad];
+
+}
+
+
+class BannersEntity extends Equatable{
+  final int? id;
+  final String? image;
+  final Null category;
+  final Null product;
+
+  BannersEntity({required this.id, required this.image, required this.category, required this.product});
+
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [id,image,category,product];
+
+}
+
+class ProductsEntity extends Equatable{
+  final int? id;
+  final double? price;
+  final double? oldPrice;
+  final int? discount;
+  final String? image;
+  final String? name;
+  final String? description;
+  final List<dynamic>? images;
+  final bool? inFavorites;
+  final bool? inCart;
+
+  ProductsEntity({required this.id, required this.price, required this.oldPrice, required this.discount, required this.image, required this.name, required this.description, required this.images, required this.inFavorites, required this.inCart});
+
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [id,price,oldPrice,discount,image,name,description,images,inFavorites,inCart];
+}
+-------------------------------------------------------------
+
+
+
+2- base repository
+
+
+
+abstract class Base***Repository{
+  Future<Either<Failure,***Entity>> get***Data(***Parameters Parameters or none);
+}
+
+--------------------------------------------------------------
+
+
+3- useCase
+
+class Get***UseCase extends BaseUseCase<***Entity,NoParameters or ***Parameters>{
+  final Base***Repository base***Repository;
+  Get***UseCase(this.base***Repository);
+
+  @override
+  Future<Either<Failure, ***Entity>> call(***Parameters Parameters or none)async {
+    return await baseHomeRepository.getHomeData(Parameters or none);
+  }
+}
+
+
+class ***Parameters extends Equatable {
+  final String email;
+  final String password;
+
+  const LoginParameters({required this.email, required this.password});
+
+  @override
+  List<Object?> get props => [email, password];
+}
+
+
+-----------------------------------------------------------------------------------------------------------
+
+Data Folder
+------------
+
+4-model
+
+
+
+import 'dart:math';
+
+import 'package:matgary/home/domain/entities/home_entity.dart';
+
+class HomeModel extends HomeEntity {
+  HomeModel({
+    required super.status,
+    required super.message,
+    required super.data,
+  });
+
+  factory HomeModel.fromJson(Map<String, dynamic> json) => HomeModel(
+        status: json['status'],
+        message: json['message'],
+        data: json['data'] != null ? DataModel.fromJson(json['data']) : null,
+      );
+}
+
+class DataModel extends DataEntity {
+  DataModel({
+    required super.banners,
+    required super.products,
+    required super.ad,
+  });
+
+  factory DataModel.fromJson(Map<String, dynamic> json) => DataModel(
+        banners: json['banners'] != null
+            ? List<BannersModel>.from(json['banners']
+                .map((element) => BannersModel.fromJson(element)))
+            : null,
+        products: json['products'] != null
+            ? List<ProductsModel>.from(json['products']
+                .map((element) => ProductsModel.fromJson(element)))
+            : null,
+        ad: json['ad'],
+      );
+}
+
+class BannersModel extends BannersEntity {
+  BannersModel({
+    required super.id,
+    required super.image,
+    required super.category,
+    required super.product,
+  });
+
+  factory BannersModel.fromJson(Map<String, dynamic> json) => BannersModel(
+        id: json['id'],
+        image: json['image'],
+        category: json['category'],
+        product: json['product'],
+      );
+}
+
+class ProductsModel extends ProductsEntity {
+  ProductsModel({
+    required super.id,
+    required super.price,
+    required super.oldPrice,
+    required super.discount,
+    required super.image,
+    required super.name,
+    required super.description,
+    required super.images,
+    required super.inFavorites,
+    required super.inCart,
+  });
+
+  factory ProductsModel.fromJson(Map<String, dynamic> json) => ProductsModel(
+        id: json['id'],
+        price: json['price'].toDouble(),
+        oldPrice: json['old_price'].toDouble(),
+        discount: json['discount'],
+        image: json['image'],
+        name: json['name'],
+        description: json['description'],
+        images: json['images'],
+        inFavorites: json['in_favorites'],
+        inCart: json['in_cart'],
+      );
+}
+
+
+--------------------------------------------------------------------------------
+
+5- repository
+
+
+
+class ***Repository extends Base***Repository{
+  final Base***RemoteDataSource base***RemoteDataSource;
+
+  ***Repository(this.base***RemoteDataSource);
+
+  @override
+  Future<Either<Failure, ****Entity>> get***Data(****Parameters Parameters)async {
+    try{
+      final result = await base***RemoteDataSource.get***Data(Parameters);
+      return Right(result);
+    }on Exception catch(error){
+      return left(Failure(error.hashCode, error.toString()));
+    }
+  }
+}
+
+
+
+//catch(error){
+//       return Left(ErrorHandler.handle(error).failure);
+//     }
+//   }
+
+-------------------------------------------------------------
+
+6- datasource
+
+
+abstract class Base***RemoteDataSource {
+  Future<***Model> get***Data(***Parameters Parameters);
+}
+
+
+class ***RemoteDataSource extends Base***RemoteDataSource {
+  @override
+  Future<***Model> getLoginData(***Parameters Parameters) async {
+    Dio dio = Dio();
+    final response = await dio.post(
+      ApiConstance.loginPath,
+      data: {"email": loginParameters.email, "password": loginParameters.password},
+      queryParameters: {'Content-Type': 'application/json'},
+    );
+      return LoginModel.fromJson(response.data);
+
+  }
+}
+--------------------------------------------------------------------------
+
