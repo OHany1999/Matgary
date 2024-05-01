@@ -10,7 +10,6 @@ import 'package:matgary/home/presentation/controller/home_bloc/home_bloc.dart';
 import 'package:matgary/home/presentation/controller/home_bloc/home_event.dart';
 import 'package:matgary/home/presentation/controller/home_bloc/home_state.dart';
 import 'package:matgary/home/presentation/controller/slider_indicator_bloc/slider_indicator_bloc.dart';
-import 'package:matgary/home/presentation/controller/slider_indicator_bloc/slider_indicator_state.dart';
 import 'package:matgary/home/presentation/screens/home_screen/banners_widget.dart';
 import 'package:matgary/home/presentation/screens/home_screen/product_widget.dart';
 
@@ -24,7 +23,7 @@ class HomeScreen extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => HomeBloc(sl())..add(const GetHomeEvent()),
+          create: (context) => sl<HomeBloc>()..add(const GetHomeEvent()),
         ),
         BlocProvider(
           create: (context) => SliderIndicatorBloc(),
