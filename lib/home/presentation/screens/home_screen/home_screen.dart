@@ -58,6 +58,7 @@ class HomeScreen extends StatelessWidget {
               var productList = state.homeEntity!.data!.products;
               return Scaffold(
                 body: RefreshIndicator(
+                  color: AppColorsLight.orangeColor3,
                   onRefresh: () {
                     context.read<HomeBloc>().add(const GetHomeEvent());
                     return Future(() => null);
