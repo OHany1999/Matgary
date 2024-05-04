@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:matgary/core/global/theme/app_color/app_color_light.dart';
+import 'package:matgary/product_details/presentation/screens/product_details_screen.dart';
 
 
 class ProductWidget extends StatelessWidget {
@@ -15,7 +16,9 @@ class ProductWidget extends StatelessWidget {
         childCount: myList!.length,
             (context, index) {
           return GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, ProductDetailsScreen.routeName,arguments:myList![index]);
+            },
             child: Card(
               margin: const EdgeInsets.symmetric(horizontal: 8,vertical: 10),
 
