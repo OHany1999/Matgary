@@ -47,12 +47,14 @@ class ProductDetailsScreen extends StatelessWidget {
               );
             case ProductDetailsRequestState.success:
               return  Scaffold(
-                body: CustomScrollView(
-                  slivers: [
-                    SliverToBoxAdapter(
-                      child: AddCartImageWidget(productDetailsEntity: state.productDetailsEntity,),
-                    ),
-                  ],
+                body: SafeArea(
+                  child: CustomScrollView(
+                    slivers: [
+                      SliverToBoxAdapter(
+                        child: AddCartImageWidget(productDetailsEntity: state.productDetailsEntity,),
+                      ),
+                    ],
+                  ),
                 ),
               );
             case ProductDetailsRequestState.error:
