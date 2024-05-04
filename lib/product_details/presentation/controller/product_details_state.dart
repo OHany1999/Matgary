@@ -1,50 +1,45 @@
 import 'package:equatable/equatable.dart';
-import 'package:matgary/core/utils/enum.dart';
-import 'package:matgary/login/domain/entities/login_entity.dart';
-
-class LoginState extends Equatable {
-  final LoginEntity? loginEntity;
-  final RequestState requestState;
-  final String loginMessage;
+import 'package:matgary/product_details/domain/entities/home_details_entity.dart';
 
 
-  const LoginState({
-    this.loginEntity,
-    this.requestState = RequestState.initial,
-    this.loginMessage = '',
+enum ProductDetailsRequestState{
+  initial,
+  loading,
+  success,
+  error,
+}
+
+
+class ProductDetailsState extends Equatable {
+  final ProductDetailsEntity? productDetailsEntity;
+  final ProductDetailsRequestState productDetailsRequestState;
+  final String productDetailsMessage;
+
+
+  const ProductDetailsState({
+    this.productDetailsEntity,
+    this.productDetailsRequestState = ProductDetailsRequestState.initial,
+    this.productDetailsMessage = '',
   });
 
 
-  LoginState copyWith({
-    LoginEntity? loginEntity,
-    RequestState? requestState,
-    String? loginMessage,
+  ProductDetailsState copyWith({
+    ProductDetailsEntity? productDetailsEntity,
+    ProductDetailsRequestState? productDetailsRequestState,
+    String? productDetailsMessage,
   }) {
-    return LoginState(
-      loginEntity: loginEntity ?? this.loginEntity,
-      requestState: requestState ?? this.requestState,
-      loginMessage: loginMessage ?? this.loginMessage,
+    return ProductDetailsState(
+      productDetailsEntity: productDetailsEntity ?? this.productDetailsEntity,
+      productDetailsRequestState: productDetailsRequestState ?? this.productDetailsRequestState,
+      productDetailsMessage: productDetailsMessage ?? this.productDetailsMessage,
     );
   }
 
   @override
   // TODO: implement props
-  List<Object?> get props => [loginEntity, requestState, loginMessage];
+  List<Object?> get props => [productDetailsEntity, productDetailsRequestState, productDetailsMessage];
 }
 
-
-class PasswordObscureState extends Equatable {
-  final bool obscurePassword ;
-
-
-  const PasswordObscureState({this.obscurePassword = true});
-
-
-
-  @override
-  // TODO: implement props
-  List<Object?> get props => [obscurePassword];
-}
 
 
 
