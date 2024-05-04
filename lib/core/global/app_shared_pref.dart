@@ -16,4 +16,8 @@ class AppPreferences{
     return _sharedPreferences.getString(API_TOKEN);
   }
 
+  void clearToken(){
+    _sharedPreferences.remove(API_TOKEN);
+  }
+
 }
