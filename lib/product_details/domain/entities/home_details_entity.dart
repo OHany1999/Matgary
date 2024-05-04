@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
 
-  class HomeDetailsEntity extends Equatable{
+  class ProductDetailsEntity extends Equatable{
   final bool? status;
   final Null message;
-  final ProductDetailsEntity? data;
+  final ProductDataEntity? data;
 
-  HomeDetailsEntity({required this.status,required this.message,required this.data});
+  const ProductDetailsEntity({required this.status,required this.message,required this.data});
 
   @override
   // TODO: implement props
@@ -16,10 +16,10 @@ import 'package:equatable/equatable.dart';
 
 
 
-class ProductDetailsEntity extends Equatable{
+class ProductDataEntity extends Equatable{
   final int? id;
-  final double? price;
-  final double? oldPrice;
+  final int? price;
+  final int? oldPrice;
   final int? discount;
   final String? image;
   final String? name;
@@ -28,7 +28,7 @@ class ProductDetailsEntity extends Equatable{
   final bool? inFavorites;
   final bool? inCart;
 
-  ProductDetailsEntity({required this.id, required this.price, required this.oldPrice, required this.discount, required this.image, required this.name, required this.description, required this.images, required this.inFavorites, required this.inCart});
+  const ProductDataEntity({required this.id, required this.price, required this.oldPrice, required this.discount, required this.image, required this.name, required this.description, required this.images, required this.inFavorites, required this.inCart});
 
 
   @override

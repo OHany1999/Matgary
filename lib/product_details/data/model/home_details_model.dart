@@ -1,15 +1,15 @@
 import 'package:matgary/product_details/domain/entities/home_details_entity.dart';
 
-class HomeDetailsModel extends HomeDetailsEntity {
-  HomeDetailsModel(
+class ProductDetailsModel extends ProductDetailsEntity {
+  ProductDetailsModel(
       {required super.status, required super.message, required super.data,});
 
 
-  factory HomeDetailsModel.fromJson(Map<String, dynamic> json) =>
-      HomeDetailsModel(
+  factory ProductDetailsModel.fromJson(Map<String, dynamic> json) =>
+      ProductDetailsModel(
         status: json['status'],
         message: json['message'],
-        data: json['data'] != null ? ProductDetailsModel.fromJson(json['data']) : null,
+        data: json['data'] != null ? ProductDataModel.fromJson(json['data']) : null,
       );
 
 
@@ -17,8 +17,8 @@ class HomeDetailsModel extends HomeDetailsEntity {
 
 
 
-class ProductDetailsModel extends ProductDetailsEntity {
-  ProductDetailsModel({
+class ProductDataModel extends ProductDataEntity {
+  ProductDataModel({
     required super.id,
     required super.price,
     required super.oldPrice,
@@ -31,10 +31,10 @@ class ProductDetailsModel extends ProductDetailsEntity {
     required super.inCart,
   });
 
-  factory ProductDetailsModel.fromJson(Map<String, dynamic> json) => ProductDetailsModel(
+  factory ProductDataModel.fromJson(Map<String, dynamic> json) => ProductDataModel(
     id: json['id'],
-    price: json['price'].toDouble(),
-    oldPrice: json['old_price'].toDouble(),
+    price: json['price'],
+    oldPrice: json['old_price'],
     discount: json['discount'],
     image: json['image'],
     name: json['name'],

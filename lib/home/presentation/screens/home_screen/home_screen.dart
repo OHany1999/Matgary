@@ -32,10 +32,10 @@ class HomeScreen extends StatelessWidget {
       child: BlocBuilder<HomeBloc, HomeState>(
         buildWhen: (previous, current) {
           if (kDebugMode) {
-            print('previous state${previous.requestState}');
+            // print('previous state${previous.requestState}');
           }
           if (kDebugMode) {
-            print('current state${current.requestState}');
+            // print('current state${current.requestState}');
           }
           if (previous.requestState != current.requestState) {
             return true;
@@ -84,16 +84,24 @@ class HomeScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        context.read<HomeBloc>().add(const GetHomeEvent());
-                      },
-                      child: const Text('Reload'),
-                    ),
+                    Text('ooops!',style: Theme.of(context).textTheme.headlineLarge,),
                     const SizedBox(
-                      height: 6,
+                      height: 20,
                     ),
-                    const Text('There is error')
+                    Container(
+                      width: 150,
+                      height: 70,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColorsLight.orangeColor3,
+                        ),
+                        onPressed: () {
+                          context.read<HomeBloc>().add(const GetHomeEvent());
+                        },
+                        child:  Text('Reload',style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 20),),
+                      ),
+                    ),
+
                   ],
                 ),
               );

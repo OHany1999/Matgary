@@ -12,6 +12,11 @@ import 'package:matgary/login/data/repository/login_repository.dart';
 import 'package:matgary/login/domain/repository/base_login_repository.dart';
 import 'package:matgary/login/domain/usecase/get_login_usecase.dart';
 import 'package:matgary/login/presentation/controller/login_bloc.dart';
+import 'package:matgary/product_details/data/datasource/product_details_remote_data_source.dart';
+import 'package:matgary/product_details/data/repository/product_details_repository.dart';
+import 'package:matgary/product_details/domain/repository/base_product_details_repository.dart';
+import 'package:matgary/product_details/domain/usecase/get_product_details_usecase.dart';
+import 'package:matgary/product_details/presentation/controller/product_details_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final sl = GetIt.instance;
@@ -21,6 +26,7 @@ class ServicesLocator {
 
     sl.registerFactory(() => LoginBloc(sl()));
     sl.registerFactory(() => HomeBloc(sl()));
+    sl.registerFactory(() => ProductDetailsBloc(sl()));
 
     // SharedPreferences instance
     final sharedPreferences = await SharedPreferences.getInstance();
@@ -34,6 +40,16 @@ class ServicesLocator {
     sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(InternetConnectionChecker()));
     // print("${GetIt.I.isRegistered<NetworkInfo>()} " + "NetworkInfo");
 
+
+    /////////////////////////////////////////////////////////////////////
+
+    // product details
+    /// USE CASES For ProductDetails
+    sl.registerLazySingleton(() => GetProductDetailsUseCase(sl()));
+    /// Repository For ProductDetails
+    sl.registerLazySingleton<BaseProductDetailsRepository>(() => ProductDetailsRepository(sl()));
+    /// DATA SOURCE For ProductDetails
+    sl.registerLazySingleton<BaseProductDetailsRemoteDataSource>(() => ProductDetailsRemoteDataSource());
 
 
     // Home

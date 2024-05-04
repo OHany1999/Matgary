@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:matgary/core/error/error_handler.dart';
 import 'package:matgary/core/error/failure.dart';
 import 'package:matgary/product_details/data/datasource/product_details_remote_data_source.dart';
 import 'package:matgary/product_details/domain/entities/home_details_entity.dart';
@@ -18,7 +17,7 @@ ProductDetailsRepository(this.baseProductDetailsRemoteDataSource);
       final result = await baseProductDetailsRemoteDataSource.getProductDetailsData(productDetailsParameters);
       return Right(result);
     }catch (error){
-      return Left(ErrorHandler.handle(error).failure);
+      return left(Failure(error.hashCode, error.toString()));
     }
   }
 
