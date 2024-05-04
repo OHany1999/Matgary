@@ -1,26 +1,25 @@
 import 'package:dartz/dartz.dart';
 import 'package:matgary/core/error/error_handler.dart';
 import 'package:matgary/core/error/failure.dart';
-import 'package:matgary/login/data/datasource/login_remote_data_source.dart';
-import 'package:matgary/login/domain/entities/login_entity.dart';
-import 'package:matgary/login/domain/repository/base_login_repository.dart';
-import 'package:matgary/login/domain/usecase/get_login_usecase.dart';
+import 'package:matgary/product_details/data/datasource/product_details_remote_data_source.dart';
+import 'package:matgary/product_details/domain/entities/home_details_entity.dart';
+import 'package:matgary/product_details/domain/repository/base_product_details_repository.dart';
+import 'package:matgary/product_details/domain/usecase/get_product_details_usecase.dart';
 
-class LoginRepository extends BaseLoginRepository{
-final BaseLoginRemoteDataSource baseLoginRemoteDataSource;
+class ProductDetailsRepository extends BaseProductDetailsRepository{
+final BaseProductDetailsRemoteDataSource baseProductDetailsRemoteDataSource;
 
 
-  LoginRepository(this.baseLoginRemoteDataSource);
+ProductDetailsRepository(this.baseProductDetailsRemoteDataSource);
 
   @override
-  Future<Either<Failure, LoginEntity>> getLoginData(LoginParameters loginParameters) async{
+  Future<Either<Failure, ProductDetailsEntity>> getProductDetailsData(ProductDetailsParameters productDetailsParameters)async {
     try{
-      final result = await baseLoginRemoteDataSource.getLoginData(loginParameters);
+      final result = await baseProductDetailsRemoteDataSource.getProductDetailsData(productDetailsParameters);
       return Right(result);
     }catch (error){
       return Left(ErrorHandler.handle(error).failure);
     }
-
   }
 
 
