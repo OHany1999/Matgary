@@ -93,9 +93,9 @@ class LoginScreen extends StatelessWidget {
                 Center(
                   child: BlocConsumer<LoginBloc, LoginState>(
                     buildWhen: (previous, current) =>
-                    previous.requestState != current.requestState,
+                        previous.requestState != current.requestState,
                     listenWhen: (previous, current) =>
-                    previous.requestState != current.requestState,
+                        previous.requestState != current.requestState,
                     builder: (context, state) {
                       print(state.hashCode);
                       print(state.requestState);
@@ -104,43 +104,35 @@ class LoginScreen extends StatelessWidget {
                       switch (state.requestState) {
                         case RequestState.initial:
                           return GlobalElevatedButton(onPress: () {
-                            if (_formKey.currentState?.validate() ??
-                                false) {
-                              context.read<LoginBloc>().add(
-                                  GetLoginEvent(
-                                      email: _controllerUsername.text,
-                                      password:
-                                      _controllerPassword.text));
+                            if (_formKey.currentState?.validate() ?? false) {
+                              context.read<LoginBloc>().add(GetLoginEvent(
+                                  email: _controllerUsername.text,
+                                  password: _controllerPassword.text));
                             }
                           });
                         case RequestState.loading:
-                          return const CircularProgressIndicator(color: AppColorsLight.orangeColor3,);
+                          return const CircularProgressIndicator(
+                            color: AppColorsLight.orangeColor3,
+                          );
                         case RequestState.success:
                           return GlobalElevatedButton(onPress: () {
-                            if (_formKey.currentState?.validate() ??
-                                false) {
-                              context.read<LoginBloc>().add(
-                                  GetLoginEvent(
-                                      email: _controllerUsername.text,
-                                      password:
-                                      _controllerPassword.text));
+                            if (_formKey.currentState?.validate() ?? false) {
+                              context.read<LoginBloc>().add(GetLoginEvent(
+                                  email: _controllerUsername.text,
+                                  password: _controllerPassword.text));
                             }
                           });
                         case RequestState.error:
                           return Column(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment:
-                            CrossAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               GlobalElevatedButton(onPress: () {
                                 if (_formKey.currentState?.validate() ??
                                     false) {
-                                  context.read<LoginBloc>().add(
-                                      GetLoginEvent(
-                                          email:
-                                          _controllerUsername.text,
-                                          password: _controllerPassword
-                                              .text));
+                                  context.read<LoginBloc>().add(GetLoginEvent(
+                                      email: _controllerUsername.text,
+                                      password: _controllerPassword.text));
                                 }
                               }),
                               const SizedBox(
@@ -159,9 +151,12 @@ class LoginScreen extends StatelessWidget {
                         if (state.loginEntity!.data != null) {
                           _appPref.addToken(
                               token: state.loginEntity!.data!.token!);
-                          Navigator.pushNamed(
-                              context, NavBarScreen.routeName,
-                              arguments: state.loginEntity);
+                          Navigator.pushNamedAndRemoveUntil(
+                            context,
+                            NavBarScreen.routeName,
+                            arguments: state.loginEntity,
+                            (Route<dynamic> route) => false,
+                          );
                         } else {
                           ToastMessages.showToast(
                               message: 'Wrong Email or Password');
