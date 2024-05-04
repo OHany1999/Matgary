@@ -46,8 +46,12 @@ class ProductDetailsScreen extends StatelessWidget {
               );
             case ProductDetailsRequestState.success:
               return  Scaffold(
-                body: Center(
-                  child: Text('${state.productDetailsEntity!.data!.name}'),
+                body: CustomScrollView(
+                  slivers: [
+                    SliverToBoxAdapter(
+                      child:Text('${state.productDetailsEntity!.data!.name}') ,
+                    ),
+                  ],
                 ),
               );
             case ProductDetailsRequestState.error:
