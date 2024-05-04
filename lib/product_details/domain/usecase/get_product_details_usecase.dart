@@ -2,27 +2,28 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:matgary/core/error/failure.dart';
 import 'package:matgary/core/usecase/base_usecase.dart';
-import 'package:matgary/login/domain/entities/login_entity.dart';
-import 'package:matgary/login/domain/repository/base_login_repository.dart';
+import 'package:matgary/product_details/domain/entities/home_details_entity.dart';
+import 'package:matgary/product_details/domain/repository/base_product_details_repository.dart';
 
-// class GetLoginUseCase extends BaseUseCase<LoginEntity, LoginParameters> {
-//   final BaseLoginRepository baseLoginRepository;
-//
-//   GetLoginUseCase(this.baseLoginRepository);
-//
-//   @override
-//   Future<Either<Failure,LoginEntity>> call(LoginParameters loginParameters)async {
-//     return await baseLoginRepository.getLoginData(loginParameters);
-//   }
-// }
 
-class LoginParameters extends Equatable {
-  final String email;
-  final String password;
+class GetProductDetailsUseCase extends BaseUseCase<ProductDetailsEntity, ProductDetailsParameters> {
+  final BaseProductDetailsRepository baseProductDetailsRepository;
 
-  const LoginParameters({required this.email, required this.password});
+  GetProductDetailsUseCase(this.baseProductDetailsRepository);
+
+  @override
+  Future<Either<Failure,ProductDetailsEntity>> call(ProductDetailsParameters productDetailsParameters)async {
+    return await baseProductDetailsRepository.getProductDetailsData(productDetailsParameters);
+  }
+}
+
+class ProductDetailsParameters extends Equatable {
+  final int id;
+
+
+  const ProductDetailsParameters({required this.id});
 
   @override
   // TODO: implement props
-  List<Object?> get props => [email, password];
+  List<Object?> get props => [id];
 }

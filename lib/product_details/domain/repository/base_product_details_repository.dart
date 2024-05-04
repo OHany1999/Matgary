@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:matgary/core/error/failure.dart';
-import 'package:matgary/login/domain/entities/login_entity.dart';
-import 'package:matgary/login/domain/usecase/get_login_usecase.dart';
+import 'package:matgary/product_details/domain/entities/home_details_entity.dart';
+import 'package:matgary/product_details/domain/usecase/get_product_details_usecase.dart';
 
-abstract class BaseLoginRepository{
+abstract class BaseProductDetailsRepository{
 
-Future<Either<Failure,LoginEntity>> getLoginData(LoginParameters loginParameters);
+Future<Either<Failure,ProductDetailsEntity>> getProductDetailsData(ProductDetailsParameters productDetailsParameters);
 
 }
