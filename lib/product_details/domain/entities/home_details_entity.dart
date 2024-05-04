@@ -17,10 +17,10 @@ import 'package:equatable/equatable.dart';
 
 
 class ProductDataEntity extends Equatable{
-  final int? id;
-  final int? price;
-  final int? oldPrice;
-  final int? discount;
+  final dynamic id;
+  final dynamic price;
+  final dynamic oldPrice;
+  final dynamic discount;
   final String? image;
   final String? name;
   final String? description;

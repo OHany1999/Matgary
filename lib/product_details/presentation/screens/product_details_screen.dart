@@ -6,6 +6,7 @@ import 'package:matgary/home/data/model/home_model.dart';
 import 'package:matgary/product_details/presentation/controller/product_details_bloc.dart';
 import 'package:matgary/product_details/presentation/controller/product_details_event.dart';
 import 'package:matgary/product_details/presentation/controller/product_details_state.dart';
+import 'package:matgary/product_details/presentation/screens/wedgits/add_cart_image_widget.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   const ProductDetailsScreen({super.key});
@@ -49,7 +50,7 @@ class ProductDetailsScreen extends StatelessWidget {
                 body: CustomScrollView(
                   slivers: [
                     SliverToBoxAdapter(
-                      child:Text('${state.productDetailsEntity!.data!.name}') ,
+                      child: AddCartImageWidget(productDetailsEntity: state.productDetailsEntity,),
                     ),
                   ],
                 ),
