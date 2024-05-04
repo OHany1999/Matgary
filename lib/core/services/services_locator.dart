@@ -16,7 +16,7 @@ import 'package:matgary/product_details/data/datasource/product_details_remote_d
 import 'package:matgary/product_details/data/repository/product_details_repository.dart';
 import 'package:matgary/product_details/domain/repository/base_product_details_repository.dart';
 import 'package:matgary/product_details/domain/usecase/get_product_details_usecase.dart';
-import 'package:matgary/product_details/presentation/controller/product_details_bloc.dart';
+import 'package:matgary/product_details/presentation/controller/product_details_bloc/product_details_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final sl = GetIt.instance;

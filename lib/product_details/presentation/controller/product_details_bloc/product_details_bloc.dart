@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:matgary/product_details/domain/usecase/get_product_details_usecase.dart';
-import 'package:matgary/product_details/presentation/controller/product_details_event.dart';
-import 'package:matgary/product_details/presentation/controller/product_details_state.dart';
+import 'package:matgary/product_details/presentation/controller/product_details_bloc/product_details_event.dart';
+import 'package:matgary/product_details/presentation/controller/product_details_bloc/product_details_state.dart';
 
 class ProductDetailsBloc
     extends Bloc<ProductDetailsEvent, ProductDetailsState> {
