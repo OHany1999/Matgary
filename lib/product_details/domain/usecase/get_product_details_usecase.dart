@@ -5,16 +5,16 @@ import 'package:matgary/core/usecase/base_usecase.dart';
 import 'package:matgary/login/domain/entities/login_entity.dart';
 import 'package:matgary/login/domain/repository/base_login_repository.dart';
 
-class GetLoginUseCase extends BaseUseCase<LoginEntity, LoginParameters> {
-  final BaseLoginRepository baseLoginRepository;
-
-  GetLoginUseCase(this.baseLoginRepository);
-
-  @override
-  Future<Either<Failure,LoginEntity>> call(LoginParameters loginParameters)async {
-    return await baseLoginRepository.getLoginData(loginParameters);
-  }
-}
+// class GetLoginUseCase extends BaseUseCase<LoginEntity, LoginParameters> {
+//   final BaseLoginRepository baseLoginRepository;
+//
+//   GetLoginUseCase(this.baseLoginRepository);
+//
+//   @override
+//   Future<Either<Failure,LoginEntity>> call(LoginParameters loginParameters)async {
+//     return await baseLoginRepository.getLoginData(loginParameters);
+//   }
+// }
 
 class LoginParameters extends Equatable {
   final String email;
