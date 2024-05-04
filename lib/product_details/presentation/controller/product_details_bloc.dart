@@ -1,46 +1,28 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:matgary/core/utils/enum.dart';
-import 'package:matgary/login/domain/usecase/get_login_usecase.dart';
-import 'package:matgary/login/presentation/controller/login_event.dart';
-import 'package:matgary/login/presentation/controller/login_state.dart';
+import 'package:matgary/product_details/domain/usecase/get_product_details_usecase.dart';
+import 'package:matgary/product_details/presentation/controller/product_details_event.dart';
+import 'package:matgary/product_details/presentation/controller/product_details_state.dart';
 
-class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  final GetLoginUseCase getLoginUseCase;
+class ProductDetailsBloc
+    extends Bloc<ProductDetailsEvent, ProductDetailsState> {
+  final GetProductDetailsUseCase getProductDetailsUseCase;
 
-  LoginBloc(this.getLoginUseCase) : super(const LoginState()) {
-    on<GetLoginEvent>(_getNowLogin);
-
+  ProductDetailsBloc(this.getProductDetailsUseCase)
+      : super(const ProductDetailsState()) {
+    on<GetProductDetailsEvent>(_getProductDetails);
   }
 
-  FutureOr<void> _getNowLogin(GetLoginEvent event, Emitter<LoginState> emit) async {
-    emit(state.copyWith(requestState: RequestState.loading));
-    final result = await getLoginUseCase(LoginParameters(email: event.email, password: event.password));
+
+  FutureOr<void> _getProductDetails(
+      GetProductDetailsEvent event, Emitter<ProductDetailsState> emit) async {
+    emit(state.copyWith(
+        productDetailsRequestState: ProductDetailsRequestState.loading));
+    final result =
+        await getProductDetailsUseCase(ProductDetailsParameters(id: event.id));
     result.fold(
-      (l) => emit(state.copyWith(loginMessage: l.message,requestState: RequestState.error)),
-      (r) => emit(state.copyWith(loginEntity: r,requestState: RequestState.success)),
+      (l) => emit(state.copyWith(productDetailsMessage: l.message,productDetailsRequestState: ProductDetailsRequestState.error)),
+      (r) => emit(state.copyWith(productDetailsEntity: r,productDetailsRequestState: ProductDetailsRequestState.success)),
     );
-
-  }
-
-}
-
-//////////////////////////////////////////////////////////
-class PasswordObsBloc extends Bloc<String, PasswordObscureState> {
-  PasswordObsBloc():super(const PasswordObscureState()){
-    on<String>(_obscure);
-  }
-
-
-
-
-  FutureOr<void> _obscure(String event, Emitter<PasswordObscureState> emit) {
-    if(event == '+') {
-      emit(PasswordObscureState(obscurePassword: !state.obscurePassword));
-    }
   }
 }
-
-
-
-
