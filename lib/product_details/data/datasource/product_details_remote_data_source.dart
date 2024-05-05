@@ -18,11 +18,11 @@ class ProductDetailsRemoteDataSource extends BaseProductDetailsRemoteDataSource 
     Dio dio = Dio();
     final response = await dio.get(
       ApiConstance.products_details_Path(id: productDetailsParameters.id),
-      queryParameters: {
+      options: Options(headers: {
         'Content-Type':'application/json',
         'lang':'en',
         'Authorization':'${_appPref.getToken()}',
-      },
+      }),
     );
     return ProductDetailsModel.fromJson(response.data);
   }
