@@ -16,8 +16,6 @@ class HomeRemoteDataSource extends BaseHomeRemoteDataSource {
     final response = await dio.get(
       ApiConstance.homePath,
       queryParameters: {
-        'Content-Type':'application/json',
-        'lang':'en',
         'Authorization':'${_appPref.getToken()}',
       },
     );

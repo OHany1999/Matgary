@@ -18,7 +18,6 @@ class AddCartImageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<FavoriteBloc, FavoriteState>(
       builder: (context, state) {
-        print(state.favorite);
         return Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
@@ -33,7 +32,7 @@ class AddCartImageWidget extends StatelessWidget {
             Container(
               margin: const EdgeInsets.only(right: 30),
               child: IconButton(
-                icon: state.favorite == false ? const Icon(
+                icon: productDetailsEntity!.data!.inFavorites == false ? const Icon(
                   Icons.favorite,
                   color: Colors.grey,
                   size: 35,

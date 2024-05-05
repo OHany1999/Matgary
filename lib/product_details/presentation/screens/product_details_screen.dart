@@ -49,7 +49,6 @@ class ProductDetailsScreen extends StatelessWidget {
               );
             case ProductDetailsRequestState.success:
               print('network is fav :${state.productDetailsEntity!.data!.inFavorites}');
-              print('network is fav :${state.productDetailsEntity!.data!.description}');
               return  Scaffold(
                 body: SafeArea(
                   child: CustomScrollView(
