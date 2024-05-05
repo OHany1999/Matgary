@@ -27,3 +27,4 @@ class ProductDetailsRemoteDataSource extends BaseProductDetailsRemoteDataSource 
     return ProductDetailsModel.fromJson(response.data);
   }
 }
+

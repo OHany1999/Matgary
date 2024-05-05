@@ -13,7 +13,7 @@ class FavoriteBloc extends Bloc<BaseFavoriteEvent, FavoriteState> {
 
   FutureOr<void> _changeFavorite(BaseFavoriteEvent event, Emitter<FavoriteState> emit) {
     if(event is FavoriteEvent){
-      emit(FavoriteState(favorite: !state.favorite));
+      emit(FavoriteState(favorite: event.isFav));
     }
 
   }

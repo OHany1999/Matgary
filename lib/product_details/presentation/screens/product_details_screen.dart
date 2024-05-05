@@ -22,7 +22,6 @@ class ProductDetailsScreen extends StatelessWidget {
         BlocProvider(
             create: (context) => sl<ProductDetailsBloc>()
               ..add(GetProductDetailsEvent(id: arg.id!))),
-        BlocProvider(create: (context)=> FavoriteBloc()),
       ],
       child: BlocBuilder<ProductDetailsBloc, ProductDetailsState>(
         buildWhen: (previous, current) {

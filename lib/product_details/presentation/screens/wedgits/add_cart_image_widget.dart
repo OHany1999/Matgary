@@ -16,39 +16,44 @@ class AddCartImageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FavoriteBloc, FavoriteState>(
-      builder: (context, state) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Image.network(
-              productDetailsEntity!.data!.image!,
-              width: MediaQuery
-                  .of(context)
-                  .size
-                  .width,
-              height: 340.h,
-            ),
-            Container(
-              margin: const EdgeInsets.only(right: 30),
-              child: IconButton(
-                icon: productDetailsEntity!.data!.inFavorites == false ? const Icon(
-                  Icons.favorite,
-                  color: Colors.grey,
-                  size: 35,
-                ) : const Icon(
-                  Icons.favorite,
-                  color: AppColorsLight.orangeColor3,
-                  size: 35,
-                ),
-                onPressed: () {
-                  BlocProvider.of<FavoriteBloc>(context).add(FavoriteEvent());
-                },
+    return BlocProvider(
+      create: (context) => FavoriteBloc()
+        ..add(FavoriteEvent(isFav: productDetailsEntity!.data!.inFavorites!)),
+      child: BlocBuilder<FavoriteBloc, FavoriteState>(
+        builder: (context, state) {
+          print('fav state ${state.favorite}');
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Image.network(
+                productDetailsEntity!.data!.image!,
+                width: MediaQuery.of(context).size.width,
+                height: 340.h,
               ),
-            ),
-          ],
-        );
-      },
+              Container(
+                margin: const EdgeInsets.only(right: 30),
+                child: IconButton(
+                  icon: state.favorite == false
+                      ? const Icon(
+                          Icons.favorite,
+                          color: Colors.grey,
+                          size: 35,
+                        )
+                      : const Icon(
+                          Icons.favorite,
+                          color: AppColorsLight.orangeColor3,
+                          size: 35,
+                        ),
+                  onPressed: () {
+                    BlocProvider.of<FavoriteBloc>(context)
+                        .add(FavoriteEvent(isFav: !state.favorite));
+                  },
+                ),
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 }
