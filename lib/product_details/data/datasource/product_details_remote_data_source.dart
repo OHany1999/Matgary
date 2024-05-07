@@ -10,33 +10,46 @@ import 'package:matgary/product_details/domain/usecase/get_product_details_useca
 final AppPreferences _appPref = sl<AppPreferences>();
 
 abstract class BaseProductDetailsRemoteDataSource {
-  Future<ProductDetailsModel> getProductDetailsData(ProductDetailsParameters productDetailsParameters);
-  Future<AddFavoriteModel> getAddFavoriteData(AddFavoriteParameters addFavoriteParameters);
+  Future<ProductDetailsModel> getProductDetailsData(
+      ProductDetailsParameters productDetailsParameters);
+
+  Future<AddFavoriteModel> getAddFavoriteData(
+      AddFavoriteParameters addFavoriteParameters);
 }
 
-
-class ProductDetailsRemoteDataSource extends BaseProductDetailsRemoteDataSource {
+class ProductDetailsRemoteDataSource
+    extends BaseProductDetailsRemoteDataSource {
   @override
-  Future<ProductDetailsModel> getProductDetailsData(ProductDetailsParameters productDetailsParameters) async {
+  Future<ProductDetailsModel> getProductDetailsData(
+      ProductDetailsParameters productDetailsParameters) async {
     Dio dio = Dio();
     final response = await dio.get(
       ApiConstance.products_details_Path(id: productDetailsParameters.id),
       options: Options(headers: {
-        'Content-Type':'application/json',
-        'lang':'en',
-        'Authorization':'${_appPref.getToken()}',
+        'Content-Type': 'application/json',
+        'lang': 'en',
+        'Authorization': '${_appPref.getToken()}',
       }),
     );
     return ProductDetailsModel.fromJson(response.data);
   }
 
   @override
-  Future<AddFavoriteModel> getAddFavoriteData(AddFavoriteParameters addFavoriteParameters) {
-    // TODO: implement getAddFavoriteData
-    throw UnimplementedError();
+  Future<AddFavoriteModel> getAddFavoriteData(
+      AddFavoriteParameters addFavoriteParameters) async{
+    Dio dio = Dio();
+    final response = await dio.post(
+      ApiConstance.addAndRemoveFavoritesPath,
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': '${_appPref.getToken()}',
+        }
+      ),
+      data: {
+        "product_id": addFavoriteParameters.id,
+      },
+    );
+    return AddFavoriteModel.fromJson(response.data);
   }
 }
-
-
-
-

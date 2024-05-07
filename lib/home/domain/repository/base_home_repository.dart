@@ -5,5 +5,4 @@ import 'package:matgary/home/domain/entities/home_entity.dart';
 
 abstract class BaseHomeRepository{
   Future<Either<Failure,HomeEntity>> getHomeData();
-  Future<Either<Failure,AddFavoriteEntity>> addFavoriteData();
 }
