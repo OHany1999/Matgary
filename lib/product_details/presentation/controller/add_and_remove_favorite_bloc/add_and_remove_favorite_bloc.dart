@@ -5,10 +5,10 @@ import 'package:matgary/product_details/domain/usecase/add_favorite_usecase.dart
 import 'package:matgary/product_details/presentation/controller/add_and_remove_favorite_bloc/add_and_remove_favorite_event.dart';
 import 'package:matgary/product_details/presentation/controller/add_and_remove_favorite_bloc/add_and_remove_favorite_state.dart';
 
-class AddFavoriteBloc extends Bloc<AddFavoriteEvent, AddFavoriteState> {
+class AddAndRemoveFavoriteBloc extends Bloc<AddFavoriteEvent, AddFavoriteState> {
   final AddFavoriteUseCase addFavoriteUseCase;
 
-  AddFavoriteBloc(this.addFavoriteUseCase) : super(const AddFavoriteState()) {
+  AddAndRemoveFavoriteBloc(this.addFavoriteUseCase) : super(const AddFavoriteState()) {
     on<GetAddFavoriteEvent>(_getAddFavorite);
   }
 

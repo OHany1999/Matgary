@@ -17,6 +17,7 @@ import 'package:matgary/product_details/data/repository/product_details_reposito
 import 'package:matgary/product_details/domain/repository/base_product_details_repository.dart';
 import 'package:matgary/product_details/domain/usecase/add_favorite_usecase.dart';
 import 'package:matgary/product_details/domain/usecase/get_product_details_usecase.dart';
+import 'package:matgary/product_details/presentation/controller/add_and_remove_favorite_bloc/add_and_remove_favorite_bloc.dart';
 import 'package:matgary/product_details/presentation/controller/product_details_bloc/product_details_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -28,6 +29,7 @@ class ServicesLocator {
     sl.registerFactory(() => LoginBloc(sl()));
     sl.registerFactory(() => HomeBloc(sl()));
     sl.registerFactory(() => ProductDetailsBloc(sl()));
+    sl.registerFactory(() => AddAndRemoveFavoriteBloc(sl()));
 
     // SharedPreferences instance
     final sharedPreferences = await SharedPreferences.getInstance();

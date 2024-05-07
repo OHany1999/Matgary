@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:matgary/core/global/theme/app_color/app_color_light.dart';
 import 'package:matgary/core/services/services_locator.dart';
 import 'package:matgary/home/data/model/home_model.dart';
-import 'package:matgary/product_details/presentation/controller/favorite_bloc/favorite_bloc.dart';
 import 'package:matgary/product_details/presentation/controller/product_details_bloc/product_details_bloc.dart';
 import 'package:matgary/product_details/presentation/controller/product_details_bloc/product_details_event.dart';
 import 'package:matgary/product_details/presentation/controller/product_details_bloc/product_details_state.dart';
@@ -19,9 +18,7 @@ class ProductDetailsScreen extends StatelessWidget {
     final arg = ModalRoute.of(context)!.settings.arguments as ProductsModel;
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-            create: (context) => sl<ProductDetailsBloc>()..add(GetProductDetailsEvent(id: arg.id!))),
-        BlocProvider(create: (context)=> );
+        BlocProvider(create: (context) => sl<ProductDetailsBloc>()..add(GetProductDetailsEvent(id: arg.id!))),
       ],
       child: BlocBuilder<ProductDetailsBloc, ProductDetailsState>(
         buildWhen: (previous, current) {
