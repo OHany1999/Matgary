@@ -33,30 +33,15 @@ class BannersWidget extends StatelessWidget {
           children: [
             CarouselSlider(
               items: myList!.map((item) {
-                // return Image.network(
-                //   item.image,
-                //   width: double.maxFinite.w,
-                //   height: double.maxFinite.h,
-                //   fit: BoxFit.fill,
-                //
-                //   errorBuilder: (context, object, stakTrac) {
-                //     return const Center(
-                //       child: Text('error load image'),
-                //     );
-                //   },
-                // );
                 return CachedNetworkImage(
-                  imageUrl:  "https://student.valuxapps.com/storage/uploads/products/1615442168bVx52.item_XXL_36581132_143760083.jpeg",
-                    imageBuilder: (context, imageProvider) => Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: imageProvider,
-                        fit: BoxFit.cover,
-                        colorFilter:
-                        ColorFilter.mode(Colors.red, BlendMode.colorBurn)),
+                  width: double.maxFinite.w,
+                  height: double.maxFinite.h,
+                  imageUrl: item.image,
+                  placeholder: (context, url) => Image.asset(
+                    'assets/images/loading_image.jpg',
+                    width: double.maxFinite.w,
+                    height: double.maxFinite.h,
                   ),
-                    ),
-                  placeholder: (context,url)=> Image.asset('assets/images/loading_image.jpg'),
                   errorWidget: (context, url, error) => Icon(Icons.error),
                 );
               }).toList(),
