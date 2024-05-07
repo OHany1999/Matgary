@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:matgary/core/global/theme/app_color/app_color_light.dart';
+import 'package:matgary/core/global/toast/toast.dart';
 import 'package:matgary/core/services/services_locator.dart';
 import 'package:matgary/product_details/domain/entities/home_details_entity.dart';
 import 'package:matgary/product_details/presentation/controller/add_and_remove_favorite_bloc/add_and_remove_favorite_bloc.dart';
@@ -46,15 +47,16 @@ class AddCartImageWidget extends StatelessWidget {
                    case AddFavoriteRequestState.initial:
                      print('initial***');
                    case AddFavoriteRequestState.loading:
-                     print('loading***');
-                   case AddFavoriteRequestState.success:
-                     print(BlocProvider.of<AddAndRemoveFavoriteBloc>(context)
-                         .state
-                         .addFavoriteEntity);
                      BlocProvider.of<FavoriteBloc>(context)
                          .add(FavoriteEvent(isFav: !stateOfFavorite.favorite));
+                   case AddFavoriteRequestState.success:
+                     ToastMessages.showToast(message: stateOfAddAndRemoveFavorite.addFavoriteEntity!.message!);
+                     print(BlocProvider.of<AddAndRemoveFavoriteBloc>(context).state.addFavoriteEntity);
                    case AddFavoriteRequestState.error:
                      print('error***');
+                     BlocProvider.of<FavoriteBloc>(context)
+                         .add(FavoriteEvent(isFav: !stateOfFavorite.favorite));
+                     ToastMessages.showToast(message: 'هناك خطأ في الاتصال',backGroundColor: Colors.redAccent);
                  }
                 },
                 child: Container(
