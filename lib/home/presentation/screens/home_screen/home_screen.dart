@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:matgary/core/global/theme/app_color/app_color_light.dart';
 import 'package:matgary/core/services/services_locator.dart';
 import 'package:matgary/core/utils/enum.dart';
@@ -54,7 +53,7 @@ class HomeScreen extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             case RequestState.success:
-              var bannertList = state.homeEntity!.data!.banners;
+              var bannerList = state.homeEntity!.data!.banners;
               var productList = state.homeEntity!.data!.products;
               return Scaffold(
                 body: RefreshIndicator(
@@ -69,7 +68,7 @@ class HomeScreen extends StatelessWidget {
                       slivers: [
                         SliverToBoxAdapter(
                           child: BannersWidget(
-                            myList: bannertList,
+                            myList: bannerList,
                           ),
                         ),
                         ProductWidget(myList: productList),

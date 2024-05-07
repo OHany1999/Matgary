@@ -13,4 +13,3 @@ class GetHomeUseCase extends BaseUseCase<HomeEntity,NoParameters>{
     return await baseHomeRepository.getHomeData();
   }
 }
-
