@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -36,28 +37,44 @@ class AddCartImageWidget extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Image.network(
-                productDetailsEntity!.data!.image!,
+              CachedNetworkImage(
                 width: MediaQuery.of(context).size.width,
                 height: 340.h,
+                imageUrl: productDetailsEntity!.data!.image!,
+                placeholder: (context, url) => Image.asset(
+                  'assets/images/loading_image.jpg',
+                  width: double.maxFinite.w,
+                  height: double.maxFinite.h,
+                ),
+                errorWidget: (context, url, error) => Image.asset(
+                  'assets/images/loading_image.jpg',
+                  width: double.maxFinite.w,
+                  height: double.maxFinite.h,
+                ),
               ),
               BlocListener<AddAndRemoveFavoriteBloc, AddFavoriteState>(
                 listener: (context, stateOfAddAndRemoveFavorite) {
-                 switch(stateOfAddAndRemoveFavorite.addFavoriteRequestState){
-                   case AddFavoriteRequestState.initial:
-                     print('initial***');
-                   case AddFavoriteRequestState.loading:
-                     BlocProvider.of<FavoriteBloc>(context)
-                         .add(FavoriteEvent(isFav: !stateOfFavorite.favorite));
-                   case AddFavoriteRequestState.success:
-                     ToastMessages.showToast(message: stateOfAddAndRemoveFavorite.addFavoriteEntity!.message!);
-                     print(BlocProvider.of<AddAndRemoveFavoriteBloc>(context).state.addFavoriteEntity);
-                   case AddFavoriteRequestState.error:
-                     print('error***');
-                     BlocProvider.of<FavoriteBloc>(context)
-                         .add(FavoriteEvent(isFav: !stateOfFavorite.favorite));
-                     ToastMessages.showToast(message: 'هناك خطأ في الاتصال',backGroundColor: Colors.redAccent);
-                 }
+                  switch (stateOfAddAndRemoveFavorite.addFavoriteRequestState) {
+                    case AddFavoriteRequestState.initial:
+                      print('initial***');
+                    case AddFavoriteRequestState.loading:
+                      BlocProvider.of<FavoriteBloc>(context)
+                          .add(FavoriteEvent(isFav: !stateOfFavorite.favorite));
+                    case AddFavoriteRequestState.success:
+                      ToastMessages.showToast(
+                          message: stateOfAddAndRemoveFavorite
+                              .addFavoriteEntity!.message!);
+                      print(BlocProvider.of<AddAndRemoveFavoriteBloc>(context)
+                          .state
+                          .addFavoriteEntity);
+                    case AddFavoriteRequestState.error:
+                      print('error***');
+                      BlocProvider.of<FavoriteBloc>(context)
+                          .add(FavoriteEvent(isFav: !stateOfFavorite.favorite));
+                      ToastMessages.showToast(
+                          message: 'هناك خطأ في الاتصال',
+                          backGroundColor: Colors.redAccent);
+                  }
                 },
                 child: Container(
                   margin: const EdgeInsets.only(right: 30),
@@ -74,9 +91,9 @@ class AddCartImageWidget extends StatelessWidget {
                             size: 35,
                           ),
                     onPressed: () {
-                      BlocProvider.of<AddAndRemoveFavoriteBloc>(context)
-                        .add(GetAddFavoriteEvent(
-                            id: productDetailsEntity!.data!.id));
+                      BlocProvider.of<AddAndRemoveFavoriteBloc>(context).add(
+                          GetAddFavoriteEvent(
+                              id: productDetailsEntity!.data!.id));
                     },
                   ),
                 ),

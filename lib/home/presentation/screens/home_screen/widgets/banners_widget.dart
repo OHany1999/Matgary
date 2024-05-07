@@ -36,13 +36,18 @@ class BannersWidget extends StatelessWidget {
                 return CachedNetworkImage(
                   width: double.maxFinite.w,
                   height: double.maxFinite.h,
+                  fit: BoxFit.fitWidth,
                   imageUrl: item.image,
                   placeholder: (context, url) => Image.asset(
                     'assets/images/loading_image.jpg',
                     width: double.maxFinite.w,
                     height: double.maxFinite.h,
                   ),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  errorWidget: (context, url, error) => Image.asset(
+                    'assets/images/loading_image.jpg',
+                    width: double.maxFinite.w,
+                    height: double.maxFinite.h,
+                  ),
                 );
               }).toList(),
               options: CarouselOptions(
