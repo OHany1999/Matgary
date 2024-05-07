@@ -15,6 +15,7 @@ import 'package:matgary/login/presentation/controller/login_bloc.dart';
 import 'package:matgary/product_details/data/datasource/product_details_remote_data_source.dart';
 import 'package:matgary/product_details/data/repository/product_details_repository.dart';
 import 'package:matgary/product_details/domain/repository/base_product_details_repository.dart';
+import 'package:matgary/product_details/domain/usecase/add_favorite_usecase.dart';
 import 'package:matgary/product_details/domain/usecase/get_product_details_usecase.dart';
 import 'package:matgary/product_details/presentation/controller/product_details_bloc/product_details_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -39,6 +40,17 @@ class ServicesLocator {
     ///NetworkInfo instance
     sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(InternetConnectionChecker()));
     // print("${GetIt.I.isRegistered<NetworkInfo>()} " + "NetworkInfo");
+
+
+
+    /////////////////////////////////////////////////////////////////////
+
+    // Add and Remove Favorite
+    sl.registerLazySingleton(() => AddFavoriteUseCase(sl()));
+    /// Repository For  favorite  with ProductDetails
+    /// DATA SOURCE For favorite  with ProductDetails
+    /// already exist
+
 
 
     /////////////////////////////////////////////////////////////////////

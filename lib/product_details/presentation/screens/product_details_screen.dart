@@ -20,8 +20,8 @@ class ProductDetailsScreen extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-            create: (context) => sl<ProductDetailsBloc>()
-              ..add(GetProductDetailsEvent(id: arg.id!))),
+            create: (context) => sl<ProductDetailsBloc>()..add(GetProductDetailsEvent(id: arg.id!))),
+        BlocProvider(create: (context)=> );
       ],
       child: BlocBuilder<ProductDetailsBloc, ProductDetailsState>(
         buildWhen: (previous, current) {

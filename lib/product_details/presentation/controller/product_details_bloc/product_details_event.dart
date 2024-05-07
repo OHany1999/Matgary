@@ -13,7 +13,7 @@ class GetProductDetailsEvent extends ProductDetailsEvent {
   const GetProductDetailsEvent({required this.id});
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [id];
 }
 
 

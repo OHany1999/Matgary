@@ -21,7 +21,7 @@ class AddCartImageWidget extends StatelessWidget {
         ..add(FavoriteEvent(isFav: productDetailsEntity!.data!.inFavorites!)),
       child: BlocBuilder<FavoriteBloc, FavoriteState>(
         builder: (context, state) {
-          print('fav state ${state.favorite}');
+          print(' fav state ${state.favorite}');
           return Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
