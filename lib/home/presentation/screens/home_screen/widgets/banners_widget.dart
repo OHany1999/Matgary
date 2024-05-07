@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
@@ -24,22 +25,39 @@ class BannersWidget extends StatelessWidget {
         builder: (context, state) {
       return Container(
         height: 200.h,
-        margin: EdgeInsets.symmetric(horizontal: 20,),
+        margin: EdgeInsets.symmetric(
+          horizontal: 20,
+        ),
         child: Stack(
           alignment: Alignment.center,
           children: [
             CarouselSlider(
               items: myList!.map((item) {
-                return Image.network(
-                  item.image,
-                  width: double.maxFinite.w,
-                  height: double.maxFinite.h,
-                  fit: BoxFit.fill,
-                  errorBuilder: (context, object, stakTrac) {
-                    return const Center(
-                      child: Text('error load image'),
-                    );
-                  },
+                // return Image.network(
+                //   item.image,
+                //   width: double.maxFinite.w,
+                //   height: double.maxFinite.h,
+                //   fit: BoxFit.fill,
+                //
+                //   errorBuilder: (context, object, stakTrac) {
+                //     return const Center(
+                //       child: Text('error load image'),
+                //     );
+                //   },
+                // );
+                return CachedNetworkImage(
+                  imageUrl:  "https://student.valuxapps.com/storage/uploads/products/1615442168bVx52.item_XXL_36581132_143760083.jpeg",
+                    imageBuilder: (context, imageProvider) => Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                        colorFilter:
+                        ColorFilter.mode(Colors.red, BlendMode.colorBurn)),
+                  ),
+                    ),
+                  placeholder: (context,url)=> Image.asset('assets/images/loading_image.jpg'),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
                 );
               }).toList(),
               options: CarouselOptions(
