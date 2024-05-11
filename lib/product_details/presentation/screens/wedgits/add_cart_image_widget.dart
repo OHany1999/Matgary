@@ -37,7 +37,7 @@ class AddCartImageWidget extends StatelessWidget {
           return Column(
             children: [
               Container(
-                margin: EdgeInsets.only(top: 20),
+                margin: const EdgeInsets.only(top: 20),
                 child: Stack(
                   children: [
                     CachedNetworkImage(
@@ -57,7 +57,7 @@ class AddCartImageWidget extends StatelessWidget {
                     ),
                     Positioned(
                       bottom: 1,
-                      right: 1,
+                      right: -25,
                       child: BlocListener<AddAndRemoveFavoriteBloc,
                           AddFavoriteState>(
                         listener: (context, stateOfAddAndRemoveFavorite) {
@@ -116,45 +116,57 @@ class AddCartImageWidget extends StatelessWidget {
                         onTap: () => Navigator.pop(context),
                         child: CircleAvatar(
                           backgroundColor: Colors.grey.withOpacity(0.2),
-                          child: Icon(Icons.clear),
+                          child: const Icon(Icons.clear),
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Container(
-                    width: 200.w,
-                    child: Text(
-                      productDetailsEntity!.data!.name!,
-                      maxLines: 2,
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineLarge!
-                          .copyWith(fontSize: 20.0),
-                    ),
-                  ),
-                  Column(
-                    children: [
-                      if (productDetailsEntity!.data!.discount != 0)
+              Container(
+                margin: const EdgeInsets.only(top: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Column(
+                      children: [
                         Text(
-                          '${productDetailsEntity!.data!.oldPrice!} EGP',
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            decoration: TextDecoration.lineThrough,
-                            color: Colors.red,
-                          ),
-                        ),
-                      Text(
                           '${productDetailsEntity!.data!.price!.toString()} EGP',
-                          textAlign: TextAlign.center),
-                    ],
-                  ),
-                ],
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineLarge!
+                              .copyWith(fontSize: 20),
+                        ),
+                        if (productDetailsEntity!.data!.discount != 0)
+                          Text(
+                            '${productDetailsEntity!.data!.oldPrice!} EGP',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineLarge!
+                                .copyWith(
+                                  fontSize: 16,
+                                  color: Colors.red,
+                              decoration: TextDecoration.lineThrough,
+                                ),
+                          ),
+                      ],
+                    ),
+                    Container(
+                      width: 200.w,
+                      child: Text(
+                        productDetailsEntity!.data!.name!,
+                        maxLines: 2,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineLarge!
+                            .copyWith(fontSize: 20.0),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           );
@@ -163,3 +175,8 @@ class AddCartImageWidget extends StatelessWidget {
     );
   }
 }
+
+//const TextStyle(
+//                             decoration: TextDecoration.lineThrough,
+//                             color: Colors.red,
+//                           ),
