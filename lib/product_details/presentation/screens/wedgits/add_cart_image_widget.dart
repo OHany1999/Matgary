@@ -56,16 +56,13 @@ class AddCartImageWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-
-                    margin: EdgeInsets.only(left: 15),
-                    child: Container(
-                      width: 200.w,
-                      child: Text(
-                        productDetailsEntity!.data!.name!,
-                        maxLines: 2,
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.headlineLarge!.copyWith(fontSize: 20.0),
-                      ),
+                    margin: EdgeInsets.only(top: 12,left: 15),
+                    width: 200.w,
+                    child: Text(
+                      productDetailsEntity!.data!.name!,
+                      maxLines: 2,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.headlineLarge!.copyWith(fontSize: 20.0),
                     ),
                   ),
                   BlocListener<AddAndRemoveFavoriteBloc, AddFavoriteState>(
