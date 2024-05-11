@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:matgary/core/global/theme/app_color/app_color_light.dart';
@@ -18,11 +19,14 @@ class ProductDetailsScreen extends StatelessWidget {
     final arg = ModalRoute.of(context)!.settings.arguments as ProductsModel;
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => sl<ProductDetailsBloc>()..add(GetProductDetailsEvent(id: arg.id!))),
+        BlocProvider(
+            create: (context) => sl<ProductDetailsBloc>()
+              ..add(GetProductDetailsEvent(id: arg.id!))),
       ],
       child: BlocBuilder<ProductDetailsBloc, ProductDetailsState>(
         buildWhen: (previous, current) {
-          if (previous.productDetailsRequestState != current.productDetailsRequestState) {
+          if (previous.productDetailsRequestState !=
+              current.productDetailsRequestState) {
             return true;
           } else {
             return false;
@@ -44,13 +48,30 @@ class ProductDetailsScreen extends StatelessWidget {
                 ),
               );
             case ProductDetailsRequestState.success:
-              print('network is fav :${state.productDetailsEntity!.data!.inFavorites}');
-              return  Scaffold(
+              print(
+                  'network is fav :${state.productDetailsEntity!.data!.inFavorites}');
+              return Scaffold(
+                appBar: AppBar(
+                  leading: Row(
+                    children: [
+                      SizedBox(width: 12,),
+                      GestureDetector(
+                        onTap: ()=>Navigator.pop(context),
+                        child: CircleAvatar(
+                          backgroundColor: Colors.grey.withOpacity(0.2),
+                          child: Icon(Icons.clear),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 body: SafeArea(
                   child: CustomScrollView(
                     slivers: [
                       SliverToBoxAdapter(
-                        child: AddCartImageWidget(productDetailsEntity: state.productDetailsEntity,),
+                        child: AddCartImageWidget(
+                          productDetailsEntity: state.productDetailsEntity,
+                        ),
                       ),
                     ],
                   ),

@@ -27,7 +27,7 @@ class ProductDetailsRemoteDataSource
       ApiConstance.products_details_Path(id: productDetailsParameters.id),
       options: Options(headers: {
         'Content-Type': 'application/json',
-        'lang': 'en',
+        'lang': 'ar',
         'Authorization': '${_appPref.getToken()}',
       }),
     );
