@@ -51,20 +51,6 @@ class ProductDetailsScreen extends StatelessWidget {
               print(
                   'network is fav :${state.productDetailsEntity!.data!.inFavorites}');
               return Scaffold(
-                appBar: AppBar(
-                  leading: Row(
-                    children: [
-                      SizedBox(width: 12,),
-                      GestureDetector(
-                        onTap: ()=>Navigator.pop(context),
-                        child: CircleAvatar(
-                          backgroundColor: Colors.grey.withOpacity(0.2),
-                          child: Icon(Icons.clear),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
                 body: SafeArea(
                   child: CustomScrollView(
                     slivers: [

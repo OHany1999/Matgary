@@ -35,83 +35,124 @@ class AddCartImageWidget extends StatelessWidget {
           print(' fav state ${stateOfFavorite.favorite}');
 
           return Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              CachedNetworkImage(
-                width: MediaQuery.of(context).size.width,
-                height: 340.h,
-                imageUrl: productDetailsEntity!.data!.image!,
-                placeholder: (context, url) => Image.asset(
-                  'assets/images/loading_image.jpg',
-                  width: double.maxFinite.w,
-                  height: double.maxFinite.h,
-                ),
-                errorWidget: (context, url, error) => Image.asset(
-                  'assets/images/loading_image.jpg',
-                  width: double.maxFinite.w,
-                  height: double.maxFinite.h,
+              Container(
+                margin: EdgeInsets.only(top: 20),
+                child: Stack(
+                  children: [
+                    CachedNetworkImage(
+                      width: MediaQuery.of(context).size.width,
+                      height: 340.h,
+                      imageUrl: productDetailsEntity!.data!.image!,
+                      placeholder: (context, url) => Image.asset(
+                        'assets/images/loading_image.jpg',
+                        width: double.maxFinite.w,
+                        height: double.maxFinite.h,
+                      ),
+                      errorWidget: (context, url, error) => Image.asset(
+                        'assets/images/loading_image.jpg',
+                        width: double.maxFinite.w,
+                        height: double.maxFinite.h,
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 1,
+                      right: 1,
+                      child: BlocListener<AddAndRemoveFavoriteBloc,
+                          AddFavoriteState>(
+                        listener: (context, stateOfAddAndRemoveFavorite) {
+                          switch (stateOfAddAndRemoveFavorite
+                              .addFavoriteRequestState) {
+                            case AddFavoriteRequestState.initial:
+                              print('initial***');
+                            case AddFavoriteRequestState.loading:
+                              BlocProvider.of<FavoriteBloc>(context).add(
+                                  FavoriteEvent(
+                                      isFav: !stateOfFavorite.favorite));
+                            case AddFavoriteRequestState.success:
+                              ToastMessages.showToast(
+                                  message: stateOfAddAndRemoveFavorite
+                                      .addFavoriteEntity!.message!);
+                              print(BlocProvider.of<AddAndRemoveFavoriteBloc>(
+                                      context)
+                                  .state
+                                  .addFavoriteEntity);
+                            case AddFavoriteRequestState.error:
+                              print('error***');
+                              BlocProvider.of<FavoriteBloc>(context).add(
+                                  FavoriteEvent(
+                                      isFav: !stateOfFavorite.favorite));
+                              ToastMessages.showToast(
+                                  message: 'هناك خطأ في الاتصال',
+                                  backGroundColor: Colors.redAccent);
+                          }
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(right: 30),
+                          child: IconButton(
+                            icon: stateOfFavorite.favorite == false
+                                ? const Icon(
+                                    Icons.favorite,
+                                    color: Colors.grey,
+                                    size: 35,
+                                  )
+                                : const Icon(
+                                    Icons.favorite,
+                                    color: AppColorsLight.orangeColor3,
+                                    size: 35,
+                                  ),
+                            onPressed: () {
+                              BlocProvider.of<AddAndRemoveFavoriteBloc>(context)
+                                  .add(GetAddFavoriteEvent(
+                                      id: productDetailsEntity!.data!.id));
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      left: 15,
+                      child: GestureDetector(
+                        onTap: () => Navigator.pop(context),
+                        child: CircleAvatar(
+                          backgroundColor: Colors.grey.withOpacity(0.2),
+                          child: Icon(Icons.clear),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top: 12,left: 15),
                     width: 200.w,
                     child: Text(
                       productDetailsEntity!.data!.name!,
                       maxLines: 2,
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headlineLarge!.copyWith(fontSize: 20.0),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineLarge!
+                          .copyWith(fontSize: 20.0),
                     ),
                   ),
-                  BlocListener<AddAndRemoveFavoriteBloc, AddFavoriteState>(
-                    listener: (context, stateOfAddAndRemoveFavorite) {
-                      switch (
-                          stateOfAddAndRemoveFavorite.addFavoriteRequestState) {
-                        case AddFavoriteRequestState.initial:
-                          print('initial***');
-                        case AddFavoriteRequestState.loading:
-                          BlocProvider.of<FavoriteBloc>(context).add(
-                              FavoriteEvent(isFav: !stateOfFavorite.favorite));
-                        case AddFavoriteRequestState.success:
-                          ToastMessages.showToast(
-                              message: stateOfAddAndRemoveFavorite
-                                  .addFavoriteEntity!.message!);
-                          print(
-                              BlocProvider.of<AddAndRemoveFavoriteBloc>(context)
-                                  .state
-                                  .addFavoriteEntity);
-                        case AddFavoriteRequestState.error:
-                          print('error***');
-                          BlocProvider.of<FavoriteBloc>(context).add(
-                              FavoriteEvent(isFav: !stateOfFavorite.favorite));
-                          ToastMessages.showToast(
-                              message: 'هناك خطأ في الاتصال',
-                              backGroundColor: Colors.redAccent);
-                      }
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.only(right: 30),
-                      child: IconButton(
-                        icon: stateOfFavorite.favorite == false
-                            ? const Icon(
-                                Icons.favorite,
-                                color: Colors.grey,
-                                size: 35,
-                              )
-                            : const Icon(
-                                Icons.favorite,
-                                color: AppColorsLight.orangeColor3,
-                                size: 35,
-                              ),
-                        onPressed: () {
-                          BlocProvider.of<AddAndRemoveFavoriteBloc>(context)
-                              .add(GetAddFavoriteEvent(
-                                  id: productDetailsEntity!.data!.id));
-                        },
-                      ),
-                    ),
+                  Column(
+                    children: [
+                      if (productDetailsEntity!.data!.discount != 0)
+                        Text(
+                          '${productDetailsEntity!.data!.oldPrice!} EGP',
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            decoration: TextDecoration.lineThrough,
+                            color: Colors.red,
+                          ),
+                        ),
+                      Text(
+                          '${productDetailsEntity!.data!.price!.toString()} EGP',
+                          textAlign: TextAlign.center),
+                    ],
                   ),
                 ],
               ),

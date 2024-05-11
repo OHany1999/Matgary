@@ -75,6 +75,8 @@ class ProductWidget extends StatelessWidget {
                   SizedBox(
                     height: 2.h,
                   ),
+                  Text('${myList![index].price!.toString()} EGP',
+                      textAlign: TextAlign.center),
                   if (myList![index].discount != 0)
                     Text(
                       '${myList![index].oldPrice!} EGP',
@@ -84,8 +86,6 @@ class ProductWidget extends StatelessWidget {
                         color: Colors.red,
                       ),
                     ),
-                  Text('${myList![index].price!.toString()} EGP',
-                      textAlign: TextAlign.center),
                 ],
               ),
             ),
