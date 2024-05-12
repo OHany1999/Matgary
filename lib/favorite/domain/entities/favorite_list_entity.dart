@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 class FavoriteListEntity extends Equatable {
   final bool? status;
   final Null message;
-  final DataList? data;
+  final DataListEntity? data;
 
   const FavoriteListEntity(
       {required this.status, required this.message, required this.data});
@@ -15,13 +15,13 @@ class FavoriteListEntity extends Equatable {
 }
 
 
-class DataList extends Equatable{
+class DataListEntity extends Equatable{
 
-  List<Data>? data;
+  List<DataEntity>? data;
   int? total;
 
 
-  DataList({this.data, this.total});
+  DataListEntity({this.data, this.total});
 
   @override
   // TODO: implement props
@@ -32,11 +32,11 @@ class DataList extends Equatable{
 }
 
 
-class Data extends Equatable{
+class DataEntity extends Equatable{
   int? id;
-  Product? product;
+  ProductEntity? product;
 
-  Data({this.id, this.product});
+  DataEntity({this.id, this.product});
 
   @override
   // TODO: implement props
@@ -44,7 +44,7 @@ class Data extends Equatable{
 
 }
 
-class Product extends Equatable{
+class ProductEntity extends Equatable{
   int? id;
   int? price;
   int? oldPrice;
@@ -53,7 +53,7 @@ class Product extends Equatable{
   String? name;
   String? description;
 
-  Product(
+  ProductEntity(
       {this.id, this.price, this.oldPrice, this.discount, this.image, this.name, this.description});
 
   @override
