@@ -2,6 +2,10 @@ import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:matgary/core/global/app_shared_pref.dart';
 import 'package:matgary/core/network/netword_info.dart';
+import 'package:matgary/favorite/data/datasource/favorite_list_remote_data_source.dart';
+import 'package:matgary/favorite/data/repository/favorite_list_repository.dart';
+import 'package:matgary/favorite/domain/repository/base_favorite_list_repository.dart';
+import 'package:matgary/favorite/domain/usecase/favorite_list_usecase.dart';
 import 'package:matgary/home/data/datasource/home_remote_data_source.dart';
 import 'package:matgary/home/data/repository/home_repository.dart';
 import 'package:matgary/home/domain/repository/base_home_repository.dart';
@@ -42,6 +46,17 @@ class ServicesLocator {
     ///NetworkInfo instance
     sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(InternetConnectionChecker()));
     // print("${GetIt.I.isRegistered<NetworkInfo>()} " + "NetworkInfo");
+
+
+  //////////////////////////////////////////////////////////
+
+    //favoriteList
+    /// USE CASES For favoriteList
+    sl.registerLazySingleton(() => GetFavoriteListUseCase(sl()));
+    /// Repository For favoriteList
+    sl.registerLazySingleton<BaseFavoriteListRepository>(() => FavoriteListRepository(sl()));
+    /// DATA SOURCE For favoriteList
+    sl.registerLazySingleton<BaseFavoriteListRemoteDataSource>(() => FavoriteListRemoteDataSource());
 
 
 
