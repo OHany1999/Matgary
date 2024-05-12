@@ -44,15 +44,13 @@ class AddCartImageWidget extends StatelessWidget {
                       width: MediaQuery.of(context).size.width,
                       height: 340.h,
                       imageUrl: productDetailsEntity!.data!.image!,
-                      placeholder: (context, url) => Image.asset(
-                        'assets/images/loading_image.jpg',
-                        width: double.maxFinite.w,
-                        height: double.maxFinite.h,
+                      placeholder: (context, url) => const Icon(
+                        Icons.image,
+                        size: 80,
                       ),
-                      errorWidget: (context, url, error) => Image.asset(
-                        'assets/images/loading_image.jpg',
-                        width: double.maxFinite.w,
-                        height: double.maxFinite.h,
+                      errorWidget: (context, url, error) => const Icon(
+                        Icons.image,
+                        size: 80,
                       ),
                     ),
                     Positioned(

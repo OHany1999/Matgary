@@ -27,21 +27,19 @@ class ProductWidget extends StatelessWidget {
                 children: [
                   Stack(
                     children: [
-
                       CachedNetworkImage(
                         width: double.infinity.w,
                         height: 120,
                         fit:BoxFit.fitHeight,
                         imageUrl: myList![index].image!,
-                        placeholder: (context, url) => Image.asset(
-                          'assets/images/loading_image.jpg',
-                          width: double.maxFinite.w,
-                          height: double.maxFinite.h,
+                        placeholder: (context, url) =>const Icon(
+                          Icons.image,
+                          size: 80,
                         ),
-                        errorWidget: (context, url, error) => Image.asset(
-                          'assets/images/loading_image.jpg',
-                          width: double.maxFinite.w,
-                          height: double.maxFinite.h,
+                        errorWidget: (context, url, error) => const Icon(
+                          Icons.image,
+                          size: 80,
+
                         ),
                       ),
                       if (myList![index].discount != 0)

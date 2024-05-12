@@ -25,7 +25,7 @@ class BannersWidget extends StatelessWidget {
         builder: (context, state) {
       return Container(
         height: 200.h,
-        margin: EdgeInsets.symmetric(
+        margin: const EdgeInsets.symmetric(
           horizontal: 20,
         ),
         child: Stack(
@@ -38,15 +38,13 @@ class BannersWidget extends StatelessWidget {
                   height: double.maxFinite.h,
                   fit: BoxFit.fitWidth,
                   imageUrl: item.image,
-                  placeholder: (context, url) => Image.asset(
-                    'assets/images/loading_image.jpg',
-                    width: double.maxFinite.w,
-                    height: double.maxFinite.h,
+                  placeholder: (context, url) => const Icon(
+                    Icons.image,
+                    size: 80,
                   ),
-                  errorWidget: (context, url, error) => Image.asset(
-                    'assets/images/loading_image.jpg',
-                    width: double.maxFinite.w,
-                    height: double.maxFinite.h,
+                  errorWidget: (context, url, error) => const Icon(
+                    Icons.image,
+                    size: 80,
                   ),
                 );
               }).toList(),
@@ -68,7 +66,7 @@ class BannersWidget extends StatelessWidget {
               child: DotsIndicator(
                 dotsCount: myList!.length,
                 position: state.selectedIndex,
-                decorator: DotsDecorator(
+                decorator: const DotsDecorator(
                   color: AppColorsLight.grayColor,
                   activeColor: AppColorsLight.orangeColor3,
                 ),
