@@ -5,9 +5,6 @@ import 'package:matgary/core/utils/enum.dart';
 import 'package:matgary/home/domain/usecase/get_home_usecase.dart';
 import 'package:matgary/home/presentation/controller/home_bloc/home_event.dart';
 import 'package:matgary/home/presentation/controller/home_bloc/home_state.dart';
-import 'package:matgary/login/domain/usecase/get_login_usecase.dart';
-import 'package:matgary/login/presentation/controller/login_event.dart';
-import 'package:matgary/login/presentation/controller/login_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final GetHomeUseCase getHomeUseCase;
