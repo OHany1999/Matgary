@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:matgary/category/presentation/screens/category_screen/category_screen.dart';
 import 'package:matgary/core/global/app_shared_pref.dart';
 import 'package:matgary/core/services/services_locator.dart';
-import 'package:matgary/home/presentation/screens/category_screen/category_screen.dart';
-import 'package:matgary/home/presentation/screens/favorite_screen/favorite_screen.dart';
+import 'package:matgary/favorite/presentation/screens/favorite_screen/favorite_screen.dart';
 import 'package:matgary/home/presentation/screens/home_screen/home_screen.dart';
 import 'package:matgary/home/presentation/screens/navbar_screen/navbar_screen.dart';
 
