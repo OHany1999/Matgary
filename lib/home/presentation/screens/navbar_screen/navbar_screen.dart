@@ -67,7 +67,7 @@ class NavBarScreen extends StatelessWidget {
   }
 
   List<Widget> homeWidget = [
-    const HomeScreen(),
+     HomeScreen(),
     const CategoryScreen(),
     const FavoriteScreen(),
   ];

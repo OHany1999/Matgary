@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:matgary/core/global/theme/app_color/app_color_light.dart';
 import 'package:matgary/core/services/services_locator.dart';
 import 'package:matgary/core/utils/enum.dart';
+import 'package:matgary/home/domain/entities/home_entity.dart';
 import 'package:matgary/home/presentation/controller/home_bloc/home_bloc.dart';
 import 'package:matgary/home/presentation/controller/home_bloc/home_event.dart';
 import 'package:matgary/home/presentation/controller/home_bloc/home_state.dart';
@@ -15,7 +16,9 @@ import 'package:matgary/home/presentation/screens/home_screen/widgets/product_wi
 class HomeScreen extends StatelessWidget {
   static const routeName = '/home';
 
-  const HomeScreen({super.key});
+   HomeScreen({super.key});
+
+  List<ProductsEntity>? productListtt = [];
 
   @override
   Widget build(BuildContext context) {
@@ -49,12 +52,18 @@ class HomeScreen extends StatelessWidget {
                 child: Text('initial'),
               );
             case RequestState.loading:
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
+              if(productListtt!.isNotEmpty){
+                return Text(productListtt![0].name!);
+              }else{
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+
             case RequestState.success:
               var bannerList = state.homeEntity!.data!.banners;
               var productList = state.homeEntity!.data!.products;
+              productListtt = productList;
               return Scaffold(
                 body: RefreshIndicator(
                   color: AppColorsLight.orangeColor3,
@@ -71,7 +80,7 @@ class HomeScreen extends StatelessWidget {
                             myList: bannerList,
                           ),
                         ),
-                        ProductWidget(myList: productList),
+                        ProductWidget(myList: productListtt),
                       ],
                     ),
                   ),
