@@ -58,6 +58,7 @@ class HomeScreen extends StatelessWidget {
                 return CustomScrollView(
                   scrollDirection: Axis.vertical,
                   slivers: [
+                    SliverToBoxAdapter(child: Center(child: Text('lodingggggggggg')),),
                     SliverToBoxAdapter(
                       child: BannersWidget(
                         myList: bannertListtt,
