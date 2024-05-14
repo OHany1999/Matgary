@@ -34,12 +34,8 @@ class HomeScreen extends StatelessWidget {
       ],
       child: BlocBuilder<HomeBloc, HomeState>(
         buildWhen: (previous, current) {
-          if (kDebugMode) {
             // print('previous state${previous.requestState}');
-          }
-          if (kDebugMode) {
             // print('current state${current.requestState}');
-          }
           if (previous.requestState != current.requestState) {
             return true;
           } else {
@@ -58,7 +54,7 @@ class HomeScreen extends StatelessWidget {
                 return CustomScrollView(
                   scrollDirection: Axis.vertical,
                   slivers: [
-                    SliverToBoxAdapter(child: Center(child: Text('lodingggggggggg')),),
+                    SliverToBoxAdapter(child: LinearProgressIndicator(),),
                     SliverToBoxAdapter(
                       child: BannersWidget(
                         myList: bannertListtt,
@@ -143,4 +139,3 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-//  if (context.bloc<MyDataBloc>().state is MyDataLoaded)
