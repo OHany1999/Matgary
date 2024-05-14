@@ -16,9 +16,10 @@ import 'package:matgary/home/presentation/screens/home_screen/widgets/product_wi
 class HomeScreen extends StatelessWidget {
   static const routeName = '/home';
 
-   HomeScreen({super.key});
+  HomeScreen({super.key});
 
   List<ProductsEntity>? productListtt = [];
+  List<BannersEntity>? bannertListtt = [];
 
   @override
   Widget build(BuildContext context) {
@@ -52,18 +53,31 @@ class HomeScreen extends StatelessWidget {
                 child: Text('initial'),
               );
             case RequestState.loading:
-              if(productListtt!.isNotEmpty){
-                return Text(productListtt![0].name!);
-              }else{
+              if (productListtt!.isNotEmpty && bannertListtt!.isNotEmpty) {
+                print('##########');
+                return CustomScrollView(
+                  scrollDirection: Axis.vertical,
+                  slivers: [
+                    SliverToBoxAdapter(
+                      child: BannersWidget(
+                        myList: bannertListtt,
+                      ),
+                    ),
+                    ProductWidget(myList: productListtt),
+                  ],
+                );
+              } else {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
               }
 
             case RequestState.success:
+              print('************');
               var bannerList = state.homeEntity!.data!.banners;
               var productList = state.homeEntity!.data!.products;
               productListtt = productList;
+              bannertListtt = bannerList;
               return Scaffold(
                 body: RefreshIndicator(
                   color: AppColorsLight.orangeColor3,
@@ -77,7 +91,7 @@ class HomeScreen extends StatelessWidget {
                       slivers: [
                         SliverToBoxAdapter(
                           child: BannersWidget(
-                            myList: bannerList,
+                            myList: bannertListtt,
                           ),
                         ),
                         ProductWidget(myList: productListtt),
@@ -92,7 +106,10 @@ class HomeScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('ooops!',style: Theme.of(context).textTheme.headlineLarge,),
+                    Text(
+                      'ooops!',
+                      style: Theme.of(context).textTheme.headlineLarge,
+                    ),
                     const SizedBox(
                       height: 20,
                     ),
@@ -106,10 +123,15 @@ class HomeScreen extends StatelessWidget {
                         onPressed: () {
                           context.read<HomeBloc>().add(const GetHomeEvent());
                         },
-                        child:  Text('Reload',style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 20),),
+                        child: Text(
+                          'Reload',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(fontSize: 20),
+                        ),
                       ),
                     ),
-
                   ],
                 ),
               );
