@@ -13,6 +13,8 @@ void main() async{
   print('tokeeeen = ${_appPref.getToken()}');
   runApp(const MyApp());
 }
+
+
 GlobalKey<NavigatorState>? navigatorKey = GlobalKey<NavigatorState>();
 class MyApp extends StatelessWidget {
 

@@ -42,14 +42,13 @@ class ProductDetailsScreen extends StatelessWidget {
                 ),
               );
             case ProductDetailsRequestState.loading:
-              return const Scaffold(
-                body: Center(
-                  child: CircularProgressIndicator(),
-                ),
-              );
+                return const Scaffold(
+                  body: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
             case ProductDetailsRequestState.success:
-              print(
-                  'network is fav :${state.productDetailsEntity!.data!.inFavorites}');
+              print('network is fav :${state.productDetailsEntity!.data!.inFavorites}');
               return Scaffold(
                 body: SafeArea(
                   child: CustomScrollView(

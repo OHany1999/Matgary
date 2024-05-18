@@ -33,15 +33,8 @@ class HomeScreen extends StatelessWidget {
         ),
       ],
       child: BlocBuilder<HomeBloc, HomeState>(
-        buildWhen: (previous, current) {
-            // print('previous state${previous.requestState}');
-            // print('current state${current.requestState}');
-          if (previous.requestState != current.requestState) {
-            return true;
-          } else {
-            return false;
-          }
-        },
+        buildWhen: (previous, current) =>
+        previous.requestState != current.requestState,
         builder: (context, state) {
           switch (state.requestState) {
             case RequestState.initial:

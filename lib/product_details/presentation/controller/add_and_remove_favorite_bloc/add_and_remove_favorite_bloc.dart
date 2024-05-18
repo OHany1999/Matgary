@@ -12,13 +12,9 @@ class AddAndRemoveFavoriteBloc extends Bloc<AddFavoriteEvent, AddFavoriteState> 
     on<GetAddFavoriteEvent>(_getAddFavorite);
   }
 
-  FutureOr<void> _getAddFavorite(
-      GetAddFavoriteEvent event, Emitter<AddFavoriteState> emit) async {
-    emit(state.copyWith(
-        addFavoriteRequestState: AddFavoriteRequestState.loading));
-
-    final result =
-        await addFavoriteUseCase(AddFavoriteParameters(id: event.id));
+  FutureOr<void> _getAddFavorite(GetAddFavoriteEvent event, Emitter<AddFavoriteState> emit) async {
+    emit(state.copyWith(addFavoriteRequestState: AddFavoriteRequestState.loading));
+    final result = await addFavoriteUseCase(AddFavoriteParameters(id: event.id));
     result.fold(
       (l) => emit(state.copyWith(addErrorMessage:l.message ,addFavoriteRequestState: AddFavoriteRequestState.error)),
       (r) => emit(state.copyWith(addFavoriteEntity: r,addFavoriteRequestState: AddFavoriteRequestState.success)),
