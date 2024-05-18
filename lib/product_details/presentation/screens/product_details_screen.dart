@@ -2,8 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:matgary/core/global/shared_widgets/error_widget.dart';
-import 'package:matgary/core/global/theme/app_color/app_color_light.dart';
 import 'package:matgary/core/services/services_locator.dart';
+import 'package:matgary/favorite/data/model/favorite_list_model.dart';
+import 'package:matgary/favorite/domain/entities/favorite_list_entity.dart';
 import 'package:matgary/home/data/model/home_model.dart';
 import 'package:matgary/product_details/presentation/controller/product_details_bloc/product_details_bloc.dart';
 import 'package:matgary/product_details/presentation/controller/product_details_bloc/product_details_event.dart';
@@ -17,12 +18,13 @@ class ProductDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final arg = ModalRoute.of(context)!.settings.arguments as ProductsModel;
+
+    final arg1 = ModalRoute.of(context)!.settings.arguments as dynamic;
     return MultiBlocProvider(
       providers: [
         BlocProvider(
             create: (context) => sl<ProductDetailsBloc>()
-              ..add(GetProductDetailsEvent(id: arg.id!))),
+              ..add(GetProductDetailsEvent(id: arg1.id!))),
       ],
       child: BlocBuilder<ProductDetailsBloc, ProductDetailsState>(
         buildWhen: (previous, current) {
@@ -55,7 +57,7 @@ class ProductDetailsScreen extends StatelessWidget {
                   onRefresh: (){
                     context
                         .read<ProductDetailsBloc>()
-                        .add(GetProductDetailsEvent(id: arg.id!));
+                        .add(GetProductDetailsEvent(id: arg1.id!));
                        return Future(() => null);
                   },
                   child: SafeArea(
@@ -76,7 +78,7 @@ class ProductDetailsScreen extends StatelessWidget {
                 body: ErrorWidgetWithReload(onPress: (){
                   context
                       .read<ProductDetailsBloc>()
-                      .add(GetProductDetailsEvent(id: arg.id!));
+                      .add(GetProductDetailsEvent(id: arg1.id!));
                 }),
               );
           }

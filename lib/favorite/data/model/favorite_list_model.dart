@@ -19,11 +19,6 @@ class DataListModel extends DataListEntity {
 
   factory DataListModel.fromJson(Map<String, dynamic> json) =>
       DataListModel(
-        // banners: json['banners'] != null
-        //     ? List<BannersModel>.from(json['banners']
-        //     .map((element) => BannersModel.fromJson(element)))
-        //     : null,
-
         data: json['data'] != null ? List<DataModel>.from(
             json['data'].map((element) => DataModel.fromJson(element)))
             : null,

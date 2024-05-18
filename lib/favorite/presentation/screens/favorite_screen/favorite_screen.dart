@@ -7,6 +7,7 @@ import 'package:matgary/favorite/presentation/controller/favorite_list_bloc/favo
 import 'package:matgary/favorite/presentation/controller/favorite_list_bloc/favorite_list_event.dart';
 import 'package:matgary/favorite/presentation/controller/favorite_list_bloc/favorite_list_state.dart';
 import 'package:matgary/favorite/presentation/screens/widgets/favorite_list_card.dart';
+import 'package:matgary/product_details/presentation/screens/product_details_screen.dart';
 
 class FavoriteScreen extends StatelessWidget {
   static const routeName = '/favorite';
@@ -43,7 +44,9 @@ class FavoriteScreen extends StatelessWidget {
                         childCount: favList!.length,
                         (context, index) {
                           return GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.pushNamed(context, ProductDetailsScreen.routeName,arguments: favList[index].product);
+                            },
                             child: FavoriteListCard(favList: favList,index: index,),
                           );
                         },

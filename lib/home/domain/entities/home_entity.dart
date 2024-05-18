@@ -46,6 +46,7 @@ class BannersEntity extends Equatable{
 
 }
 
+
 class ProductsEntity extends Equatable{
   final int? id;
   final double? price;

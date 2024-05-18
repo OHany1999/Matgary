@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:matgary/home/domain/entities/home_entity.dart';
 
@@ -52,6 +51,7 @@ class BannersModel extends BannersEntity {
       );
 }
 
+
 class ProductsModel extends ProductsEntity {
   ProductsModel({
     required super.id,
@@ -67,15 +67,15 @@ class ProductsModel extends ProductsEntity {
   });
 
   factory ProductsModel.fromJson(Map<String, dynamic> json) => ProductsModel(
-        id: json['id'],
-        price: json['price'].toDouble(),
-        oldPrice: json['old_price'].toDouble(),
-        discount: json['discount'],
-        image: json['image'],
-        name: json['name'],
-        description: json['description'],
-        images: json['images'],
-        inFavorites: json['in_favorites'],
-        inCart: json['in_cart'],
-      );
+    id: json['id'],
+    price: json['price'].toDouble(),
+    oldPrice: json['old_price'].toDouble(),
+    discount: json['discount'],
+    image: json['image'],
+    name: json['name'],
+    description: json['description'],
+    images: json['images'],
+    inFavorites: json['in_favorites'],
+    inCart: json['in_cart'],
+  );
 }
