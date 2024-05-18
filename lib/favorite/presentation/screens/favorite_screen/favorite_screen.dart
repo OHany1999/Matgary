@@ -13,7 +13,8 @@ import 'package:matgary/product_details/presentation/screens/product_details_scr
 class FavoriteScreen extends StatelessWidget {
   static const routeName = '/favorite';
 
-   FavoriteScreen({super.key});
+  FavoriteScreen({super.key});
+
   List<DataEntity>? localDataEntityList = [];
 
   @override
@@ -21,9 +22,9 @@ class FavoriteScreen extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-            create: (context) => sl<FavoriteListBloc>()..add(GetFavoriteListEvent())),
-        BlocProvider(
-            create: (context) => RemoveLocalListBloc()),
+            create: (context) =>
+                sl<FavoriteListBloc>()..add(GetFavoriteListEvent())),
+        BlocProvider(create: (context) => RemoveLocalListBloc()),
       ],
       child: BlocBuilder<FavoriteListBloc, FavoriteListState>(
         builder: (context, favoriteListState) {
@@ -45,34 +46,40 @@ class FavoriteScreen extends StatelessWidget {
                 child: CustomScrollView(
                   slivers: [
                     BlocBuilder<RemoveLocalListBloc, RemoveLocalListState>(
-  builder: (context, state) {
-    return SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        childCount: localDataEntityList!.length,
-                        (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(context, ProductDetailsScreen.routeName,arguments: localDataEntityList![index].product);
+                      builder: (context, state) {
+                        return SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                            childCount: localDataEntityList!.length,
+                            (context, index) {
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                      context, ProductDetailsScreen.routeName,
+                                      arguments:
+                                          localDataEntityList![index].product);
+                                },
+                                child: FavoriteListCard(
+                                  localDataEntityList: localDataEntityList,
+                                  index: index,
+                                ),
+                              );
                             },
-                            child: FavoriteListCard(localDataEntityList: localDataEntityList,index: index,),
-                          );
-                        },
-                      ),
-                    );
-  },
-),
+                          ),
+                        );
+                      },
+                    ),
                   ],
                 ),
               );
             case FavoriteListRequestState.error:
-              return ErrorWidgetWithReload(onPress: (){
-                context.read<FavoriteListBloc>().add(GetFavoriteListEvent());
-              },);
+              return ErrorWidgetWithReload(
+                onPress: () {
+                  context.read<FavoriteListBloc>().add(GetFavoriteListEvent());
+                },
+              );
           }
         },
       ),
     );
   }
 }
-
-
