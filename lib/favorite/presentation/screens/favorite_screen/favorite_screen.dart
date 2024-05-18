@@ -7,6 +7,8 @@ import 'package:matgary/favorite/domain/entities/favorite_list_entity.dart';
 import 'package:matgary/favorite/presentation/controller/favorite_list_bloc/favorite_list_bloc.dart';
 import 'package:matgary/favorite/presentation/controller/favorite_list_bloc/favorite_list_event.dart';
 import 'package:matgary/favorite/presentation/controller/favorite_list_bloc/favorite_list_state.dart';
+import 'package:matgary/favorite/presentation/controller/remove_local_list_bloc/remove_local_list_bloc.dart';
+import 'package:matgary/favorite/presentation/controller/remove_local_list_bloc/remove_local_list_state.dart';
 import 'package:matgary/favorite/presentation/screens/widgets/favorite_list_card.dart';
 import 'package:matgary/product_details/presentation/screens/product_details_screen.dart';
 

@@ -4,8 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:matgary/core/global/shared_widgets/elvated_bottom.dart';
 import 'package:matgary/favorite/domain/entities/favorite_list_entity.dart';
-import 'package:matgary/favorite/presentation/controller/favorite_list_bloc/favorite_list_bloc.dart';
-import 'package:matgary/favorite/presentation/controller/favorite_list_bloc/favorite_list_state.dart';
+import 'package:matgary/favorite/presentation/controller/remove_local_list_bloc/remove_local_list_bloc.dart';
 
 class FavoriteListCard extends StatelessWidget {
   final List<DataEntity>? localDataEntityList;

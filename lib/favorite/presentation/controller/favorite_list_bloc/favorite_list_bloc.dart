@@ -30,16 +30,3 @@ class FavoriteListBloc extends Bloc<FavoriteListEvent, FavoriteListState> {
   }
 }
 
-//////////////////////////////////////////////////////////
-class RemoveLocalListBloc extends Bloc<String, RemoveLocalListState> {
-  RemoveLocalListBloc() : super(const RemoveLocalListState()) {
-    on<String>(_removeLocalList);
-  }
-
-  FutureOr<void> _removeLocalList(
-      String event, Emitter<RemoveLocalListState> emit) {
-    if (event == 'localRemove') {
-      emit(RemoveLocalListState(removeLocalState: !state.removeLocalState));
-    }
-  }
-}
