@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:matgary/core/global/shared_widgets/error_widget.dart';
 import 'package:matgary/core/global/theme/app_color/app_color_light.dart';
 import 'package:matgary/core/services/services_locator.dart';
 import 'package:matgary/home/data/model/home_model.dart';
@@ -50,57 +51,33 @@ class ProductDetailsScreen extends StatelessWidget {
             case ProductDetailsRequestState.success:
               print('network is fav :${state.productDetailsEntity!.data!.inFavorites}');
               return Scaffold(
-                body: SafeArea(
-                  child: CustomScrollView(
-                    slivers: [
-                      SliverToBoxAdapter(
-                        child: AddCartImageWidget(
-                          productDetailsEntity: state.productDetailsEntity,
+                body: RefreshIndicator(
+                  onRefresh: (){
+                    context
+                        .read<ProductDetailsBloc>()
+                        .add(GetProductDetailsEvent(id: arg.id!));
+                       return Future(() => null);
+                  },
+                  child: SafeArea(
+                    child: CustomScrollView(
+                      slivers: [
+                        SliverToBoxAdapter(
+                          child: AddCartImageWidget(
+                            productDetailsEntity: state.productDetailsEntity,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               );
             case ProductDetailsRequestState.error:
-              print(state.productDetailsMessage);
               return Scaffold(
-                body: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'ooops!',
-                        style: Theme.of(context).textTheme.headlineLarge,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                        width: 150,
-                        height: 70,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColorsLight.orangeColor3,
-                          ),
-                          onPressed: () {
-                            context
-                                .read<ProductDetailsBloc>()
-                                .add(GetProductDetailsEvent(id: arg.id!));
-                          },
-                          child: Text(
-                            'Reload',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(fontSize: 20),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                body: ErrorWidgetWithReload(onPress: (){
+                  context
+                      .read<ProductDetailsBloc>()
+                      .add(GetProductDetailsEvent(id: arg.id!));
+                }),
               );
           }
         },

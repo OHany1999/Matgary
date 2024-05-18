@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:matgary/core/global/shared_widgets/error_widget.dart';
 import 'package:matgary/core/global/theme/app_color/app_color_light.dart';
 import 'package:matgary/core/services/services_locator.dart';
 import 'package:matgary/core/utils/enum.dart';
@@ -91,40 +92,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               );
             case RequestState.error:
-              return SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'ooops!',
-                      style: Theme.of(context).textTheme.headlineLarge,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      width: 150,
-                      height: 70,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColorsLight.orangeColor3,
-                        ),
-                        onPressed: () {
-                          context.read<HomeBloc>().add(const GetHomeEvent());
-                        },
-                        child: Text(
-                          'Reload',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(fontSize: 20),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
+              return ErrorWidgetWithReload(onPress: (){context.read<HomeBloc>().add(const GetHomeEvent());});
           }
         },
       ),
