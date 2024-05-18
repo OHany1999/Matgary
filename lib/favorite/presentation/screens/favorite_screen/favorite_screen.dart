@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:matgary/core/global/shared_widgets/error_widget.dart';
 import 'package:matgary/core/global/theme/app_color/app_color_light.dart';
 import 'package:matgary/core/services/services_locator.dart';
+import 'package:matgary/favorite/domain/entities/favorite_list_entity.dart';
 import 'package:matgary/favorite/presentation/controller/favorite_list_bloc/favorite_list_bloc.dart';
 import 'package:matgary/favorite/presentation/controller/favorite_list_bloc/favorite_list_event.dart';
 import 'package:matgary/favorite/presentation/controller/favorite_list_bloc/favorite_list_state.dart';
@@ -12,15 +13,17 @@ import 'package:matgary/product_details/presentation/screens/product_details_scr
 class FavoriteScreen extends StatelessWidget {
   static const routeName = '/favorite';
 
-  const FavoriteScreen({super.key});
+   FavoriteScreen({super.key});
+  List<DataEntity>? localDataEntityList = [];
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-            create: (context) =>
-                sl<FavoriteListBloc>()..add(GetFavoriteListEvent())),
+            create: (context) => sl<FavoriteListBloc>()..add(GetFavoriteListEvent())),
+        BlocProvider(
+            create: (context) => RemoveLocalListBloc()),
       ],
       child: BlocBuilder<FavoriteListBloc, FavoriteListState>(
         builder: (context, favoriteListState) {
@@ -31,6 +34,8 @@ class FavoriteScreen extends StatelessWidget {
               return const Center(child: CircularProgressIndicator());
             case FavoriteListRequestState.success:
               final favList = favoriteListState.favoriteListEntity!.data!.data;
+              localDataEntityList = favList;
+              print('localDataLenght : ${localDataEntityList!.length}');
               return RefreshIndicator(
                 color: AppColorsLight.orangeColor3,
                 onRefresh: () {
@@ -39,19 +44,23 @@ class FavoriteScreen extends StatelessWidget {
                 },
                 child: CustomScrollView(
                   slivers: [
-                    SliverList(
+                    BlocBuilder<RemoveLocalListBloc, RemoveLocalListState>(
+  builder: (context, state) {
+    return SliverList(
                       delegate: SliverChildBuilderDelegate(
-                        childCount: favList!.length,
+                        childCount: localDataEntityList!.length,
                         (context, index) {
                           return GestureDetector(
                             onTap: () {
-                              Navigator.pushNamed(context, ProductDetailsScreen.routeName,arguments: favList[index].product);
+                              Navigator.pushNamed(context, ProductDetailsScreen.routeName,arguments: localDataEntityList![index].product);
                             },
-                            child: FavoriteListCard(favList: favList,index: index,),
+                            child: FavoriteListCard(localDataEntityList: localDataEntityList,index: index,),
                           );
                         },
                       ),
-                    ),
+                    );
+  },
+),
                   ],
                 ),
               );

@@ -14,15 +14,32 @@ class FavoriteListBloc extends Bloc<FavoriteListEvent, FavoriteListState> {
     on<GetFavoriteListEvent>(_getFavoriteList);
   }
 
-
   FutureOr<void> _getFavoriteList(
       GetFavoriteListEvent event, Emitter<FavoriteListState> emit) async {
     emit(state.copyWith(
         favoriteListRequestState: FavoriteListRequestState.loading));
     final result = await getFavoriteListUseCase(const NoParameters());
     result.fold(
-      (l) => emit(state.copyWith(favoriteListErrorMessage: l.message,favoriteListRequestState: FavoriteListRequestState.error)),
-      (r) => emit(state.copyWith(favoriteListEntity: r,favoriteListRequestState: FavoriteListRequestState.success)),
+      (l) => emit(state.copyWith(
+          favoriteListErrorMessage: l.message,
+          favoriteListRequestState: FavoriteListRequestState.error)),
+      (r) => emit(state.copyWith(
+          favoriteListEntity: r,
+          favoriteListRequestState: FavoriteListRequestState.success)),
     );
+  }
+}
+
+//////////////////////////////////////////////////////////
+class RemoveLocalListBloc extends Bloc<String, RemoveLocalListState> {
+  RemoveLocalListBloc() : super(const RemoveLocalListState()) {
+    on<String>(_removeLocalList);
+  }
+
+  FutureOr<void> _removeLocalList(
+      String event, Emitter<RemoveLocalListState> emit) {
+    if (event == 'localRemove') {
+      emit(RemoveLocalListState(removeLocalState: !state.removeLocalState));
+    }
   }
 }

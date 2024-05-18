@@ -32,6 +32,7 @@ class LoginState extends Equatable {
   List<Object?> get props => [loginEntity, requestState, loginMessage];
 }
 
+/////////////////////////////////////////////////
 
 class PasswordObscureState extends Equatable {
   final bool obscurePassword ;

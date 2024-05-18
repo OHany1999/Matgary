@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:matgary/favorite/domain/entities/favorite_list_entity.dart';
-import 'package:matgary/product_details/domain/entities/add_favorite_entity.dart';
 
 
 
@@ -46,5 +45,20 @@ class FavoriteListState extends Equatable {
 }
 
 
+
+
+////////////////////////////
+class RemoveLocalListState extends Equatable {
+  final bool removeLocalState ;
+
+
+  const RemoveLocalListState({this.removeLocalState = true});
+
+
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [removeLocalState];
+}
 
 
