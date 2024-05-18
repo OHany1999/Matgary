@@ -36,7 +36,7 @@ class FavoriteScreen extends StatelessWidget {
             case FavoriteListRequestState.success:
               final favList = favoriteListState.favoriteListEntity!.data!.data;
               localDataEntityList = favList;
-              print('localDataLenght : ${localDataEntityList!.length}');
+              print('localDataLength : ${localDataEntityList!.length}');
               return RefreshIndicator(
                 color: AppColorsLight.orangeColor3,
                 onRefresh: () {
