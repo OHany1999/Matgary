@@ -6,6 +6,7 @@ import 'package:matgary/favorite/data/datasource/favorite_list_remote_data_sourc
 import 'package:matgary/favorite/data/repository/favorite_list_repository.dart';
 import 'package:matgary/favorite/domain/repository/base_favorite_list_repository.dart';
 import 'package:matgary/favorite/domain/usecase/favorite_list_usecase.dart';
+import 'package:matgary/favorite/presentation/controller/delete_favorite_bloc/delete_favorite_bloc.dart';
 import 'package:matgary/favorite/presentation/controller/favorite_list_bloc/favorite_list_bloc.dart';
 import 'package:matgary/home/data/datasource/home_remote_data_source.dart';
 import 'package:matgary/home/data/repository/home_repository.dart';
@@ -36,7 +37,8 @@ class ServicesLocator {
     sl.registerFactory(() => ProductDetailsBloc(sl()));
     sl.registerFactory(() => AddAndRemoveFavoriteBloc(sl()));
     sl.registerFactory(() => FavoriteListBloc(sl()));
-
+    sl.registerFactory(() => DeleteFavoriteBloc(sl()));
+///////////////////////////////////////////////////////////////
     // SharedPreferences instance
     final sharedPreferences = await SharedPreferences.getInstance();
     sl.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
@@ -45,9 +47,14 @@ class ServicesLocator {
     // final appPreferences = AppPreferences(instance());
     sl.registerLazySingleton<AppPreferences>(() => AppPreferences(sl()));
 
-    ///NetworkInfo instance
-    sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(InternetConnectionChecker()));
-    // print("${GetIt.I.isRegistered<NetworkInfo>()} " + "NetworkInfo");
+
+    /////////////////////////////////////////////////////////
+
+    // deleteFavorite
+    sl.registerLazySingleton(() => DeleteFavoriteUseCase(sl()));
+    /// Repository For  deleteFavorite  with favoriteList
+    /// DATA SOURCE For deleteFavorite  with favoriteList
+    /// already exist
 
 
   //////////////////////////////////////////////////////////

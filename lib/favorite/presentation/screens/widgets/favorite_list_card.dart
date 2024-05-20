@@ -4,9 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:matgary/core/global/shared_widgets/elvated_bottom.dart';
 import 'package:matgary/favorite/domain/entities/favorite_list_entity.dart';
+import 'package:matgary/favorite/presentation/controller/delete_favorite_bloc/delete_favorite_bloc.dart';
+import 'package:matgary/favorite/presentation/controller/delete_favorite_bloc/delete_favorite_event.dart';
+import 'package:matgary/favorite/presentation/controller/delete_favorite_bloc/delete_favorite_state.dart';
 import 'package:matgary/favorite/presentation/controller/remove_local_list_bloc/remove_local_list_bloc.dart';
 
 class FavoriteListCard extends StatelessWidget {
+
   final List<DataEntity>? localDataEntityList;
   final int index;
 
@@ -15,6 +19,7 @@ class FavoriteListCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Card(
       margin: const EdgeInsets.only(top: 20, left: 10, right: 10),
       color: Colors.white,
@@ -51,17 +56,18 @@ class FavoriteListCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 IconButton(
-                  onPressed: () {
-                    localDataEntityList!.removeWhere((element) =>
-                    element.product!.id ==
-                        localDataEntityList![index].product!.id);
-                    print(
-                        'length after remove ${localDataEntityList!.length} ');
-                    context.read<RemoveLocalListBloc>().add('localRemove');
-                    print(context
-                        .read<RemoveLocalListBloc>()
-                        .state
-                        .removeLocalState);
+                  onPressed: (){
+                    try{
+                      var deleteFavoriteBloc = context.read<DeleteFavoriteBloc>();
+                      deleteFavoriteBloc.add(GetDeleteFavoriteEvent(id: localDataEntityList![index].id!));
+                      print( deleteFavoriteBloc.state.deleteFavoriteEntity!.message);
+                      localDataEntityList!.removeWhere((element) => element.product!.id == localDataEntityList![index].product!.id);
+                      context.read<RemoveLocalListBloc>().add('localRemove');
+
+                    }catch(error){
+                      print(error.hashCode);
+                    }
+
                   },
                   icon: const Icon(
                     Icons.delete_forever,

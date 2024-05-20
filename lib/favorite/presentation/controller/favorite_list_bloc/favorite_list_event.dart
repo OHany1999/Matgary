@@ -7,7 +7,6 @@ abstract class FavoriteListEvent extends Equatable {
 }
 
 class GetFavoriteListEvent extends FavoriteListEvent {
-
   @override
   List<Object?> get props => [];
 }

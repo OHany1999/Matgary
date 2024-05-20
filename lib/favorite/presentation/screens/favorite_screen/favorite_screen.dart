@@ -4,6 +4,8 @@ import 'package:matgary/core/global/shared_widgets/error_widget.dart';
 import 'package:matgary/core/global/theme/app_color/app_color_light.dart';
 import 'package:matgary/core/services/services_locator.dart';
 import 'package:matgary/favorite/domain/entities/favorite_list_entity.dart';
+import 'package:matgary/favorite/presentation/controller/delete_favorite_bloc/delete_favorite_bloc.dart';
+import 'package:matgary/favorite/presentation/controller/delete_favorite_bloc/delete_favorite_state.dart';
 import 'package:matgary/favorite/presentation/controller/favorite_list_bloc/favorite_list_bloc.dart';
 import 'package:matgary/favorite/presentation/controller/favorite_list_bloc/favorite_list_event.dart';
 import 'package:matgary/favorite/presentation/controller/favorite_list_bloc/favorite_list_state.dart';
@@ -27,6 +29,7 @@ class FavoriteScreen extends StatelessWidget {
             create: (context) =>
                 sl<FavoriteListBloc>()..add(GetFavoriteListEvent())),
         BlocProvider(create: (context) => RemoveLocalListBloc()),
+        BlocProvider(create: (context) => sl<DeleteFavoriteBloc>()),
       ],
       child: BlocBuilder<FavoriteListBloc, FavoriteListState>(
         builder: (context, favoriteListState) {
@@ -47,26 +50,31 @@ class FavoriteScreen extends StatelessWidget {
                 },
                 child: CustomScrollView(
                   slivers: [
-                    BlocBuilder<RemoveLocalListBloc, RemoveLocalListState>(
+                    BlocBuilder<DeleteFavoriteBloc, DeleteFavoriteState>(
                       builder: (context, state) {
-                        return SliverList(
-                          delegate: SliverChildBuilderDelegate(
-                            childCount: localDataEntityList!.length,
-                            (context, index) {
-                              return GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                      context, ProductDetailsScreen.routeName,
-                                      arguments:
-                                          localDataEntityList![index].product);
+                        return BlocBuilder<RemoveLocalListBloc,
+                            RemoveLocalListState>(
+                          builder: (context, state) {
+                            return SliverList(
+                              delegate: SliverChildBuilderDelegate(
+                                childCount: localDataEntityList!.length,
+                                (context, index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Navigator.pushNamed(context,
+                                          ProductDetailsScreen.routeName,
+                                          arguments: localDataEntityList![index]
+                                              .product);
+                                    },
+                                    child: FavoriteListCard(
+                                      localDataEntityList: localDataEntityList,
+                                      index: index,
+                                    ),
+                                  );
                                 },
-                                child: FavoriteListCard(
-                                  localDataEntityList: localDataEntityList,
-                                  index: index,
-                                ),
-                              );
-                            },
-                          ),
+                              ),
+                            );
+                          },
                         );
                       },
                     ),
