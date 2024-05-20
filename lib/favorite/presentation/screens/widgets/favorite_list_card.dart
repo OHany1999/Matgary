@@ -19,7 +19,8 @@ class FavoriteListCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    var deleteFavoriteBloc = context.read<DeleteFavoriteBloc>();
+    print(deleteFavoriteBloc.state.deleteFavoriteRequestState);
     return Card(
       margin: const EdgeInsets.only(top: 20, left: 10, right: 10),
       color: Colors.white,
@@ -57,16 +58,11 @@ class FavoriteListCard extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: (){
-                    try{
-                      var deleteFavoriteBloc = context.read<DeleteFavoriteBloc>();
-                      deleteFavoriteBloc.add(GetDeleteFavoriteEvent(id: localDataEntityList![index].id!));
-                      print( deleteFavoriteBloc.state.deleteFavoriteEntity!.message);
+
                       localDataEntityList!.removeWhere((element) => element.product!.id == localDataEntityList![index].product!.id);
                       context.read<RemoveLocalListBloc>().add('localRemove');
 
-                    }catch(error){
-                      print(error.hashCode);
-                    }
+                      deleteFavoriteBloc.add(GetDeleteFavoriteEvent(id: localDataEntityList![index].id!));
 
                   },
                   icon: const Icon(

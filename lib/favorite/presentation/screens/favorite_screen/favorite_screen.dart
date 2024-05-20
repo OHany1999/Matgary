@@ -50,31 +50,26 @@ class FavoriteScreen extends StatelessWidget {
                 },
                 child: CustomScrollView(
                   slivers: [
-                    BlocBuilder<DeleteFavoriteBloc, DeleteFavoriteState>(
+                    BlocBuilder<RemoveLocalListBloc, RemoveLocalListState>(
                       builder: (context, state) {
-                        return BlocBuilder<RemoveLocalListBloc,
-                            RemoveLocalListState>(
-                          builder: (context, state) {
-                            return SliverList(
-                              delegate: SliverChildBuilderDelegate(
-                                childCount: localDataEntityList!.length,
-                                (context, index) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      Navigator.pushNamed(context,
-                                          ProductDetailsScreen.routeName,
-                                          arguments: localDataEntityList![index]
-                                              .product);
-                                    },
-                                    child: FavoriteListCard(
-                                      localDataEntityList: localDataEntityList,
-                                      index: index,
-                                    ),
-                                  );
+                        return SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                            childCount: localDataEntityList!.length,
+                            (context, index) {
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(context,
+                                      ProductDetailsScreen.routeName,
+                                      arguments: localDataEntityList![index]
+                                          .product);
                                 },
-                              ),
-                            );
-                          },
+                                child: FavoriteListCard(
+                                  localDataEntityList: localDataEntityList,
+                                  index: index,
+                                ),
+                              );
+                            },
+                          ),
                         );
                       },
                     ),
