@@ -17,8 +17,7 @@ abstract class BaseProductDetailsRemoteDataSource {
       AddFavoriteParameters addFavoriteParameters);
 }
 
-class ProductDetailsRemoteDataSource
-    extends BaseProductDetailsRemoteDataSource {
+class ProductDetailsRemoteDataSource extends BaseProductDetailsRemoteDataSource {
   @override
   Future<ProductDetailsModel> getProductDetailsData(
       ProductDetailsParameters productDetailsParameters) async {
@@ -35,8 +34,7 @@ class ProductDetailsRemoteDataSource
   }
 
   @override
-  Future<AddFavoriteModel> getAddFavoriteData(
-      AddFavoriteParameters addFavoriteParameters) async{
+  Future<AddFavoriteModel> getAddFavoriteData(AddFavoriteParameters addFavoriteParameters) async{
     Dio dio = Dio();
     final response = await dio.post(
       ApiConstance.addAndRemoveFavoritesPath,
