@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:matgary/core/global/shared_widgets/error_widget.dart';
@@ -43,11 +42,10 @@ class HomeScreen extends StatelessWidget {
               );
             case RequestState.loading:
               if (productListtt!.isNotEmpty && bannertListtt!.isNotEmpty) {
-                print('##########');
                 return CustomScrollView(
                   scrollDirection: Axis.vertical,
                   slivers: [
-                    SliverToBoxAdapter(child: LinearProgressIndicator(),),
+                    const SliverToBoxAdapter(child: LinearProgressIndicator(),),
                     SliverToBoxAdapter(
                       child: BannersWidget(
                         myList: bannertListtt,
@@ -63,7 +61,6 @@ class HomeScreen extends StatelessWidget {
               }
 
             case RequestState.success:
-              print('************');
               var bannerList = state.homeEntity!.data!.banners;
               var productList = state.homeEntity!.data!.products;
               productListtt = productList;

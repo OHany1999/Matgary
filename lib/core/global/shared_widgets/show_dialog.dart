@@ -30,23 +30,22 @@ class GlobalShowDialog {
                 Text(
                   titleText,
                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      color: AppColorsLight.orangeColor3,
+                      color: Colors.grey.shade600,
                       fontSize: 30,
-                      fontWeight: FontWeight.bold),
+                      fontWeight: FontWeight.bold
+                  ),
                 ),
                 Container(
+                  margin: EdgeInsets.only(bottom: 15),
                   width: 200.w,
-                  height: 60.h,
                   child: Text(
                     questionText,
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                         color: AppColorsLight.orangeColor3, fontSize: 20),
                     maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center,
                   ),
-                ),
-                SizedBox(
-                  height: 20,
                 ),
                 GlobalElevatedButton(
                   onPress: onPressForAccept,

@@ -15,7 +15,12 @@ class LoginRemoteDataSource extends BaseLoginRemoteDataSource {
     final response = await dio.post(
       ApiConstance.loginPath,
       data: {"email": loginParameters.email, "password": loginParameters.password},
-      queryParameters: {'Content-Type': 'application/json'},
+      options: Options(
+        headers: {
+          'lang': 'ar',
+          'Content-Type': 'application/json',
+        },
+      ),
     );
       return LoginModel.fromJson(response.data);
 

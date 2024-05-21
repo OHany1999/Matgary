@@ -17,8 +17,8 @@ final BaseLoginRemoteDataSource baseLoginRemoteDataSource;
     try{
       final result = await baseLoginRemoteDataSource.getLoginData(loginParameters);
       return Right(result);
-    }catch (error){
-      return Left(ErrorHandler.handle(error).failure);
+    }on Exception catch(error){
+      return left(Failure(error.hashCode, error.toString()));
     }
 
   }

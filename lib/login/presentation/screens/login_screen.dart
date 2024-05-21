@@ -97,10 +97,7 @@ class LoginScreen extends StatelessWidget {
                     listenWhen: (previous, current) =>
                         previous.requestState != current.requestState,
                     builder: (context, state) {
-                      print(state.hashCode);
                       print(state.requestState);
-                      print(state.loginEntity);
-                      print(state.loginMessage);
                       switch (state.requestState) {
                         case RequestState.initial:
                           return GlobalElevatedButton(onPress: () {

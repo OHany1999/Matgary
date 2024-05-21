@@ -60,19 +60,24 @@ class FavoriteListCard extends StatelessWidget {
                     GlobalShowDialog dialog = GlobalShowDialog(
                       titleText: 'حذف المنتج',
                       questionText: 'هل تريد حذف ذلك المنتج من قائمة المفضلة ؟',
-                      onPressForAccept: (){},
-                      onPressForRefuse: (){},
+                      onPressForAccept: (){
+                        var deleteFavoriteBloc = context.read<DeleteFavoriteBloc>();
+                        deleteFavoriteBloc.add(GetDeleteFavoriteEvent(
+                            id: localDataEntityList![index].id!));
+                        // local list remove
+                        localDataEntityList!.removeWhere((element) =>
+                        element.product!.id ==
+                            localDataEntityList![index].product!.id);
+                        context.read<RemoveLocalListBloc>().add('localRemove');
+                        Navigator.pop(context);
+                      },
+                      onPressForRefuse: (){
+                        Navigator.pop(context);
+                      },
                     );
                     dialog.globalShowDialog(context);
                     // from api
-                    // var deleteFavoriteBloc = context.read<DeleteFavoriteBloc>();
-                    // deleteFavoriteBloc.add(GetDeleteFavoriteEvent(
-                    //     id: localDataEntityList![index].id!));
-                    // // local list remove
-                    // localDataEntityList!.removeWhere((element) =>
-                    //     element.product!.id ==
-                    //     localDataEntityList![index].product!.id);
-                    // context.read<RemoveLocalListBloc>().add('localRemove');
+
                   },
                   icon: const Icon(
                     Icons.delete_forever,

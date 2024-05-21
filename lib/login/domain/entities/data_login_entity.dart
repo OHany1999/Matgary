@@ -7,7 +7,7 @@ class DataLoginEntity extends Equatable {
   final String? phone;
   final String? image;
   final int? points;
-  final int? credit;
+  final dynamic credit;
   final String? token;
 
   const DataLoginEntity({

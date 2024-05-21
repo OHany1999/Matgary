@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:matgary/category/presentation/screens/category_screen/category_screen.dart';
 import 'package:matgary/core/global/app_shared_pref.dart';
+import 'package:matgary/core/global/shared_widgets/show_dialog.dart';
 import 'package:matgary/core/global/theme/app_color/app_color_light.dart';
 import 'package:matgary/core/services/services_locator.dart';
 import 'package:matgary/favorite/presentation/screens/favorite_screen/favorite_screen.dart';
@@ -15,6 +16,7 @@ import 'package:matgary/login/presentation/screens/login_screen.dart';
 class NavBarScreen extends StatelessWidget {
   static const routeName = '/navBar';
   final AppPreferences _appPref = sl<AppPreferences>();
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -29,8 +31,19 @@ class NavBarScreen extends StatelessWidget {
               actions: [
                 IconButton(
                     onPressed: () {
-                      _appPref.clearToken();
-                      Navigator.popAndPushNamed(context, LoginScreen.routeName);
+                      GlobalShowDialog global = GlobalShowDialog(
+                        titleText: 'تسجيل الخروج',
+                        questionText: 'هل تريد تأكيد تسجيل الخروج ؟',
+                        onPressForAccept: (){
+                          _appPref.clearToken();
+                          Navigator.pushNamedAndRemoveUntil(context, LoginScreen.routeName, (Route<dynamic> route) => false,);
+                        },
+                        onPressForRefuse: (){
+                          Navigator.pop(context);
+                        },
+                      );
+                      global.globalShowDialog(context);
+
                     },
                     icon: const Icon(
                       Icons.logout,
@@ -42,15 +55,15 @@ class NavBarScreen extends StatelessWidget {
               selectedItemColor: AppColorsLight.orangeColor3,
               items: const <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.favorite,size: 30),
+                  icon: Icon(Icons.favorite, size: 30),
                   label: 'المفضلة',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.category,size: 30),
+                  icon: Icon(Icons.category, size: 30),
                   label: 'فئات',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.home,size: 30),
+                  icon: Icon(Icons.home, size: 30),
                   label: 'الرئيسية',
                 ),
               ],
@@ -68,8 +81,8 @@ class NavBarScreen extends StatelessWidget {
 
   List<Widget> homeWidget = [
     FavoriteScreen(),
-     CategoryScreen(),
-     HomeScreen(),
+    CategoryScreen(),
+    HomeScreen(),
   ];
 }
 
