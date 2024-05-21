@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:matgary/core/global/shared_widgets/error_widget.dart';
 import 'package:matgary/core/global/theme/app_color/app_color_light.dart';
+import 'package:matgary/core/global/toast/toast.dart';
 import 'package:matgary/core/services/services_locator.dart';
 import 'package:matgary/favorite/domain/entities/favorite_list_entity.dart';
 import 'package:matgary/favorite/presentation/controller/delete_favorite_bloc/delete_favorite_bloc.dart';
@@ -27,7 +28,8 @@ class FavoriteScreen extends StatelessWidget {
       providers: [
         BlocProvider(
             create: (context) =>
-                sl<FavoriteListBloc>()..add(GetFavoriteListEvent())),
+            sl<FavoriteListBloc>()
+              ..add(GetFavoriteListEvent())),
         BlocProvider(create: (context) => RemoveLocalListBloc()),
         BlocProvider(create: (context) => sl<DeleteFavoriteBloc>()),
       ],
@@ -50,29 +52,41 @@ class FavoriteScreen extends StatelessWidget {
                 },
                 child: CustomScrollView(
                   slivers: [
-                    BlocBuilder<RemoveLocalListBloc, RemoveLocalListState>(
-                      builder: (context, state) {
-                        return SliverList(
-                          delegate: SliverChildBuilderDelegate(
-                            childCount: localDataEntityList!.length,
-                            (context, index) {
-                              return GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamed(context,
-                                      ProductDetailsScreen.routeName,
-                                      arguments: localDataEntityList![index]
-                                          .product);
-                                },
-                                child: FavoriteListCard(
-                                  localDataEntityList: localDataEntityList,
-                                  index: index,
-                                ),
-                              );
-                            },
+                    BlocConsumer<DeleteFavoriteBloc,DeleteFavoriteState>(
+                      builder: (context, state) => SliverList(
+                            delegate: SliverChildBuilderDelegate(
+                              childCount: localDataEntityList!.length,
+                                  (context, index) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushNamed(context,
+                                        ProductDetailsScreen.routeName,
+                                        arguments: localDataEntityList![index]
+                                            .product);
+                                  },
+                                  child: FavoriteListCard(
+                                    localDataEntityList: localDataEntityList,
+                                    index: index,
+                                  ),
+                                );
+                              },
+                            ),
                           ),
-                        );
+                      listener: (context,state){
+                        switch(state.deleteFavoriteRequestState){
+                          case DeleteFavoriteRequestState.initial:
+                            print('intial state r');
+                          case DeleteFavoriteRequestState.loading:
+                            print('loading state r');
+                          case DeleteFavoriteRequestState.success:
+                            ToastMessages.showToast(message: state.deleteFavoriteEntity!.message!,);
+                          case DeleteFavoriteRequestState.error:
+                            ToastMessages.showToast(message: 'هناك خطأ في الاتصال',backGroundColor: Colors.redAccent);
+                        }
                       },
                     ),
+
+
                   ],
                 ),
               );
@@ -88,3 +102,5 @@ class FavoriteScreen extends StatelessWidget {
     );
   }
 }
+
+

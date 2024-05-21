@@ -46,8 +46,8 @@ class DataEntity extends Equatable{
 
 class ProductEntity extends Equatable{
   int? id;
-  int? price;
-  int? oldPrice;
+  dynamic price;
+  dynamic oldPrice;
   int? discount;
   String? image;
   String? name;
