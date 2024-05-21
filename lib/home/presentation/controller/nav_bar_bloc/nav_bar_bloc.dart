@@ -4,7 +4,7 @@ import 'package:matgary/home/presentation/controller/nav_bar_bloc/nav_bar_event.
 import 'package:matgary/home/presentation/controller/nav_bar_bloc/nav_bar_state.dart';
 
 class BottomNavigationBloc extends Bloc<BaseTabChangeEvent, BottomNavigationState> {
-  BottomNavigationBloc():super(const BottomNavigationState(selectedIndex: 0)){
+  BottomNavigationBloc():super(const BottomNavigationState(selectedIndex: 2)){
     on<BaseTabChangeEvent>(_changeIndex);
   }
 

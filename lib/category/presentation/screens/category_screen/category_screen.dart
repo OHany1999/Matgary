@@ -9,13 +9,8 @@ class CategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('rebuilllllllllllllllllllllllllllllllld catt');
-    return  Center(
-      child: Column(
-        children: [
-          Text('Category'),
-          TextField(style: TextStyle(color: Colors.black),),
-        ],
-      ),
+    return   Center(
+      child: Text('قريبا',style: Theme.of(context).textTheme.headlineLarge,),
     );
   }
 

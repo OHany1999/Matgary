@@ -42,16 +42,16 @@ class NavBarScreen extends StatelessWidget {
               selectedItemColor: AppColorsLight.orangeColor3,
               items: const <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  label: 'Home',
+                  icon: Icon(Icons.favorite,size: 30),
+                  label: 'المفضلة',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.category),
-                  label: 'category',
+                  icon: Icon(Icons.category,size: 30),
+                  label: 'فئات',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.favorite),
-                  label: 'favorite',
+                  icon: Icon(Icons.home,size: 30),
+                  label: 'الرئيسية',
                 ),
               ],
               currentIndex: state.selectedIndex,
@@ -67,9 +67,9 @@ class NavBarScreen extends StatelessWidget {
   }
 
   List<Widget> homeWidget = [
+    FavoriteScreen(),
+     CategoryScreen(),
      HomeScreen(),
-    const CategoryScreen(),
-     FavoriteScreen(),
   ];
 }
 
