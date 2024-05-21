@@ -43,7 +43,6 @@ class FavoriteScreen extends StatelessWidget {
             case FavoriteListRequestState.success:
               final favList = favoriteListState.favoriteListEntity!.data!.data;
               localDataEntityList = favList;
-              print('localDataLength : ${localDataEntityList!.length}');
               return RefreshIndicator(
                 color: AppColorsLight.orangeColor3,
                 onRefresh: () {
@@ -64,7 +63,7 @@ class FavoriteScreen extends StatelessWidget {
                                         arguments: localDataEntityList![index]
                                             .product);
                                   },
-                                  child: FavoriteListCard(
+                                  child:FavoriteListCard(
                                     localDataEntityList: localDataEntityList,
                                     index: index,
                                   ),
