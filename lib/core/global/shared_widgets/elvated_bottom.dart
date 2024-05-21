@@ -7,6 +7,8 @@ class GlobalElevatedButton extends StatelessWidget {
   final Size? bottomSize;
   final EdgeInsetsGeometry? bottomPadding;
   final String bottomText;
+  final double? fontSize;
+
 
   const GlobalElevatedButton({super.key,
     required this.onPress,
@@ -14,6 +16,7 @@ class GlobalElevatedButton extends StatelessWidget {
     this.bottomSize= const Size(325, 55),
     this.bottomPadding=const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
     this.bottomText="Log in",
+    this.fontSize = 16,
   });
 
   @override
@@ -28,7 +31,7 @@ class GlobalElevatedButton extends StatelessWidget {
       ),
       child: Text(
         bottomText,
-        style: Theme.of(context).textTheme.bodyLarge,
+        style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: fontSize),
       ),
     );
   }
