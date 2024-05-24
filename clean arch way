@@ -6,12 +6,12 @@ Domain Folder
 
 import 'package:equatable/equatable.dart';
 
-  class HomeEntity extends Equatable{
+  class TestEntity extends Equatable{
   final bool? status;
   final Null message;
   final DataEntity? data;
 
-  HomeEntity({required this.status,required this.message,required this.data});
+  TestEntity({required this.status,required this.message,required this.data});
 
   @override
   // TODO: implement props
@@ -79,8 +79,8 @@ class ProductsEntity extends Equatable{
 
 
 
-abstract class Base***Repository{
-  Future<Either<Failure,***Entity>> get***Data(***Parameters Parameters or none);
+abstract class BaseTestRepository{
+  Future<Either<Failure,TestEntity>> getTestData(TestParameters Parameters or empty);
 }
 
 --------------------------------------------------------------
@@ -88,22 +88,22 @@ abstract class Base***Repository{
 
 3- useCase
 
-class Get***UseCase extends BaseUseCase<***Entity,NoParameters or ***Parameters>{
-  final Base***Repository base***Repository;
-  Get***UseCase(this.base***Repository);
+class GetTestUseCase extends BaseUseCase<TestEntity,NoParameters or TestParameters>{
+  final BaseTestRepository baseTestRepository;
+  GetTestUseCase(this.baseTestRepository);
 
   @override
-  Future<Either<Failure, ***Entity>> call(***Parameters Parameters or none)async {
-    return await baseHomeRepository.getHomeData(Parameters or none);
+  Future<Either<Failure, TestEntity>> call(TestParameters Parameters or NoParameters noParameters)async {
+    return await baseHomeRepository.getTestData(Parameters or empty);
   }
 }
 
 
-class ***Parameters extends Equatable {
+class TestParameters extends Equatable {
   final String email;
   final String password;
 
-  const LoginParameters({required this.email, required this.password});
+  const TestParameters({required this.email, required this.password});
 
   @override
   List<Object?> get props => [email, password];
@@ -123,14 +123,14 @@ import 'dart:math';
 
 import 'package:matgary/home/domain/entities/home_entity.dart';
 
-class HomeModel extends HomeEntity {
-  HomeModel({
+class TestModel extends TestEntity {
+  TestModel({
     required super.status,
     required super.message,
     required super.data,
   });
 
-  factory HomeModel.fromJson(Map<String, dynamic> json) => HomeModel(
+  factory TestModel.fromJson(Map<String, dynamic> json) => HomeModel(
         status: json['status'],
         message: json['message'],
         data: json['data'] != null ? DataModel.fromJson(json['data']) : null,
@@ -208,15 +208,15 @@ class ProductsModel extends ProductsEntity {
 
 
 
-class ***Repository extends Base***Repository{
-  final Base***RemoteDataSource base***RemoteDataSource;
+class TestRepository extends BaseTestRepository{
+  final BaseTestRemoteDataSource baseTestRemoteDataSource;
 
-  ***Repository(this.base***RemoteDataSource);
+  TestRepository(this.baseTestRemoteDataSource);
 
   @override
-  Future<Either<Failure, ****Entity>> get***Data(****Parameters Parameters)async {
+  Future<Either<Failure, TestEntity>> getTestData(TestParameters Parameters or Empty)async {
     try{
-      final result = await base***RemoteDataSource.get***Data(Parameters);
+      final result = await baseTestRemoteDataSource.getTestData(Parameters or empty);
       return Right(result);
     }on Exception catch(error){
       return left(Failure(error.hashCode, error.toString()));
@@ -236,21 +236,21 @@ class ***Repository extends Base***Repository{
 6- datasource
 
 
-abstract class Base***RemoteDataSource {
-  Future<***Model> get***Data(***Parameters Parameters);
+abstract class BaseTestRemoteDataSource {
+  Future<TestModel> getTestData(TestParameters Parameters or empty);
 }
 
 
-class ***RemoteDataSource extends Base***RemoteDataSource {
+class TestRemoteDataSource extends BaseTestRemoteDataSource {
   @override
-  Future<***Model> getLoginData(***Parameters Parameters) async {
+  Future<TestModel> getLoginData(TestParameters Parameters or empty) async {
     Dio dio = Dio();
     final response = await dio.post(
       ApiConstance.loginPath,
-      data: {"email": loginParameters.email, "password": loginParameters.password},
+      data: {"email": parameters.email, "password": parameters.password},
       queryParameters: {'Content-Type': 'application/json'},
     );
-      return LoginModel.fromJson(response.data);
+      return TestModel.fromJson(response.data);
 
   }
 }
