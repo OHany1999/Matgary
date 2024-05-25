@@ -268,7 +268,7 @@ ___________
 
 abstract class TestEvent extends Equatable{}
 
-class GetTestEvent extends AddFavoriteEvent{
+class GetTestEvent extends TestEvent{
   final int id;
 
   GetTestEvent({required this.id});
@@ -298,19 +298,19 @@ class TestState extends Equatable {
 
 
 
-  const AddFavoriteState({
+  const TestState({
     this.testEntity,
      this.testRequestState = TestRequestState.initial,
     this.testErrorMessage ='',
   });
 
 
-  AddFavoriteState copyWith({
+  TestState copyWith({
     TestEntity? testEntity,
     TestRequestState? testRequestState,
     String? testErrorMessage,
   }) {
-    return AddFavoriteState(
+    return TestState(
       testEntity: testEntity ?? this.testEntity,
       testRequestState: testRequestState ?? this.testRequestState,
       testErrorMessage: testErrorMessage ?? this.testErrorMessage,
