@@ -5,8 +5,7 @@ import 'package:matgary/core/usecase/base_usecase.dart';
 import 'package:matgary/product_details/domain/entities/add_favorite_entity.dart';
 import 'package:matgary/product_details/domain/repository/base_product_details_repository.dart';
 
-class AddFavoriteUseCase
-    extends BaseUseCase<AddFavoriteEntity, AddFavoriteParameters> {
+class AddFavoriteUseCase extends BaseUseCase<AddFavoriteEntity, AddFavoriteParameters> {
   final BaseProductDetailsRepository baseProductDetailsRepository;
 
   AddFavoriteUseCase(this.baseProductDetailsRepository);

@@ -244,11 +244,16 @@ abstract class BaseTestRemoteDataSource {
 class TestRemoteDataSource extends BaseTestRemoteDataSource {
   @override
   Future<TestModel> getLoginData(TestParameters Parameters or empty) async {
+  final AppPreferences _appPref = sl<AppPreferences>();
     Dio dio = Dio();
     final response = await dio.post(
       ApiConstance.loginPath,
+       options: Options(headers: {
+          'lang':'ar',
+          'Content-Type':'Content-Type',
+          'Authorization':'${_appPref.getToken()}',
+        }),
       data: {"email": parameters.email, "password": parameters.password},
-      queryParameters: {'Content-Type': 'application/json'},
     );
       return TestModel.fromJson(response.data);
 
