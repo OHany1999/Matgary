@@ -1,4 +1,8 @@
 import 'package:get_it/get_it.dart';
+import 'package:matgary/carts/cart_page/data/datasource/get_cart_datasource.dart';
+import 'package:matgary/carts/cart_page/domain/repository/base_get_cart_repository.dart';
+import 'package:matgary/carts/cart_page/domain/usecase/get_cart_usecase.dart';
+import 'package:matgary/carts/cart_page/presentation/controller/get_cats_bloc/get_cats_bloc.dart';
 import 'package:matgary/carts/general%20_cart_apis/1-add_or_remove_cart/data/datasource/add_or_remove_cart_datasource.dart';
 import 'package:matgary/carts/general%20_cart_apis/1-add_or_remove_cart/data/repository/add_or_remove_cart_repository.dart';
 import 'package:matgary/carts/general%20_cart_apis/1-add_or_remove_cart/domain/repository/base_add_or_remove_cart_repository.dart';
@@ -30,19 +34,13 @@ import 'package:matgary/product_details/presentation/controller/add_and_remove_f
 import 'package:matgary/product_details/presentation/controller/product_details_bloc/product_details_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../carts/cart_page/data/repository/get_cats_repository.dart';
+
 final sl = GetIt.instance;
 
 class ServicesLocator {
   Future<void> init() async{
 
-    sl.registerFactory(() => LoginBloc(sl()));
-    sl.registerFactory(() => HomeBloc(sl()));
-    sl.registerFactory(() => ProductDetailsBloc(sl()));
-    sl.registerFactory(() => AddAndRemoveFavoriteBloc(sl()));
-    sl.registerFactory(() => FavoriteListBloc(sl()));
-    sl.registerFactory(() => DeleteFavoriteBloc(sl()));
-    sl.registerFactory(() => AddOrRemoveCartBloc(sl()));
-///////////////////////////////////////////////////////////////
     // SharedPreferences instance
     final sharedPreferences = await SharedPreferences.getInstance();
     sl.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
@@ -51,13 +49,30 @@ class ServicesLocator {
     // final appPreferences = AppPreferences(instance());
     sl.registerLazySingleton<AppPreferences>(() => AppPreferences(sl()));
 
-  ////////////////////////////////////////////////////
+    /////////////////////////////////////////////////
+
+    // getCarts
+
+    sl.registerFactory(() => GetCartBloc(sl()));
+    /// USE CASES For GetCart
+    sl.registerLazySingleton(() => GetCartUseCase(sl()));
+    /// Repository For GetCart
+    sl.registerLazySingleton<BaseGetCartRepository>(() => GetCartRepository(sl()));
+    /// DATA SOURCE For GetCart
+    sl.registerLazySingleton<BaseGetCartRemoteDataSource>(() => GetCartRemoteDataSource());
+
+
+
+
+    ////////////////////////////////////////////////////
 
     //addOrRemoveCart
+    sl.registerFactory(() => AddOrRemoveCartBloc(sl()));
+    /// USE CASES For AddOrRemoveCart
     sl.registerLazySingleton(() => AddOrRemoveCartUseCase(sl()));
-    /// Repository For test
+    /// Repository For AddOrRemoveCart
     sl.registerLazySingleton<BaseAddOrRemoveCartRepository>(() => AddOrRemoveCartRepository(sl()));
-    /// DATA SOURCE For test
+    /// DATA SOURCE For AddOrRemoveCart
     sl.registerLazySingleton<BaseAddOrRemoveCartRemoteDataSource>(() => AddOrRemoveCartRemoteDataSource());
 
 
@@ -65,6 +80,7 @@ class ServicesLocator {
     /////////////////////////////////////////////////////////
 
     // deleteFavorite
+    sl.registerFactory(() => DeleteFavoriteBloc(sl()));
     sl.registerLazySingleton(() => DeleteFavoriteUseCase(sl()));
     /// Repository For  deleteFavorite  with favoriteList
     /// DATA SOURCE For deleteFavorite  with favoriteList
@@ -74,6 +90,7 @@ class ServicesLocator {
   //////////////////////////////////////////////////////////
 
     //favoriteList
+    sl.registerFactory(() => FavoriteListBloc(sl()));
     /// USE CASES For favoriteList
     sl.registerLazySingleton(() => GetFavoriteListUseCase(sl()));
     /// Repository For favoriteList
@@ -86,6 +103,7 @@ class ServicesLocator {
     /////////////////////////////////////////////////////////////////////
 
     // Add and Remove Favorite
+    sl.registerFactory(() => AddAndRemoveFavoriteBloc(sl()));
     sl.registerLazySingleton(() => AddFavoriteUseCase(sl()));
     /// Repository For  favorite  with ProductDetails
     /// DATA SOURCE For favorite  with ProductDetails
@@ -96,6 +114,7 @@ class ServicesLocator {
     /////////////////////////////////////////////////////////////////////
 
     // product details
+    sl.registerFactory(() => ProductDetailsBloc(sl()));
     /// USE CASES For ProductDetails
     sl.registerLazySingleton(() => GetProductDetailsUseCase(sl()));
     /// Repository For ProductDetails
@@ -103,9 +122,11 @@ class ServicesLocator {
     /// DATA SOURCE For ProductDetails
     sl.registerLazySingleton<BaseProductDetailsRemoteDataSource>(() => ProductDetailsRemoteDataSource());
 
+/////////////////////////////////////////////////////////////
 
     // Home
-/////////////////////////////////////////////////////////////
+
+    sl.registerFactory(() => HomeBloc(sl()));
     /// USE CASES For Home
     sl.registerLazySingleton(() => GetHomeUseCase(sl()));
     /// Repository For Home
@@ -115,9 +136,8 @@ class ServicesLocator {
 
     //////////////////////////////////////////////////////////
 
-
     // Login
-/////////////////////////////////////////////////////////////
+    sl.registerFactory(() => LoginBloc(sl()));
     /// USE CASES For Login
     sl.registerLazySingleton(() => GetLoginUseCase(sl()));
     /// Repository For Login

@@ -6,4 +6,5 @@ static String products_details_Path ({required int id}) => '${baseUrl}products/$
 static const String addAndRemoveFavoritesPath = '${baseUrl}favorites';
 static const String favoriteListPath = '${baseUrl}favorites';
 static const String add_or_remove_cart_Path = '${baseUrl}carts';
+static const String getCartsPath = '${baseUrl}carts';
 }

@@ -350,7 +350,7 @@ service locator
   sl.registerFactory(() => TestBloc(sl()));
 
 
-   // USE CASES For test
+   /// USE CASES For test
     sl.registerLazySingleton(() => GetTestUseCase(sl()));
     /// Repository For test
     sl.registerLazySingleton<BaseTestRepository>(() => TestRepository(sl()));
