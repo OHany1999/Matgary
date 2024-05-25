@@ -88,9 +88,9 @@ abstract class BaseTestRepository{
 
 3- useCase
 
-class GetTestUseCase extends BaseUseCase<TestEntity,NoParameters or TestParameters>{
+class TestUseCase extends BaseUseCase<TestEntity,NoParameters or TestParameters>{
   final BaseTestRepository baseTestRepository;
-  GetTestUseCase(this.baseTestRepository);
+  TestUseCase(this.baseTestRepository);
 
   @override
   Future<Either<Failure, TestEntity>> call(TestParameters Parameters or NoParameters noParameters)async {
@@ -344,3 +344,15 @@ class TestBloc extends Bloc<TestEvent, TestState> {
 }
 
 ----------------------------------------------------
+service locator
+-----------------
+  // bloc
+  sl.registerFactory(() => TestBloc(sl()));
+
+
+   // USE CASES For test
+    sl.registerLazySingleton(() => GetTestUseCase(sl()));
+    /// Repository For test
+    sl.registerLazySingleton<BaseTestRepository>(() => TestRepository(sl()));
+    /// DATA SOURCE For test
+    sl.registerLazySingleton<BaseTestRemoteDataSource>(() => TestRemoteDataSource());

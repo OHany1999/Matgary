@@ -5,9 +5,9 @@ import 'package:matgary/cards/general%20_cart_apis/1-add_or_remove_cart/domain/r
 import 'package:matgary/core/error/failure.dart';
 import 'package:matgary/core/usecase/base_usecase.dart';
 
-class GetAddOrRemoveCartUseCase extends BaseUseCase<AddOrRemoveCartEntity,AddOrRemoveCartParameters>{
+class AddOrRemoveCartUseCase extends BaseUseCase<AddOrRemoveCartEntity,AddOrRemoveCartParameters>{
 final BaseAddOrRemoveCartRepository baseAddOrRemoveCartRepository;
-GetAddOrRemoveCartUseCase(this.baseAddOrRemoveCartRepository);
+AddOrRemoveCartUseCase(this.baseAddOrRemoveCartRepository);
 
 @override
 Future<Either<Failure, AddOrRemoveCartEntity>> call(AddOrRemoveCartParameters addOrRemoveCartParameters)async {
