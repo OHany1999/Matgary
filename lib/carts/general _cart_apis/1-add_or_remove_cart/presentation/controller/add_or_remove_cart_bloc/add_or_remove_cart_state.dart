@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:matgary/cards/general%20_cart_apis/1-add_or_remove_cart/domain/entities/add_or_remove_cart_entity.dart';
+import 'package:matgary/carts/general%20_cart_apis/1-add_or_remove_cart/domain/entities/add_or_remove_cart_entity.dart';
 
 enum AddOrRemoveCartRequestState{
   initial,

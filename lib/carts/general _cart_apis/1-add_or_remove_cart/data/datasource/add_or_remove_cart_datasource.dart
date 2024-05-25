@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:matgary/cards/general%20_cart_apis/1-add_or_remove_cart/data/model/add_or_remove_cart_model.dart';
-import 'package:matgary/cards/general%20_cart_apis/1-add_or_remove_cart/domain/usecase/add_or_remove_cart_usecase.dart';
+import 'package:matgary/carts/general%20_cart_apis/1-add_or_remove_cart/data/model/add_or_remove_cart_model.dart';
+import 'package:matgary/carts/general%20_cart_apis/1-add_or_remove_cart/domain/usecase/add_or_remove_cart_usecase.dart';
 import 'package:matgary/core/global/app_shared_pref.dart';
 import 'package:matgary/core/network/api_constance.dart';
 import 'package:matgary/core/services/services_locator.dart';

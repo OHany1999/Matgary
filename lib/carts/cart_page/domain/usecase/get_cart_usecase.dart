@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:matgary/cards/cart_page/domain/entities/get_cart_entity.dart';
-import 'package:matgary/cards/cart_page/domain/repository/base_get_cart_repository.dart';
+import 'package:matgary/carts/cart_page/domain/entities/get_cart_entity.dart';
+import 'package:matgary/carts/cart_page/domain/repository/base_get_cart_repository.dart';
 import 'package:matgary/core/error/failure.dart';
 import 'package:matgary/core/usecase/base_usecase.dart';
 

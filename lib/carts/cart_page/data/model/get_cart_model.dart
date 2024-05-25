@@ -1,4 +1,5 @@
-import 'package:matgary/cards/cart_page/domain/entities/get_cart_entity.dart';
+
+import 'package:matgary/carts/cart_page/domain/entities/get_cart_entity.dart';
 
 class GetCartModel extends GetCartEntity {
   GetCartModel({

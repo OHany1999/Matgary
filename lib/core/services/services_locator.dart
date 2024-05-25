@@ -1,9 +1,9 @@
 import 'package:get_it/get_it.dart';
-import 'package:matgary/cards/general%20_cart_apis/1-add_or_remove_cart/data/datasource/add_or_remove_cart_datasource.dart';
-import 'package:matgary/cards/general%20_cart_apis/1-add_or_remove_cart/data/repository/add_or_remove_cart_repository.dart';
-import 'package:matgary/cards/general%20_cart_apis/1-add_or_remove_cart/domain/repository/base_add_or_remove_cart_repository.dart';
-import 'package:matgary/cards/general%20_cart_apis/1-add_or_remove_cart/domain/usecase/add_or_remove_cart_usecase.dart';
-import 'package:matgary/cards/general%20_cart_apis/1-add_or_remove_cart/presentation/controller/add_or_remove_cart_bloc/add_or_remove_cart_bloc.dart';
+import 'package:matgary/carts/general%20_cart_apis/1-add_or_remove_cart/data/datasource/add_or_remove_cart_datasource.dart';
+import 'package:matgary/carts/general%20_cart_apis/1-add_or_remove_cart/data/repository/add_or_remove_cart_repository.dart';
+import 'package:matgary/carts/general%20_cart_apis/1-add_or_remove_cart/domain/repository/base_add_or_remove_cart_repository.dart';
+import 'package:matgary/carts/general%20_cart_apis/1-add_or_remove_cart/domain/usecase/add_or_remove_cart_usecase.dart';
+import 'package:matgary/carts/general%20_cart_apis/1-add_or_remove_cart/presentation/controller/add_or_remove_cart_bloc/add_or_remove_cart_bloc.dart';
 import 'package:matgary/core/global/app_shared_pref.dart';
 import 'package:matgary/favorite/data/datasource/favorite_list_remote_data_source.dart';
 import 'package:matgary/favorite/data/repository/favorite_list_repository.dart';
