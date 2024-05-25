@@ -243,7 +243,7 @@ abstract class BaseTestRemoteDataSource {
 
 class TestRemoteDataSource extends BaseTestRemoteDataSource {
   @override
-  Future<TestModel> getLoginData(TestParameters Parameters or empty) async {
+  Future<TestModel> getTestData(TestParameters Parameters or empty) async {
   final AppPreferences _appPref = sl<AppPreferences>();
     Dio dio = Dio();
     final response = await dio.post(
@@ -260,3 +260,87 @@ class TestRemoteDataSource extends BaseTestRemoteDataSource {
   }
 }
 --------------------------------------------------------------------------
+
+bloc Folder
+___________
+
+1- blocEvent
+
+abstract class TestEvent extends Equatable{}
+
+class GetTestEvent extends AddFavoriteEvent{
+  final int id;
+
+  GetTestEvent({required this.id});
+
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [id];
+}
+
+-------------------------------------------------------
+
+2- blocState
+
+enum TestRequestState{
+  initial,
+  loading,
+  success,
+  error,
+}
+
+
+class TestState extends Equatable {
+  final TestEntity? testEntity;
+  final TestRequestState testRequestState;
+  final String testErrorMessage;
+
+
+
+  const AddFavoriteState({
+    this.testEntity,
+     this.testRequestState = TestRequestState.initial,
+    this.testErrorMessage ='',
+  });
+
+
+  AddFavoriteState copyWith({
+    TestEntity? testEntity,
+    TestRequestState? testRequestState,
+    String? testErrorMessage,
+  }) {
+    return AddFavoriteState(
+      testEntity: testEntity ?? this.testEntity,
+      testRequestState: testRequestState ?? this.testRequestState,
+      testErrorMessage: testErrorMessage ?? this.testErrorMessage,
+    );
+  }
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [testEntity,testRequestState,testErrorMessage];
+}
+
+--------------------------------------------------------
+
+3- bloc
+
+class TestBloc extends Bloc<TestEvent, TestState> {
+  final TestUseCase testUseCase;
+
+  TestBloc(this.testUseCase) : super(const TestState()) {
+    on<GetTestEvent>(_getTest);
+  }
+
+  FutureOr<void> _getTest(GetTestEvent event, Emitter<TestState> emit) async {
+    emit(state.copyWith(testRequestState: TestRequestState.loading));
+    final result = await testUseCase(TestParameters(id: event.id));
+    result.fold(
+      (l) => emit(state.copyWith(testErrorMessage:l.message ,testRequestState: TestRequestState.error)),
+      (r) => emit(state.copyWith(testEntity: r,testRequestState: TestRequestState.success)),
+    );
+  }
+}
+
+----------------------------------------------------
