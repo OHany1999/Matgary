@@ -36,7 +36,6 @@ class FavoriteScreen extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => sl<HomeBloc>()..add(const GetHomeEvent())),
         BlocProvider(create: (context) => RemoveLocalListBloc()),
-        BlocProvider(create: (context) => sl<DeleteFavoriteBloc>()),
         BlocProvider(create: (context) => sl<AddAndRemoveFavoriteBloc>()),
       ],
       child: BlocBuilder<HomeBloc, HomeState>(
