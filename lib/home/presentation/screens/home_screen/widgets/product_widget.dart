@@ -51,10 +51,10 @@ class ProductWidget extends StatelessWidget {
                                   topLeft: Radius.circular(8),
                                   bottomRight: Radius.circular(8)),
                             ),
-                            width: 60,
-                            height: 30,
+                            width: 60.w,
+                            height: 30.h,
                             child: Text(
-                              '${myList![index].discount.toString()}% off',
+                              '${myList![index].discount.toString()}% خصم',
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -73,11 +73,11 @@ class ProductWidget extends StatelessWidget {
                   SizedBox(
                     height: 2.h,
                   ),
-                  Text('${myList![index].price!.toString()} EGP',
+                  Text('${myList![index].price!.toString()}جنيه',
                       textAlign: TextAlign.center),
                   if (myList![index].discount != 0)
                     Text(
-                      '${myList![index].oldPrice!} EGP',
+                      '${myList![index].oldPrice!}جنيه',
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         decoration: TextDecoration.lineThrough,
@@ -90,14 +90,14 @@ class ProductWidget extends StatelessWidget {
           );
         },
       ),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         // number of items in each row
         mainAxisSpacing: 8.0,
         // spacing between rows
         crossAxisSpacing: 8.0,
         // spacing between columns
-        childAspectRatio: 1 / 1.2, // (width/height)
+        childAspectRatio: 1.w / 1.2.h, // (width/height)
       ),
     );
   }
