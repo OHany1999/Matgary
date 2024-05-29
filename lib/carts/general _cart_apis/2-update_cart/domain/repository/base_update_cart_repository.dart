@@ -4,5 +4,5 @@ import 'package:matgary/carts/general%20_cart_apis/2-update_cart/domain/usecase/
 import 'package:matgary/core/error/failure.dart';
 
 abstract class BaseUpdateCartRepository{
-  Future<Either<Failure,UpdateCartEntity>> getUpdateCartData(UpdateCartParameters Parameters);
+  Future<Either<Failure,UpdateCartEntity>> getUpdateCartData(UpdateCartParameters parameters);
 }
