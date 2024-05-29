@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 
 class UpdateCartEntity extends Equatable{
-  final bool status;
-  final String message;
-  final DataEntity data;
+  final bool? status;
+  final String? message;
+  final DataEntity? data;
 
   UpdateCartEntity({
     required this.status,
@@ -18,9 +18,9 @@ class UpdateCartEntity extends Equatable{
 }
 
 class DataEntity extends Equatable{
-  final CartEntity cart;
-  final int subTotal;
-  final int total;
+  final CartEntity? cart;
+  final int? subTotal;
+  final int? total;
 
   DataEntity({
     required this.cart,
@@ -35,9 +35,9 @@ class DataEntity extends Equatable{
 }
 
 class CartEntity extends Equatable{
-  final int id;
-  final int quantity;
-  final ProductEntity product;
+  final int? id;
+  final int? quantity;
+  final ProductEntity? product;
 
   CartEntity({
     required this.id,
@@ -52,11 +52,11 @@ class CartEntity extends Equatable{
 }
 
 class ProductEntity extends Equatable{
-  final int id;
-  final int price;
-  final int oldPrice;
-  final int discount;
-  final String image;
+  final int? id;
+  final int? price;
+  final int? oldPrice;
+  final int? discount;
+  final String? image;
 
   ProductEntity({
     required this.id,
