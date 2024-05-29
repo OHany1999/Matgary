@@ -1,7 +1,9 @@
-class UpdateCartEntity {
-  bool status;
-  String message;
-  DataEntity data;
+import 'package:equatable/equatable.dart';
+
+class UpdateCartEntity extends Equatable{
+  final bool status;
+  final String message;
+  final DataEntity data;
 
   UpdateCartEntity({
     required this.status,
@@ -9,12 +11,16 @@ class UpdateCartEntity {
     required this.data,
   });
 
+  @override
+  // TODO: implement props
+  List<Object?> get props => [status,message,data];
+
 }
 
-class DataEntity {
-  CartEntity cart;
-  int subTotal;
-  int total;
+class DataEntity extends Equatable{
+  final CartEntity cart;
+  final int subTotal;
+  final int total;
 
   DataEntity({
     required this.cart,
@@ -22,12 +28,16 @@ class DataEntity {
     required this.total,
   });
 
+  @override
+  // TODO: implement props
+  List<Object?> get props => [cart,subTotal,total];
+
 }
 
-class CartEntity {
-  int id;
-  int quantity;
-  ProductEntity product;
+class CartEntity extends Equatable{
+  final int id;
+  final int quantity;
+  final ProductEntity product;
 
   CartEntity({
     required this.id,
@@ -35,14 +45,18 @@ class CartEntity {
     required this.product,
   });
 
+  @override
+  // TODO: implement props
+  List<Object?> get props => [id,quantity,product];
+
 }
 
-class ProductEntity {
-  int id;
-  int price;
-  int oldPrice;
-  int discount;
-  String image;
+class ProductEntity extends Equatable{
+  final int id;
+  final int price;
+  final int oldPrice;
+  final int discount;
+  final String image;
 
   ProductEntity({
     required this.id,
@@ -51,5 +65,9 @@ class ProductEntity {
     required this.discount,
     required this.image,
   });
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [id,price,oldPrice,discount,image];
 
 }
