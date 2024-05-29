@@ -94,7 +94,7 @@ class TestUseCase extends BaseUseCase<TestEntity,NoParameters or TestParameters>
 
   @override
   Future<Either<Failure, TestEntity>> call(TestParameters Parameters or NoParameters noParameters)async {
-    return await baseHomeRepository.getTestData(Parameters or empty);
+    return await baseTestRepository.getTestData(Parameters or empty);
   }
 }
 
