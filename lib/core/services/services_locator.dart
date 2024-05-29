@@ -8,6 +8,11 @@ import 'package:matgary/carts/general%20_cart_apis/1-add_or_remove_cart/data/rep
 import 'package:matgary/carts/general%20_cart_apis/1-add_or_remove_cart/domain/repository/base_add_or_remove_cart_repository.dart';
 import 'package:matgary/carts/general%20_cart_apis/1-add_or_remove_cart/domain/usecase/add_or_remove_cart_usecase.dart';
 import 'package:matgary/carts/general%20_cart_apis/1-add_or_remove_cart/presentation/controller/add_or_remove_cart_bloc/add_or_remove_cart_bloc.dart';
+import 'package:matgary/carts/general%20_cart_apis/2-update_cart/data/datasource/update_cart_datasource.dart';
+import 'package:matgary/carts/general%20_cart_apis/2-update_cart/data/repository/update_cart_repository.dart';
+import 'package:matgary/carts/general%20_cart_apis/2-update_cart/domain/repository/base_update_cart_repository.dart';
+import 'package:matgary/carts/general%20_cart_apis/2-update_cart/domain/usecase/update_cart_usecase.dart';
+import 'package:matgary/carts/general%20_cart_apis/2-update_cart/presentation/controller/update_cart_bloc/update_cart_bloc.dart';
 import 'package:matgary/core/global/app_shared_pref.dart';
 import 'package:matgary/favorite/data/datasource/favorite_list_remote_data_source.dart';
 import 'package:matgary/favorite/data/repository/favorite_list_repository.dart';
@@ -48,6 +53,17 @@ class ServicesLocator {
     // AppPreferences instance
     // final appPreferences = AppPreferences(instance());
     sl.registerLazySingleton<AppPreferences>(() => AppPreferences(sl()));
+//////////////////////////////////////////////////////////////
+    // UpdateCart
+    sl.registerFactory(() => UpdateCartBloc(sl()));
+
+    /// USE CASES For UpdateCart
+    sl.registerLazySingleton(() => UpdateCartUseCase(sl()));
+    /// Repository For UpdateCart
+    sl.registerLazySingleton<BaseUpdateCartRepository>(() => UpdateCartRepository(sl()));
+    /// DATA SOURCE For UpdateCart
+    sl.registerLazySingleton<BaseUpdateCartRemoteDataSource>(() => UpdateCartRemoteDataSource());
+
 
     /////////////////////////////////////////////////
 

@@ -346,12 +346,12 @@ class TestBloc extends Bloc<TestEvent, TestState> {
 ----------------------------------------------------
 service locator
 -----------------
-  // bloc
+  // Test
   sl.registerFactory(() => TestBloc(sl()));
 
 
    /// USE CASES For test
-    sl.registerLazySingleton(() => GetTestUseCase(sl()));
+    sl.registerLazySingleton(() => TestUseCase(sl()));
     /// Repository For test
     sl.registerLazySingleton<BaseTestRepository>(() => TestRepository(sl()));
     /// DATA SOURCE For test
