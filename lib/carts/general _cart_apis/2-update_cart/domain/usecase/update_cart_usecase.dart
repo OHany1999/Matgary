@@ -1,16 +1,16 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:matgary/carts/general%20_cart_apis/2-update_cart/domain/entities/update_cart_entity.dart';
 import 'package:matgary/carts/general%20_cart_apis/2-update_cart/domain/repository/base_update_cart_repository.dart';
 import 'package:matgary/core/error/failure.dart';
+import 'package:matgary/core/global/shared_models_and_entites/cart/upate_and_remove_cart_entity.dart';
 import 'package:matgary/core/usecase/base_usecase.dart';
 
-class UpdateCartUseCase extends BaseUseCase<UpdateCartEntity,UpdateCartParameters>{
+class UpdateCartUseCase extends BaseUseCase<UpdateAndDeleteCartEntity,UpdateCartParameters>{
 final BaseUpdateCartRepository baseUpdateCartRepository;
 UpdateCartUseCase(this.baseUpdateCartRepository);
 
 @override
-Future<Either<Failure, UpdateCartEntity>> call(UpdateCartParameters Parameters)async {
+Future<Either<Failure, UpdateAndDeleteCartEntity>> call(UpdateCartParameters Parameters)async {
 return await baseUpdateCartRepository.getUpdateCartData(Parameters);
 }
 }
