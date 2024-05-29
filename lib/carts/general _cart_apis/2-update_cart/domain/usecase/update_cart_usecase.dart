@@ -18,10 +18,11 @@ return await baseUpdateCartRepository.getUpdateCartData(Parameters);
 
 class UpdateCartParameters extends Equatable {
   final int quantity;
+  final int id;
 
 
-  const UpdateCartParameters({required this.quantity});
+  const UpdateCartParameters({required this.quantity,required this.id});
 
   @override
-  List<Object?> get props => [quantity];
+  List<Object?> get props => [quantity,id];
 }
