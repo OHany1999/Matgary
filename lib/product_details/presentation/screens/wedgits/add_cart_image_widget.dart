@@ -1,9 +1,14 @@
+import 'dart:js_interop';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:matgary/carts/general%20_cart_apis/1-add_or_remove_cart/presentation/controller/add_or_remove_cart_bloc/add_or_remove_cart_bloc.dart';
+import 'package:matgary/carts/general%20_cart_apis/1-add_or_remove_cart/presentation/controller/add_or_remove_cart_bloc/add_or_remove_cart_event.dart';
+import 'package:matgary/carts/general%20_cart_apis/1-add_or_remove_cart/presentation/controller/add_or_remove_cart_bloc/add_or_remove_cart_state.dart';
 import 'package:matgary/core/global/theme/app_color/app_color_light.dart';
 import 'package:matgary/core/global/toast/toast.dart';
 import 'package:matgary/core/services/services_locator.dart';
@@ -25,6 +30,7 @@ class AddCartImageWidget extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => sl<AddAndRemoveFavoriteBloc>()),
+        BlocProvider(create: (context) => sl<AddOrRemoveCartBloc>()),
         BlocProvider(
             create: (context) => FavoriteBloc()
               ..add(FavoriteEvent(
@@ -109,6 +115,71 @@ class AddCartImageWidget extends StatelessWidget {
                       ),
                     ),
                     Positioned(
+                        bottom: 1,
+                        left: 25,
+                        child: BlocBuilder<AddOrRemoveCartBloc,AddOrRemoveCartState>(
+                          builder: (context,addOrRemoveCartState){
+                            switch(addOrRemoveCartState.addOrRemoveCartRequestState){
+                              case AddOrRemoveCartRequestState.initial:
+                                if(productDetailsEntity!.data!.inCart == false){
+                                  return CircleAvatar(
+                                    radius: 25,
+                                    child: IconButton(
+                                        onPressed: ()=> context.read<AddOrRemoveCartBloc>().add(GetAddOrRemoveCartEvent(id: productDetailsEntity!.data!.id)),
+                                        icon: Icon(Icons.add_shopping_cart,color: Colors.black,)),
+                                  );
+                                }else{
+                                  return CircleAvatar(
+                                    backgroundColor: Colors.orange,
+                                    radius: 25,
+                                    child: IconButton(
+                                        onPressed: ()=> context.read<AddOrRemoveCartBloc>().add(GetAddOrRemoveCartEvent(id: productDetailsEntity!.data!.id)),
+                                        icon: Icon(Icons.remove_shopping_cart,color: Colors.black,)),
+                                  );
+                                }
+                              case AddOrRemoveCartRequestState.loading:
+                                return CircularProgressIndicator();
+                              case AddOrRemoveCartRequestState.success:
+                                if(productDetailsEntity!.data!.inCart == false){
+                                  return CircleAvatar(
+                                    radius: 25,
+                                    child: IconButton(
+                                        onPressed: ()=> context.read<AddOrRemoveCartBloc>().add(GetAddOrRemoveCartEvent(id: productDetailsEntity!.data!.id)),
+                                        icon: Icon(Icons.add_shopping_cart,color: Colors.black,)),
+                                  );
+                                }else{
+                                  return CircleAvatar(
+                                    backgroundColor: Colors.orange,
+                                    radius: 25,
+                                    child: IconButton(
+                                        onPressed: ()=> context.read<AddOrRemoveCartBloc>().add(GetAddOrRemoveCartEvent(id: productDetailsEntity!.data!.id)),
+                                        icon: Icon(Icons.remove_shopping_cart,color: Colors.black,)),
+                                  );
+                                }
+
+                              case AddOrRemoveCartRequestState.error:
+                                if(productDetailsEntity!.data!.inCart == false){
+                                  return CircleAvatar(
+                                    radius: 25,
+                                    child: IconButton(
+                                        onPressed: ()=> context.read<AddOrRemoveCartBloc>().add(GetAddOrRemoveCartEvent(id: productDetailsEntity!.data!.id)),
+                                        icon: Icon(Icons.add_shopping_cart,color: Colors.black,)),
+                                  );
+                                }else{
+                                  return CircleAvatar(
+                                    backgroundColor: Colors.orange,
+                                    radius: 25,
+                                    child: IconButton(
+                                        onPressed: ()=> context.read<AddOrRemoveCartBloc>().add(GetAddOrRemoveCartEvent(id: productDetailsEntity!.data!.id)),
+                                        icon: Icon(Icons.remove_shopping_cart,color: Colors.black,)),
+                                  );
+                                }
+
+                            }
+
+                          },
+                        )),
+                    Positioned(
                       left: 15,
                       child: GestureDetector(
                         onTap: () => Navigator.pop(context),
@@ -129,7 +200,7 @@ class AddCartImageWidget extends StatelessWidget {
                     Column(
                       children: [
                         Text(
-                          '${productDetailsEntity!.data!.price!.toString()} EGP',
+                          '${productDetailsEntity!.data!.price!.toString()} جنيه',
                           textAlign: TextAlign.center,
                           style: Theme.of(context)
                               .textTheme
@@ -138,7 +209,7 @@ class AddCartImageWidget extends StatelessWidget {
                         ),
                         if (productDetailsEntity!.data!.discount != 0)
                           Text(
-                            '${productDetailsEntity!.data!.oldPrice!} EGP',
+                            '${productDetailsEntity!.data!.oldPrice!} جنيه',
                             textAlign: TextAlign.center,
                             style: Theme.of(context)
                                 .textTheme
@@ -146,7 +217,7 @@ class AddCartImageWidget extends StatelessWidget {
                                 .copyWith(
                                   fontSize: 16,
                                   color: Colors.red,
-                              decoration: TextDecoration.lineThrough,
+                                  decoration: TextDecoration.lineThrough,
                                 ),
                           ),
                       ],
@@ -164,6 +235,18 @@ class AddCartImageWidget extends StatelessWidget {
                       ),
                     ),
                   ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 10.h, right: 25.w),
+                width: double.infinity,
+                child: Text(
+                  productDetailsEntity!.data!.description!,
+                  textAlign: TextAlign.end,
+                  style: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey.shade800),
                 ),
               ),
             ],
