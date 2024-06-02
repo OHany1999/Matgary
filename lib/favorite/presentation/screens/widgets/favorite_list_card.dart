@@ -136,8 +136,9 @@ class _FavoriteListCardState extends State<FavoriteListCard> {
                     ],
                   ),
                 ),
-                BlocListener<AddOrRemoveCartBloc,AddOrRemoveCartState>(
+                BlocConsumer<AddOrRemoveCartBloc,AddOrRemoveCartState>(
                   listenWhen: (previous, current) =>previous.addOrRemoveCartRequestState != current.addOrRemoveCartRequestState,
+                  buildWhen: (previous, current) =>previous.addOrRemoveCartRequestState != current.addOrRemoveCartRequestState,
                   listener: (context,addOrRemoveCartState){
                     switch(addOrRemoveCartState.addOrRemoveCartRequestState){
                       case AddOrRemoveCartRequestState.initial:
@@ -151,7 +152,7 @@ class _FavoriteListCardState extends State<FavoriteListCard> {
                         ToastMessages.showToast(message: addOrRemoveCartState.addOrRemoveCartErrorMessage,backGroundColor: Colors.redAccent);
                     }
                   },
-                  child:widget.localDataEntityList![widget.index].inCart == false ? Container(
+                  builder:(context,addOrRemoveCartState)=>widget.localDataEntityList![widget.index].inCart == false ? Container(
                     margin: const EdgeInsets.only(right: 20, top: 20),
                     child: GlobalElevatedButton(
                       bottomText: ' إلي عربة التسوق',
@@ -161,7 +162,7 @@ class _FavoriteListCardState extends State<FavoriteListCard> {
                         setState(() {
 
                         });
-                        },
+                      },
                       bottomSize: const Size(150, 50),
                       bottomPadding: const EdgeInsets.symmetric(),
                     ),
