@@ -13,18 +13,13 @@ import 'package:matgary/home/domain/entities/home_entity.dart';
 import 'package:matgary/product_details/presentation/controller/add_and_remove_favorite_bloc/add_and_remove_favorite_bloc.dart';
 import 'package:matgary/product_details/presentation/controller/add_and_remove_favorite_bloc/add_and_remove_favorite_event.dart';
 
-class FavoriteListCard extends StatefulWidget {
+class FavoriteListCard extends StatelessWidget {
    List<ProductsEntity>? localDataEntityList;
   final int index;
 
    FavoriteListCard(
       {super.key, required this.localDataEntityList, required this.index});
 
-  @override
-  State<FavoriteListCard> createState() => _FavoriteListCardState();
-}
-
-class _FavoriteListCardState extends State<FavoriteListCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -46,7 +41,7 @@ class _FavoriteListCardState extends State<FavoriteListCard> {
               width: 120.w,
               height: 170.h,
               fit: BoxFit.fitHeight,
-              imageUrl: widget.localDataEntityList![widget.index].image!,
+              imageUrl: localDataEntityList![index].image!,
               placeholder: (context, url) => const Icon(
                 Icons.image,
                 size: 80,
@@ -69,9 +64,9 @@ class _FavoriteListCardState extends State<FavoriteListCard> {
                       questionText: 'هل تريد حذف ذلك المنتج من قائمة المفضلة ؟',
                       onPressForAccept: (){
                         var addAndRemoveFavoriteBloc = context.read<AddAndRemoveFavoriteBloc>();
-                        addAndRemoveFavoriteBloc.add(GetAddFavoriteEvent(id: widget.localDataEntityList![widget.index].id!));
+                        addAndRemoveFavoriteBloc.add(GetAddFavoriteEvent(id: localDataEntityList![index].id!));
                         // local list remove
-                        widget.localDataEntityList!.removeWhere((element) => element.id == widget.localDataEntityList![widget.index].id);
+                        localDataEntityList!.removeWhere((element) => element.id == localDataEntityList![index].id);
                         Navigator.pop(context);
                       },
                       onPressForRefuse: (){
@@ -95,7 +90,7 @@ class _FavoriteListCardState extends State<FavoriteListCard> {
                   width: 200.w,
                   margin: const EdgeInsets.only(right: 10),
                   child: Text(
-                    widget.localDataEntityList![widget.index].name!,
+                    localDataEntityList![index].name!,
                     maxLines: 2,
                     overflow: TextOverflow.clip,
                     textAlign: TextAlign.end,
@@ -113,16 +108,16 @@ class _FavoriteListCardState extends State<FavoriteListCard> {
                   child: Column(
                     children: [
                       Text(
-                        '${widget.localDataEntityList![widget.index].price.toString()} EGP',
+                        '${localDataEntityList![index].price.toString()} EGP',
                         textAlign: TextAlign.center,
                         style: Theme.of(context)
                             .textTheme
                             .headlineLarge!
                             .copyWith(fontSize: 20),
                       ),
-                      if (widget.localDataEntityList![widget.index].discount != 0)
+                      if (localDataEntityList![index].discount != 0)
                         Text(
-                          '${widget.localDataEntityList![widget.index].oldPrice!} EGP',
+                          '${localDataEntityList![index].oldPrice!} EGP',
                           textAlign: TextAlign.center,
                           style: Theme.of(context)
                               .textTheme
@@ -152,16 +147,14 @@ class _FavoriteListCardState extends State<FavoriteListCard> {
                         ToastMessages.showToast(message: addOrRemoveCartState.addOrRemoveCartErrorMessage,backGroundColor: Colors.redAccent);
                     }
                   },
-                  builder:(context,addOrRemoveCartState)=>widget.localDataEntityList![widget.index].inCart == false ? Container(
+                  builder:(context,addOrRemoveCartState)=>localDataEntityList![index].inCart == false ? Container(
                     margin: const EdgeInsets.only(right: 20, top: 20),
                     child: GlobalElevatedButton(
                       bottomText: ' إلي عربة التسوق',
                       onPress: () {
-                        context.read<AddOrRemoveCartBloc>().add(GetAddOrRemoveCartEvent(id: widget.localDataEntityList![widget.index].id!));
-                        widget.localDataEntityList![widget.index].inCart = !widget.localDataEntityList![widget.index].inCart;
-                        setState(() {
+                        context.read<AddOrRemoveCartBloc>().add(GetAddOrRemoveCartEvent(id: localDataEntityList![index].id!));
+                        localDataEntityList![index].inCart = true;
 
-                        });
                       },
                       bottomSize: const Size(150, 50),
                       bottomPadding: const EdgeInsets.symmetric(),
@@ -172,11 +165,8 @@ class _FavoriteListCardState extends State<FavoriteListCard> {
                       backGroundColor: Colors.red,
                       bottomText: 'حذف من العربة',
                       onPress: () {
-                        context.read<AddOrRemoveCartBloc>().add(GetAddOrRemoveCartEvent(id: widget.localDataEntityList![widget.index].id!));
-                        widget.localDataEntityList![widget.index].inCart = !widget.localDataEntityList![widget.index].inCart;
-                        setState(() {
-
-                        });
+                        context.read<AddOrRemoveCartBloc>().add(GetAddOrRemoveCartEvent(id: localDataEntityList![index].id!));
+                        localDataEntityList![index].inCart = false;
                       },
                       bottomSize: const Size(150, 50),
                       bottomPadding: const EdgeInsets.symmetric(),
