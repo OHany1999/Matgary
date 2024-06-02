@@ -96,7 +96,7 @@ class FavoriteScreen extends StatelessWidget {
             case RequestState.error:
               return ErrorWidgetWithReload(
                 onPress: () {
-                  context.read<FavoriteListBloc>().add(GetFavoriteListEvent());
+                  context.read()<HomeBloc>().add(const GetHomeEvent());
                 },
               );
           }
