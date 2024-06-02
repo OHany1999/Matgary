@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:matgary/carts/general%20_cart_apis/1-add_or_remove_cart/presentation/controller/add_or_remove_cart_bloc/add_or_remove_cart_bloc.dart';
 import 'package:matgary/carts/general%20_cart_apis/1-add_or_remove_cart/presentation/controller/add_or_remove_cart_bloc/add_or_remove_cart_state.dart';
 import 'package:matgary/core/global/shared_widgets/error_widget.dart';
 import 'package:matgary/core/global/theme/app_color/app_color_light.dart';
@@ -35,10 +36,11 @@ class FavoriteScreen extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => sl<HomeBloc>()..add(const GetHomeEvent())),
-        BlocProvider(create: (context) => RemoveLocalListBloc()),
         BlocProvider(create: (context) => sl<AddAndRemoveFavoriteBloc>()),
+        BlocProvider(create: (context) => sl<AddOrRemoveCartBloc>()),
       ],
       child: BlocBuilder<HomeBloc, HomeState>(
+        buildWhen: (previous, current) =>previous.requestState != current.requestState,
         builder: (context, homeListState) {
           switch (homeListState.requestState) {
             case RequestState.initial:
@@ -57,6 +59,8 @@ class FavoriteScreen extends StatelessWidget {
                 child: CustomScrollView(
                   slivers: [
                     BlocConsumer<AddAndRemoveFavoriteBloc,AddFavoriteState>(
+                      buildWhen: (previous, current) =>previous.addFavoriteRequestState != current.addFavoriteRequestState,
+                      listenWhen: (previous, current) =>previous.addFavoriteRequestState != current.addFavoriteRequestState,
                       builder: (context, state) => SliverList(
                             delegate: SliverChildBuilderDelegate(
                               childCount: localDataEntityList!.length,

@@ -2,20 +2,29 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:matgary/carts/general%20_cart_apis/1-add_or_remove_cart/presentation/controller/add_or_remove_cart_bloc/add_or_remove_cart_bloc.dart';
+import 'package:matgary/carts/general%20_cart_apis/1-add_or_remove_cart/presentation/controller/add_or_remove_cart_bloc/add_or_remove_cart_event.dart';
+import 'package:matgary/carts/general%20_cart_apis/1-add_or_remove_cart/presentation/controller/add_or_remove_cart_bloc/add_or_remove_cart_state.dart';
 import 'package:matgary/core/global/shared_widgets/elvated_bottom.dart';
 import 'package:matgary/core/global/shared_widgets/show_dialog.dart';
+import 'package:matgary/core/global/toast/toast.dart';
 import 'package:matgary/favorite/presentation/controller/remove_local_list_bloc/remove_local_list_bloc.dart';
 import 'package:matgary/home/domain/entities/home_entity.dart';
 import 'package:matgary/product_details/presentation/controller/add_and_remove_favorite_bloc/add_and_remove_favorite_bloc.dart';
 import 'package:matgary/product_details/presentation/controller/add_and_remove_favorite_bloc/add_and_remove_favorite_event.dart';
 
-class FavoriteListCard extends StatelessWidget {
-  final List<ProductsEntity>? localDataEntityList;
+class FavoriteListCard extends StatefulWidget {
+   List<ProductsEntity>? localDataEntityList;
   final int index;
 
-  const FavoriteListCard(
+   FavoriteListCard(
       {super.key, required this.localDataEntityList, required this.index});
 
+  @override
+  State<FavoriteListCard> createState() => _FavoriteListCardState();
+}
+
+class _FavoriteListCardState extends State<FavoriteListCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -37,7 +46,7 @@ class FavoriteListCard extends StatelessWidget {
               width: 120.w,
               height: 170.h,
               fit: BoxFit.fitHeight,
-              imageUrl: localDataEntityList![index].image!,
+              imageUrl: widget.localDataEntityList![widget.index].image!,
               placeholder: (context, url) => const Icon(
                 Icons.image,
                 size: 80,
@@ -60,10 +69,9 @@ class FavoriteListCard extends StatelessWidget {
                       questionText: 'هل تريد حذف ذلك المنتج من قائمة المفضلة ؟',
                       onPressForAccept: (){
                         var addAndRemoveFavoriteBloc = context.read<AddAndRemoveFavoriteBloc>();
-                        addAndRemoveFavoriteBloc.add(GetAddFavoriteEvent(id: localDataEntityList![index].id!));
+                        addAndRemoveFavoriteBloc.add(GetAddFavoriteEvent(id: widget.localDataEntityList![widget.index].id!));
                         // local list remove
-                        localDataEntityList!.removeWhere((element) => element.id == localDataEntityList![index].id);
-                        context.read<RemoveLocalListBloc>().add('localRemove');
+                        widget.localDataEntityList!.removeWhere((element) => element.id == widget.localDataEntityList![widget.index].id);
                         Navigator.pop(context);
                       },
                       onPressForRefuse: (){
@@ -87,7 +95,7 @@ class FavoriteListCard extends StatelessWidget {
                   width: 200.w,
                   margin: const EdgeInsets.only(right: 10),
                   child: Text(
-                    localDataEntityList![index].name!,
+                    widget.localDataEntityList![widget.index].name!,
                     maxLines: 2,
                     overflow: TextOverflow.clip,
                     textAlign: TextAlign.end,
@@ -105,16 +113,16 @@ class FavoriteListCard extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        '${localDataEntityList![index].price.toString()} EGP',
+                        '${widget.localDataEntityList![widget.index].price.toString()} EGP',
                         textAlign: TextAlign.center,
                         style: Theme.of(context)
                             .textTheme
                             .headlineLarge!
                             .copyWith(fontSize: 20),
                       ),
-                      if (localDataEntityList![index].discount != 0)
+                      if (widget.localDataEntityList![widget.index].discount != 0)
                         Text(
-                          '${localDataEntityList![index].oldPrice!} EGP',
+                          '${widget.localDataEntityList![widget.index].oldPrice!} EGP',
                           textAlign: TextAlign.center,
                           style: Theme.of(context)
                               .textTheme
@@ -128,13 +136,50 @@ class FavoriteListCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                Container(
-                  margin: const EdgeInsets.only(right: 20, top: 20),
-                  child: GlobalElevatedButton(
-                    bottomText: ' إلي عربة التسوق',
-                    onPress: () {},
-                    bottomSize: const Size(150, 50),
-                    bottomPadding: const EdgeInsets.symmetric(),
+                BlocListener<AddOrRemoveCartBloc,AddOrRemoveCartState>(
+                  listenWhen: (previous, current) =>previous.addOrRemoveCartRequestState != current.addOrRemoveCartRequestState,
+                  listener: (context,addOrRemoveCartState){
+                    switch(addOrRemoveCartState.addOrRemoveCartRequestState){
+                      case AddOrRemoveCartRequestState.initial:
+                        print('initial cart');
+                      case AddOrRemoveCartRequestState.loading:
+                        print('loading cart');
+                      case AddOrRemoveCartRequestState.success:
+                        print(addOrRemoveCartState.addOrRemoveCartRequestState.hashCode);
+                        ToastMessages.showToast(message: addOrRemoveCartState.addOrRemoveCartEntity!.message!);
+                      case AddOrRemoveCartRequestState.error:
+                        ToastMessages.showToast(message: addOrRemoveCartState.addOrRemoveCartErrorMessage,backGroundColor: Colors.redAccent);
+                    }
+                  },
+                  child:widget.localDataEntityList![widget.index].inCart == false ? Container(
+                    margin: const EdgeInsets.only(right: 20, top: 20),
+                    child: GlobalElevatedButton(
+                      bottomText: ' إلي عربة التسوق',
+                      onPress: () {
+                        context.read<AddOrRemoveCartBloc>().add(GetAddOrRemoveCartEvent(id: widget.localDataEntityList![widget.index].id!));
+                        widget.localDataEntityList![widget.index].inCart = !widget.localDataEntityList![widget.index].inCart;
+                        setState(() {
+
+                        });
+                        },
+                      bottomSize: const Size(150, 50),
+                      bottomPadding: const EdgeInsets.symmetric(),
+                    ),
+                  ):Container(
+                    margin: const EdgeInsets.only(right: 20, top: 20),
+                    child: GlobalElevatedButton(
+                      backGroundColor: Colors.red,
+                      bottomText: 'حذف من العربة',
+                      onPress: () {
+                        context.read<AddOrRemoveCartBloc>().add(GetAddOrRemoveCartEvent(id: widget.localDataEntityList![widget.index].id!));
+                        widget.localDataEntityList![widget.index].inCart = !widget.localDataEntityList![widget.index].inCart;
+                        setState(() {
+
+                        });
+                      },
+                      bottomSize: const Size(150, 50),
+                      bottomPadding: const EdgeInsets.symmetric(),
+                    ),
                   ),
                 ),
               ],
