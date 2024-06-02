@@ -1,4 +1,3 @@
-import 'dart:js_interop';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -140,6 +139,7 @@ class AddCartImageWidget extends StatelessWidget {
                               case AddOrRemoveCartRequestState.loading:
                                 return CircularProgressIndicator();
                               case AddOrRemoveCartRequestState.success:
+                                print('addcart success');
                                 if(productDetailsEntity!.data!.inCart == false){
                                   return CircleAvatar(
                                     radius: 25,
@@ -158,6 +158,7 @@ class AddCartImageWidget extends StatelessWidget {
                                 }
 
                               case AddOrRemoveCartRequestState.error:
+                                print('addcart: ${addOrRemoveCartState.addOrRemoveCartErrorMessage}');
                                 if(productDetailsEntity!.data!.inCart == false){
                                   return CircleAvatar(
                                     radius: 25,

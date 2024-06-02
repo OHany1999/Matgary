@@ -19,7 +19,6 @@ class AddOrRemoveCartRemoteDataSource extends BaseAddOrRemoveCartRemoteDataSourc
   ApiConstance.add_or_remove_cart_Path,
   options: Options(headers: {
     'lang':'ar',
-    'Content-Type':'Content-Type',
     'Authorization':'${_appPref.getToken()}',
   }),
   data: {"product_id": addOrRemoveCartParameters.productId},
