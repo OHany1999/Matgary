@@ -124,7 +124,10 @@ class AddCartImageWidget extends StatelessWidget {
                                   return CircleAvatar(
                                     radius: 25,
                                     child: IconButton(
-                                        onPressed: ()=> context.read<AddOrRemoveCartBloc>().add(GetAddOrRemoveCartEvent(id: productDetailsEntity!.data!.id)),
+                                        onPressed: (){
+                                          context.read<AddOrRemoveCartBloc>().add(GetAddOrRemoveCartEvent(id: productDetailsEntity!.data!.id));
+                                          productDetailsEntity!.data!.inCart = !productDetailsEntity!.data!.inCart;
+                                        },
                                         icon: Icon(Icons.add_shopping_cart,color: Colors.black,)),
                                   );
                                 }else{
@@ -132,7 +135,10 @@ class AddCartImageWidget extends StatelessWidget {
                                     backgroundColor: Colors.orange,
                                     radius: 25,
                                     child: IconButton(
-                                        onPressed: ()=> context.read<AddOrRemoveCartBloc>().add(GetAddOrRemoveCartEvent(id: productDetailsEntity!.data!.id)),
+                                        onPressed: (){
+                                          context.read<AddOrRemoveCartBloc>().add(GetAddOrRemoveCartEvent(id: productDetailsEntity!.data!.id));
+                                          productDetailsEntity!.data!.inCart = !productDetailsEntity!.data!.inCart;
+                                        },
                                         icon: Icon(Icons.remove_shopping_cart,color: Colors.black,)),
                                   );
                                 }
@@ -144,7 +150,10 @@ class AddCartImageWidget extends StatelessWidget {
                                   return CircleAvatar(
                                     radius: 25,
                                     child: IconButton(
-                                        onPressed: ()=> context.read<AddOrRemoveCartBloc>().add(GetAddOrRemoveCartEvent(id: productDetailsEntity!.data!.id)),
+                                        onPressed: (){
+                                          context.read<AddOrRemoveCartBloc>().add(GetAddOrRemoveCartEvent(id: productDetailsEntity!.data!.id));
+                                          productDetailsEntity!.data!.inCart = !productDetailsEntity!.data!.inCart;
+                                        },
                                         icon: Icon(Icons.add_shopping_cart,color: Colors.black,)),
                                   );
                                 }else{
@@ -152,7 +161,10 @@ class AddCartImageWidget extends StatelessWidget {
                                     backgroundColor: Colors.orange,
                                     radius: 25,
                                     child: IconButton(
-                                        onPressed: ()=> context.read<AddOrRemoveCartBloc>().add(GetAddOrRemoveCartEvent(id: productDetailsEntity!.data!.id)),
+                                        onPressed: (){
+                                          context.read<AddOrRemoveCartBloc>().add(GetAddOrRemoveCartEvent(id: productDetailsEntity!.data!.id));
+                                          productDetailsEntity!.data!.inCart = !productDetailsEntity!.data!.inCart;
+                                        },
                                         icon: Icon(Icons.remove_shopping_cart,color: Colors.black,)),
                                   );
                                 }
@@ -163,7 +175,10 @@ class AddCartImageWidget extends StatelessWidget {
                                   return CircleAvatar(
                                     radius: 25,
                                     child: IconButton(
-                                        onPressed: ()=> context.read<AddOrRemoveCartBloc>().add(GetAddOrRemoveCartEvent(id: productDetailsEntity!.data!.id)),
+                                        onPressed: (){
+                                          context.read<AddOrRemoveCartBloc>().add(GetAddOrRemoveCartEvent(id: productDetailsEntity!.data!.id));
+                                          productDetailsEntity!.data!.inCart = !productDetailsEntity!.data!.inCart;
+                                        },
                                         icon: Icon(Icons.add_shopping_cart,color: Colors.black,)),
                                   );
                                 }else{
@@ -171,7 +186,10 @@ class AddCartImageWidget extends StatelessWidget {
                                     backgroundColor: Colors.orange,
                                     radius: 25,
                                     child: IconButton(
-                                        onPressed: ()=> context.read<AddOrRemoveCartBloc>().add(GetAddOrRemoveCartEvent(id: productDetailsEntity!.data!.id)),
+                                        onPressed: (){
+                                          context.read<AddOrRemoveCartBloc>().add(GetAddOrRemoveCartEvent(id: productDetailsEntity!.data!.id));
+                                          productDetailsEntity!.data!.inCart = !productDetailsEntity!.data!.inCart;
+                                        },
                                         icon: Icon(Icons.remove_shopping_cart,color: Colors.black,)),
                                   );
                                 }
