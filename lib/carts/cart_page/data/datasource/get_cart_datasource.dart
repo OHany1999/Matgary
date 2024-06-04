@@ -13,7 +13,7 @@ class GetCartRemoteDataSource extends BaseGetCartRemoteDataSource {
   Future<GetCartModel> getCartData() async {
     final AppPreferences _appPref = sl<AppPreferences>();
     Dio dio = Dio();
-    final response = await dio.post(
+    final response = await dio.get(
       ApiConstance.getCartsPath,
       options: Options(headers: {
         'lang': 'ar',
