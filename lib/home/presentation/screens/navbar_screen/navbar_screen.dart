@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:matgary/carts/cart_page/presentation/screens/cart_screen.dart';
 import 'package:matgary/category/presentation/screens/category_screen/category_screen.dart';
 import 'package:matgary/core/global/app_shared_pref.dart';
 import 'package:matgary/core/global/shared_widgets/show_dialog.dart';
@@ -28,8 +29,20 @@ class NavBarScreen extends StatelessWidget {
           return Scaffold(
             // package
             appBar: AppBar(
+              leading: Container(
+                margin: EdgeInsets.only(left: 15),
+                child: IconButton(
+                  iconSize: 30,
+                    onPressed: () {
+                    Navigator.pushNamed(context, CartScreen.routeName);
+                    },
+                    icon: const Icon(
+                      Icons.add_shopping_cart,
+                    )),
+              ),
               actions: [
                 IconButton(
+                    iconSize: 30,
                     onPressed: () {
                       GlobalShowDialog global = GlobalShowDialog(
                         titleText: 'تسجيل الخروج',
@@ -81,7 +94,7 @@ class NavBarScreen extends StatelessWidget {
 
   List<Widget> homeWidget = [
     FavoriteScreen(),
-    CategoryScreen(),
+    const CategoryScreen(),
     HomeScreen(),
   ];
 }

@@ -1,4 +1,6 @@
+
 import 'package:flutter/material.dart';
+import 'package:matgary/carts/cart_page/presentation/screens/cart_screen.dart';
 import 'package:matgary/category/presentation/screens/category_screen/category_screen.dart';
 import 'package:matgary/core/global/app_shared_pref.dart';
 import 'package:matgary/core/services/services_locator.dart';
@@ -16,9 +18,10 @@ Map<String, Widget Function(BuildContext)> myRoutes(){
     LoginScreen.routeName: (context)=> LoginScreen(),
     NavBarScreen.routeName:(context)=> NavBarScreen(),
     HomeScreen.routeName:(context)=> HomeScreen(),
-    CategoryScreen.routeName:(context)=> CategoryScreen(),
+    CategoryScreen.routeName:(context)=> const CategoryScreen(),
     FavoriteScreen.routeName:(context)=> FavoriteScreen(),
-    ProductDetailsScreen.routeName:(context)=> ProductDetailsScreen(),
+    ProductDetailsScreen.routeName:(context)=> const ProductDetailsScreen(),
+    CartScreen.routeName:(context)=> const CartScreen(),
   };
 
 }
