@@ -13,6 +13,11 @@ import 'package:matgary/carts/general%20_cart_apis/2-update_cart/data/repository
 import 'package:matgary/carts/general%20_cart_apis/2-update_cart/domain/repository/base_update_cart_repository.dart';
 import 'package:matgary/carts/general%20_cart_apis/2-update_cart/domain/usecase/update_cart_usecase.dart';
 import 'package:matgary/carts/general%20_cart_apis/2-update_cart/presentation/controller/update_cart_bloc/update_cart_bloc.dart';
+import 'package:matgary/carts/general%20_cart_apis/3-delete_cart/data/datasource/delete_cart_datasource.dart';
+import 'package:matgary/carts/general%20_cart_apis/3-delete_cart/data/repository/delete_cart_repository.dart';
+import 'package:matgary/carts/general%20_cart_apis/3-delete_cart/domain/repository/base_delete_cart_repository.dart';
+import 'package:matgary/carts/general%20_cart_apis/3-delete_cart/domain/usecase/delete_cart_usecase.dart';
+import 'package:matgary/carts/general%20_cart_apis/3-delete_cart/presentation/controller/delete_cart_bloc/delete_cart_bloc.dart';
 import 'package:matgary/core/global/app_shared_pref.dart';
 import 'package:matgary/favorite/data/datasource/favorite_list_remote_data_source.dart';
 import 'package:matgary/favorite/data/repository/favorite_list_repository.dart';
@@ -53,7 +58,25 @@ class ServicesLocator {
     // AppPreferences instance
     // final appPreferences = AppPreferences(instance());
     sl.registerLazySingleton<AppPreferences>(() => AppPreferences(sl()));
-//////////////////////////////////////////////////////////////
+    
+    
+    /////////////////////////////////////////////////////////
+
+    // DeleteCart
+    sl.registerFactory(() => DeleteCartBloc(sl()));
+
+
+    /// USE CASES For DeleteCart
+    sl.registerLazySingleton(() => DeleteCartUseCase(sl()));
+    /// Repository For DeleteCart
+    sl.registerLazySingleton<BaseDeleteCartRepository>(() => DeleteCartRepository(sl()));
+    /// DATA SOURCE For DeleteCart
+    sl.registerLazySingleton<BaseDeleteCartRemoteDataSource>(() => DeleteCartRemoteDataSource());
+
+
+
+    ///////////////////////////////////////////////////////////
+    
     // UpdateCart
     sl.registerFactory(() => UpdateCartBloc(sl()));
 
