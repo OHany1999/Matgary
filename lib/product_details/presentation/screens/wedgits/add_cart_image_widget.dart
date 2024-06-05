@@ -241,7 +241,7 @@ class AddCartImageWidget extends StatelessWidget {
                           ),
                       ],
                     ),
-                    Container(
+                    SizedBox(
                       width: 200.w,
                       child: Text(
                         productDetailsEntity!.data!.name!,
