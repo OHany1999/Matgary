@@ -38,7 +38,7 @@ class ShowCartWidget extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      width: 100.w,
+                      width: 140.w,
                       child: Text(
                           localGetCartEntity!
                               .data!.cartItems![index].product!.name
