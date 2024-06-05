@@ -1,17 +1,19 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:matgary/carts/cart_page/domain/entities/get_cart_entity.dart';
 import 'package:matgary/carts/cart_page/presentation/controller/get_cats_bloc/get_cats_bloc.dart';
 import 'package:matgary/carts/cart_page/presentation/controller/get_cats_bloc/get_cats_event.dart';
 import 'package:matgary/carts/cart_page/presentation/controller/get_cats_bloc/get_cats_state.dart';
+import 'package:matgary/carts/cart_page/presentation/screens/widgets/show_cart_widget.dart';
 import 'package:matgary/core/global/shared_widgets/error_widget.dart';
 import 'package:matgary/core/services/services_locator.dart';
 
 class CartScreen extends StatelessWidget {
   static const routeName = '/cartScreen';
 
-  const CartScreen({super.key});
-
+   CartScreen({super.key});
+  GetCartEntity? localGetCartEntity;
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -29,7 +31,9 @@ class CartScreen extends StatelessWidget {
               case GetCartRequestState.loading:
                 return const Center(child: CircularProgressIndicator());
               case GetCartRequestState.success:
-                return Center(child: Text(state.getCartEntity!.data!.cartItems!.length.toString()),);
+                var stateGetCart = state.getCartEntity;
+                localGetCartEntity = stateGetCart;
+                return ShowCartWidget(localGetCartEntity: localGetCartEntity,);
               case GetCartRequestState.error:
                 return ErrorWidgetWithReload(onPress: (){context.read<GetCartBloc>().add(GetCartEvent());});
 

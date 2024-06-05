@@ -21,7 +21,7 @@ Map<String, Widget Function(BuildContext)> myRoutes(){
     CategoryScreen.routeName:(context)=> const CategoryScreen(),
     FavoriteScreen.routeName:(context)=> FavoriteScreen(),
     ProductDetailsScreen.routeName:(context)=> const ProductDetailsScreen(),
-    CartScreen.routeName:(context)=> const CartScreen(),
+    CartScreen.routeName:(context)=>  CartScreen(),
   };
 
 }
