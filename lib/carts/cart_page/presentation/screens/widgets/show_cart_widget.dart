@@ -21,11 +21,11 @@ class ShowCartWidget extends StatelessWidget {
                 color: Colors.redAccent,
                 margin: EdgeInsets.only(top: 50.h),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CachedNetworkImage(
                       width: MediaQuery.of(context).size.width -220,
-                      height: 200.h,
+                      height: 150.h,
                       fit: BoxFit.fitHeight,
                       imageUrl: localGetCartEntity!.data!.cartItems![index].product!.image!,
                       placeholder: (context, url) => const Icon(
