@@ -8,7 +8,6 @@ import 'package:matgary/carts/general%20_cart_apis/1-add_or_remove_cart/presenta
 import 'package:matgary/core/global/shared_widgets/elvated_bottom.dart';
 import 'package:matgary/core/global/shared_widgets/show_dialog.dart';
 import 'package:matgary/core/global/toast/toast.dart';
-import 'package:matgary/favorite/presentation/controller/remove_local_list_bloc/remove_local_list_bloc.dart';
 import 'package:matgary/home/domain/entities/home_entity.dart';
 import 'package:matgary/product_details/presentation/controller/add_and_remove_favorite_bloc/add_and_remove_favorite_bloc.dart';
 import 'package:matgary/product_details/presentation/controller/add_and_remove_favorite_bloc/add_and_remove_favorite_event.dart';
