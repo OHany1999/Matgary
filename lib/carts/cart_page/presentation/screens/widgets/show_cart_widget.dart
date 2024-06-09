@@ -47,8 +47,7 @@ class ShowCartWidget extends StatelessWidget {
                         Column(
                           children: [
                             Container(
-                              color: Colors.green,
-                              margin: const EdgeInsets.only(top: 10),
+                              margin: const EdgeInsets.only(top: 15, left: 10),
                               width: 140.w,
                               child: Text(
                                 localGetCartEntity!
@@ -59,12 +58,11 @@ class ShowCartWidget extends StatelessWidget {
                                 style: Theme.of(context)
                                     .textTheme
                                     .headlineLarge!
-                                    .copyWith(fontSize: 15.0),
+                                    .copyWith(fontSize: 20.0),
                               ),
                             ),
                             Container(
-                              color: Colors.amber,
-                              margin: const EdgeInsets.only(top: 10),
+                              margin: const EdgeInsets.only(top: 10, left: 10),
                               width: 140.w,
                               child: Text(
                                 '${localGetCartEntity!.data!.cartItems![index].product!.price.toString()} جنية',
@@ -73,18 +71,33 @@ class ShowCartWidget extends StatelessWidget {
                                 style: Theme.of(context)
                                     .textTheme
                                     .headlineLarge!
-                                    .copyWith(fontSize: 15.0),
+                                    .copyWith(fontSize: 20.0),
                               ),
                             ),
-                            const Row(
-                              children: [
-                                IconButton(
+                            Container(
+                              color: Colors.blue,
+                              width: 150.w,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  IconButton(
+
                                     onPressed: null,
-                                    icon: Icon(Icons.minimize)),
-                                Text('1'),
-                                IconButton(
-                                    onPressed: null, icon: Icon(Icons.add)),
-                              ],
+                                    icon: Icon(Icons.minimize),
+                                  ),
+                                  Text(
+                                    '1',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineLarge!
+                                        .copyWith(fontSize: 20.0),
+                                  ),
+                                  IconButton(
+                                    onPressed: null,
+                                    icon: Icon(Icons.add),
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
@@ -110,31 +123,39 @@ class ShowCartWidget extends StatelessWidget {
           ),
           child: Column(
             children: [
-               Container(
-                 margin: EdgeInsets.only(top: 20),
-                 child: Row(
+              Container(
+                margin: EdgeInsets.only(top: 20),
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Row(
                       children: [
-                        Text('جنية ',style: Theme.of(context)
-                            .textTheme
-                            .headlineLarge!
-                            .copyWith(fontSize: 20.0),),
-                        Text('2000',style: Theme.of(context)
-                            .textTheme
-                            .headlineLarge!
-                            .copyWith(fontSize: 20.0),),
-
+                        Text(
+                          'جنية ',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineLarge!
+                              .copyWith(fontSize: 20.0),
+                        ),
+                        Text(
+                          '2000',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineLarge!
+                              .copyWith(fontSize: 20.0),
+                        ),
                       ],
                     ),
-                    Text('الاجمالي',style: Theme.of(context)
-                        .textTheme
-                        .headlineLarge!
-                        .copyWith(fontSize: 20.0),),
+                    Text(
+                      'الاجمالي',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineLarge!
+                          .copyWith(fontSize: 20.0),
+                    ),
                   ],
-                               ),
-               ),
+                ),
+              ),
               SizedBox(
                 height: 15.h,
               ),
@@ -143,7 +164,8 @@ class ShowCartWidget extends StatelessWidget {
                 fontSize: 20,
                 onPress: () {},
                 bottomSize: const Size(300, 40),
-                bottomPadding: const EdgeInsets.symmetric(horizontal: 40, vertical: 5),
+                bottomPadding:
+                    const EdgeInsets.symmetric(horizontal: 40, vertical: 5),
               ),
             ],
           ),
