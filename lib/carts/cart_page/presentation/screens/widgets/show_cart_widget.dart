@@ -24,7 +24,7 @@ class ShowCartWidget extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return Container(
                     width: MediaQuery.of(context).size.width,
-                    color: Colors.redAccent,
+
                     margin: EdgeInsets.only(top: 50.h),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,7 +47,7 @@ class ShowCartWidget extends StatelessWidget {
                         Column(
                           children: [
                             Container(
-                              margin: const EdgeInsets.only(top: 15, left: 10),
+                              margin: const EdgeInsets.only(top: 15,),
                               width: 140.w,
                               child: Text(
                                 localGetCartEntity!
@@ -62,7 +62,7 @@ class ShowCartWidget extends StatelessWidget {
                               ),
                             ),
                             Container(
-                              margin: const EdgeInsets.only(top: 10, left: 10),
+                              margin: const EdgeInsets.only(top: 10, left: 20),
                               width: 140.w,
                               child: Text(
                                 '${localGetCartEntity!.data!.cartItems![index].product!.price.toString()} جنية',
@@ -75,13 +75,12 @@ class ShowCartWidget extends StatelessWidget {
                               ),
                             ),
                             Container(
-                              color: Colors.blue,
+
                               width: 150.w,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   IconButton(
-
                                     onPressed: null,
                                     icon: Icon(Icons.minimize),
                                   ),
