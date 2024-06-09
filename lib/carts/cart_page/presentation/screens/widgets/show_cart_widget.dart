@@ -2,8 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:matgary/carts/cart_page/domain/entities/get_cart_entity.dart';
+import 'package:matgary/carts/general%20_cart_apis/2-update_cart/presentation/controller/update_cart_bloc/update_cart_bloc.dart';
+import 'package:matgary/carts/general%20_cart_apis/2-update_cart/presentation/controller/update_cart_bloc/update_cart_event.dart';
+import 'package:matgary/carts/general%20_cart_apis/2-update_cart/presentation/controller/update_cart_bloc/update_cart_state.dart';
 import 'package:matgary/core/global/shared_widgets/elvated_bottom.dart';
 
 class ShowCartWidget extends StatelessWidget {
@@ -24,7 +28,6 @@ class ShowCartWidget extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return Container(
                     width: MediaQuery.of(context).size.width,
-
                     margin: EdgeInsets.only(top: 50.h),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,33 +77,51 @@ class ShowCartWidget extends StatelessWidget {
                                     .copyWith(fontSize: 20.0),
                               ),
                             ),
-                            Container(
 
-                              margin: EdgeInsets.only(top: 10,left: 5),
-                              width: 150.w,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  IconButton(
-                                    padding: EdgeInsets.only(bottom: 15),
-                                    iconSize: 30,
-                                    onPressed: null,
-                                    icon: Icon(Icons.minimize,),
-                                  ),
-                                  Text(
-                                    localGetCartEntity!.data!.cartItems![index].quantity.toString(),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineLarge!
-                                        .copyWith(fontSize: 28.0),
-                                  ),
-                                  IconButton(
-                                    iconSize: 30,
-                                    onPressed: null,
-                                    icon: Icon(Icons.add,),
-                                  ),
-                                ],
+                            BlocListener<UpdateCartBloc,UpdateCartState>(
+                              child: Container(
+                                margin: EdgeInsets.only(top: 10,left: 5),
+                                width: 150.w,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    IconButton(
+                                      padding: EdgeInsets.only(bottom: 15),
+                                      iconSize: 30,
+                                      onPressed: (){
+
+                                      },
+                                      icon: Icon(Icons.minimize,),
+                                    ),
+                                    Text(
+                                      localGetCartEntity!.data!.cartItems![index].quantity.toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineLarge!
+                                          .copyWith(fontSize: 28.0),
+                                    ),
+                                    IconButton(
+                                      iconSize: 30,
+                                      onPressed: (){
+                                        context.read<UpdateCartBloc>().add(GetUpdateCartEvent(quantity: localGetCartEntity!.data!.cartItems![index].quantity! + 1, id: localGetCartEntity!.data!.cartItems![index].id!));
+                                      },
+                                      icon: Icon(Icons.add,),
+                                    ),
+                                  ],
+                                ),
                               ),
+                              listener:(context,updateState){
+                                switch(updateState.updateCartRequestState){
+                                  case UpdateCartRequestState.initial:
+                                    print('initial update');
+                                  case UpdateCartRequestState.loading:
+                                    print('initial loading');
+                                  case UpdateCartRequestState.success:
+                                    print('initial success');
+                                  case UpdateCartRequestState.error:
+                                    print('${updateState.updateCartErrorMessage}');
+                                }
+                              } ,
                             ),
                           ],
                         ),
