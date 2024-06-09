@@ -33,7 +33,7 @@ class CartScreen extends StatelessWidget {
               case GetCartRequestState.success:
                 var stateGetCart = state.getCartEntity;
                 localGetCartEntity = stateGetCart;
-                return ShowCartWidget(localGetCartEntity: localGetCartEntity,);
+                return SafeArea(child: ShowCartWidget(localGetCartEntity: localGetCartEntity,));
               case GetCartRequestState.error:
                 return ErrorWidgetWithReload(onPress: (){context.read<GetCartBloc>().add(GetCartEvent());});
 

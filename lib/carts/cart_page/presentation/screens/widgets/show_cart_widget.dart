@@ -76,24 +76,28 @@ class ShowCartWidget extends StatelessWidget {
                             ),
                             Container(
 
+                              margin: EdgeInsets.only(top: 10,left: 5),
                               width: 150.w,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   IconButton(
+                                    padding: EdgeInsets.only(bottom: 15),
+                                    iconSize: 30,
                                     onPressed: null,
-                                    icon: Icon(Icons.minimize),
+                                    icon: Icon(Icons.minimize,),
                                   ),
                                   Text(
                                     '1',
                                     style: Theme.of(context)
                                         .textTheme
                                         .headlineLarge!
-                                        .copyWith(fontSize: 20.0),
+                                        .copyWith(fontSize: 28.0),
                                   ),
                                   IconButton(
+                                    iconSize: 30,
                                     onPressed: null,
-                                    icon: Icon(Icons.add),
+                                    icon: Icon(Icons.add,),
                                   ),
                                 ],
                               ),
