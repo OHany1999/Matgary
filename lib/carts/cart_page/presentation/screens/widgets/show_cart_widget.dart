@@ -88,7 +88,7 @@ class ShowCartWidget extends StatelessWidget {
                                     icon: Icon(Icons.minimize,),
                                   ),
                                   Text(
-                                    '1',
+                                    localGetCartEntity!.data!.cartItems![index].quantity.toString(),
                                     style: Theme.of(context)
                                         .textTheme
                                         .headlineLarge!
@@ -141,7 +141,7 @@ class ShowCartWidget extends StatelessWidget {
                               .copyWith(fontSize: 20.0),
                         ),
                         Text(
-                          '2000',
+                          localGetCartEntity!.data!.total.toString(),
                           style: Theme.of(context)
                               .textTheme
                               .headlineLarge!
