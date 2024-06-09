@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:matgary/carts/cart_page/domain/entities/get_cart_entity.dart';
+import 'package:matgary/core/global/shared_widgets/elvated_bottom.dart';
 
 class ShowCartWidget extends StatelessWidget {
   GetCartEntity? localGetCartEntity;
@@ -17,7 +18,7 @@ class ShowCartWidget extends StatelessWidget {
         Expanded(
           child: SingleChildScrollView(
             child: SizedBox(
-              height: MediaQuery.of(context).size.height-100.h,
+              height: MediaQuery.of(context).size.height - 100.h,
               child: ListView.builder(
                 itemCount: localGetCartEntity!.data!.cartItems!.length,
                 itemBuilder: (context, index) {
@@ -75,6 +76,16 @@ class ShowCartWidget extends StatelessWidget {
                                     .copyWith(fontSize: 15.0),
                               ),
                             ),
+                            const Row(
+                              children: [
+                                IconButton(
+                                    onPressed: null,
+                                    icon: Icon(Icons.minimize)),
+                                Text('1'),
+                                IconButton(
+                                    onPressed: null, icon: Icon(Icons.add)),
+                              ],
+                            ),
                           ],
                         ),
                       ],
@@ -85,7 +96,58 @@ class ShowCartWidget extends StatelessWidget {
             ),
           ),
         ),
-        Container(height: 100.h,color: Colors.blue,),
+        Container(
+          height: 100.h,
+          decoration: const BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Colors.white,
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: Offset(0, 3), // changes position of shadow
+              ),
+            ],
+          ),
+          child: Column(
+            children: [
+               Container(
+                 margin: EdgeInsets.only(top: 20),
+                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Row(
+                      children: [
+                        Text('جنية ',style: Theme.of(context)
+                            .textTheme
+                            .headlineLarge!
+                            .copyWith(fontSize: 20.0),),
+                        Text('2000',style: Theme.of(context)
+                            .textTheme
+                            .headlineLarge!
+                            .copyWith(fontSize: 20.0),),
+
+                      ],
+                    ),
+                    Text('الاجمالي',style: Theme.of(context)
+                        .textTheme
+                        .headlineLarge!
+                        .copyWith(fontSize: 20.0),),
+                  ],
+                               ),
+               ),
+              SizedBox(
+                height: 15.h,
+              ),
+              GlobalElevatedButton(
+                bottomText: 'الدفع',
+                fontSize: 20,
+                onPress: () {},
+                bottomSize: const Size(300, 40),
+                bottomPadding: const EdgeInsets.symmetric(horizontal: 40, vertical: 5),
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }
