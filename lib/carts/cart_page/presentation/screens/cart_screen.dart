@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:matgary/carts/cart_page/domain/entities/get_cart_entity.dart';
@@ -13,20 +12,24 @@ import 'package:matgary/core/services/services_locator.dart';
 class CartScreen extends StatelessWidget {
   static const routeName = '/cartScreen';
 
-   CartScreen({super.key});
+  CartScreen({super.key});
+
   GetCartEntity? localGetCartEntity;
   @override
   Widget build(BuildContext context) {
+
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => sl<GetCartBloc>()..add(GetCartEvent())),
+        BlocProvider(
+            create: (context) => sl<GetCartBloc>()..add(GetCartEvent())),
         BlocProvider(create: (context) => sl<UpdateCartBloc>()),
       ],
       child: Scaffold(
-        body: BlocBuilder<GetCartBloc,GetCartState>(
-          buildWhen: (previous, current) => previous.getCartRequestState != current.getCartRequestState,
-          builder: (context,state){
-            switch(state.getCartRequestState){
+        body: BlocBuilder<GetCartBloc, GetCartState>(
+          buildWhen: (previous, current) =>
+              previous.getCartRequestState != current.getCartRequestState,
+          builder: (context, state) {
+            switch (state.getCartRequestState) {
               case GetCartRequestState.initial:
                 return Container();
               case GetCartRequestState.loading:
@@ -34,10 +37,14 @@ class CartScreen extends StatelessWidget {
               case GetCartRequestState.success:
                 var stateGetCart = state.getCartEntity;
                 localGetCartEntity = stateGetCart;
-                return SafeArea(child: ShowCartWidget(localGetCartEntity: localGetCartEntity,));
+                return SafeArea(
+                    child: ShowCartWidget(
+                  localGetCartEntity: localGetCartEntity,
+                ));
               case GetCartRequestState.error:
-                return ErrorWidgetWithReload(onPress: (){context.read<GetCartBloc>().add(GetCartEvent());});
-
+                return ErrorWidgetWithReload(onPress: () {
+                  context.read<GetCartBloc>().add(GetCartEvent());
+                });
             }
           },
         ),

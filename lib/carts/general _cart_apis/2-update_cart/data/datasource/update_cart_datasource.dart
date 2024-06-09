@@ -19,7 +19,6 @@ class UpdateCartRemoteDataSource extends BaseUpdateCartRemoteDataSource {
       ApiConstance.update_cart_Path(id: parameters.id),
       options: Options(headers: {
         'lang': 'ar',
-
         'Authorization': '${_appPref.getToken()}',
       }),
       data: {"quantity": parameters.quantity},
