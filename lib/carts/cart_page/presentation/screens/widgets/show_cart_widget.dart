@@ -18,7 +18,7 @@ class ShowCartWidget extends StatelessWidget {
         Expanded(
           child: SingleChildScrollView(
             child: SizedBox(
-              height: MediaQuery.of(context).size.height - 100.h,
+              height: MediaQuery.of(context).size.height - 140.h,
               child: ListView.builder(
                 itemCount: localGetCartEntity!.data!.cartItems!.length,
                 itemBuilder: (context, index) {
