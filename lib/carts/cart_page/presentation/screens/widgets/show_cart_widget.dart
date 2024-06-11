@@ -14,9 +14,11 @@ import 'package:matgary/core/global/shared_widgets/elvated_bottom.dart';
 import 'package:matgary/core/global/toast/toast.dart';
 
 class ShowCartWidget extends StatelessWidget {
-  GetCartEntity? localGetCartEntity;
+  bool isActive;
+  List<CartItemEntity>? localCartItemEntity;
+  int? localTotal;
 
-  ShowCartWidget({super.key, required this.localGetCartEntity});
+  ShowCartWidget({super.key, required this.localCartItemEntity,required this.localTotal,required this.isActive});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class ShowCartWidget extends StatelessWidget {
             child: SizedBox(
               height: MediaQuery.of(context).size.height - 140.h,
               child: ListView.builder(
-                itemCount: localGetCartEntity!.data!.cartItems!.length,
+                itemCount: localCartItemEntity!.length,
                 itemBuilder: (context, index) {
                   return Container(
                     width: MediaQuery.of(context).size.width,
@@ -39,8 +41,7 @@ class ShowCartWidget extends StatelessWidget {
                           width: MediaQuery.of(context).size.width - 220,
                           height: 150.h,
                           fit: BoxFit.fitHeight,
-                          imageUrl: localGetCartEntity!
-                              .data!.cartItems![index].product!.image!,
+                          imageUrl: localCartItemEntity![index].product!.image!,
                           placeholder: (context, url) => const Icon(
                             Icons.image,
                             size: 80,
@@ -56,8 +57,7 @@ class ShowCartWidget extends StatelessWidget {
                               margin: const EdgeInsets.only(top: 15,),
                               width: 140.w,
                               child: Text(
-                                localGetCartEntity!
-                                    .data!.cartItems![index].product!.name
+                                localCartItemEntity![index].product!.name
                                     .toString(),
                                 maxLines: 2,
                                 textAlign: TextAlign.center,
@@ -71,7 +71,7 @@ class ShowCartWidget extends StatelessWidget {
                               margin: const EdgeInsets.only(top: 10, left: 20),
                               width: 140.w,
                               child: Text(
-                                '${localGetCartEntity!.data!.cartItems![index].product!.price.toString()} جنية',
+                                '${localCartItemEntity![index].product!.price.toString()} جنية',
                                 maxLines: 2,
                                 textAlign: TextAlign.start,
                                 style: Theme.of(context)
@@ -90,17 +90,22 @@ class ShowCartWidget extends StatelessWidget {
                                     padding: EdgeInsets.only(bottom: 15),
                                     iconSize: 30,
                                     onPressed: (){
-                                      if(localGetCartEntity!.data!.cartItems![index].quantity! <= 1){
-                                        ToastMessages.showToast(message: 'عدد 1 اقل كمية يمكن ادخالها');
+                                      if(isActive == false){
+                                        if(localCartItemEntity![index].quantity! <= 1){
+                                          ToastMessages.showToast(message: 'عدد 1 اقل كمية يمكن ادخالها');
+                                        }else{
+                                          context.read<UpdateCartBloc>().add(GetUpdateCartEvent(quantity: localCartItemEntity![index].quantity! - 1, id: localCartItemEntity![index].id!));
+                                          context.read<GetCartBloc>().add(GetCartEvent());
+                                        }
                                       }else{
-                                        context.read<UpdateCartBloc>().add(GetUpdateCartEvent(quantity: localGetCartEntity!.data!.cartItems![index].quantity! - 1, id: localGetCartEntity!.data!.cartItems![index].id!));
-                                        context.read<GetCartBloc>().add(GetCartEvent());
+                                        print('not active');
                                       }
+
                                     },
                                     icon: Icon(Icons.minimize,),
                                   ),
                                   Text(
-                                    localGetCartEntity!.data!.cartItems![index].quantity.toString(),
+                                    localCartItemEntity![index].quantity.toString(),
                                     style: Theme.of(context)
                                         .textTheme
                                         .headlineLarge!
@@ -109,8 +114,12 @@ class ShowCartWidget extends StatelessWidget {
                                   IconButton(
                                     iconSize: 30,
                                     onPressed: (){
-                                      context.read<UpdateCartBloc>().add(GetUpdateCartEvent(quantity: localGetCartEntity!.data!.cartItems![index].quantity! + 1, id: localGetCartEntity!.data!.cartItems![index].id!));
-                                      context.read<GetCartBloc>().add(GetCartEvent());
+                                      if(isActive == false){
+                                        context.read<UpdateCartBloc>().add(GetUpdateCartEvent(quantity: localCartItemEntity![index].quantity! + 1, id: localCartItemEntity![index].id!));
+                                        context.read<GetCartBloc>().add(GetCartEvent());
+                                      }else{
+                                        print('not active');
+                                      }
                                     },
                                     icon: Icon(Icons.add,),
                                   ),
@@ -156,7 +165,7 @@ class ShowCartWidget extends StatelessWidget {
                               .copyWith(fontSize: 20.0),
                         ),
                         Text(
-                          localGetCartEntity!.data!.total.toString(),
+                          localTotal.toString(),
                           style: Theme.of(context)
                               .textTheme
                               .headlineLarge!
