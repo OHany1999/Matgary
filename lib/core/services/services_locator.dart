@@ -18,6 +18,11 @@ import 'package:matgary/carts/general%20_cart_apis/3-delete_cart/data/repository
 import 'package:matgary/carts/general%20_cart_apis/3-delete_cart/domain/repository/base_delete_cart_repository.dart';
 import 'package:matgary/carts/general%20_cart_apis/3-delete_cart/domain/usecase/delete_cart_usecase.dart';
 import 'package:matgary/carts/general%20_cart_apis/3-delete_cart/presentation/controller/delete_cart_bloc/delete_cart_bloc.dart';
+import 'package:matgary/carts/general%20_cart_apis/4-add_order/data/datasource/add_order_datasource.dart';
+import 'package:matgary/carts/general%20_cart_apis/4-add_order/data/repository/add_order_repository.dart';
+import 'package:matgary/carts/general%20_cart_apis/4-add_order/domain/repository/base_add_order_repository.dart';
+import 'package:matgary/carts/general%20_cart_apis/4-add_order/domain/usecase/add_order_usecase.dart';
+import 'package:matgary/carts/general%20_cart_apis/4-add_order/presentation/controller/add_order_bloc/add_order_bloc.dart';
 import 'package:matgary/core/global/app_shared_pref.dart';
 import 'package:matgary/favorite/data/datasource/favorite_list_remote_data_source.dart';
 import 'package:matgary/favorite/data/repository/favorite_list_repository.dart';
@@ -59,6 +64,17 @@ class ServicesLocator {
     // final appPreferences = AppPreferences(instance());
     sl.registerLazySingleton<AppPreferences>(() => AppPreferences(sl()));
     
+    ////////////////////////////////////////////////////////
+
+    // AddOrder
+    sl.registerFactory(() => AddOrderBloc(sl()));
+
+    /// USE CASES For AddOrder
+    sl.registerLazySingleton(() => AddOrderUseCase(sl()));
+    /// Repository For AddOrder
+    sl.registerLazySingleton<BaseAddOrderRepository>(() => AddOrderRepository(sl()));
+    /// DATA SOURCE For AddOrder
+    sl.registerLazySingleton<BaseAddOrderRemoteDataSource>(() => AddOrderRemoteDataSource());
     
     /////////////////////////////////////////////////////////
 
