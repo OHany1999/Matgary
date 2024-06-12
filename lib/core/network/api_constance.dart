@@ -9,4 +9,5 @@ static const String add_or_remove_cart_Path = '${baseUrl}carts';
 static const String getCartsPath = '${baseUrl}carts';
 static String update_cart_Path ({required int id}) => '${baseUrl}carts/$id';
 static String delete_cart_Path ({required int id}) => '${baseUrl}carts/$id';
+static const String addOrderPath = '${baseUrl}orders';
 }
