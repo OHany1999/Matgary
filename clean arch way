@@ -130,7 +130,7 @@ class TestModel extends TestEntity {
     required super.data,
   });
 
-  factory TestModel.fromJson(Map<String, dynamic> json) => HomeModel(
+  factory TestModel.fromJson(Map<String, dynamic> json) => TestModel(
         status: json['status'],
         message: json['message'],
         data: json['data'] != null ? DataModel.fromJson(json['data']) : null,

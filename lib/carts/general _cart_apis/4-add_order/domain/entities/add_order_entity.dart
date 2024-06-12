@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 class AddOrderEntity extends Equatable{
   final bool? status;
   final String? message;
-  final AddOrderData? addOrderData;
+  final AddOrderDataEntity? addOrderData;
 
   AddOrderEntity({
     required this.status,
@@ -17,11 +17,11 @@ class AddOrderEntity extends Equatable{
 
 }
 
-class AddOrderData extends Equatable{
+class AddOrderDataEntity extends Equatable{
   final String? paymentMethod;
   final int? id;
 
-  AddOrderData({
+  AddOrderDataEntity({
     required this.paymentMethod,
     required this.id,
   });
