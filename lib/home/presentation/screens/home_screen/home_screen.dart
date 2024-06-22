@@ -37,9 +37,7 @@ class HomeScreen extends StatelessWidget {
         builder: (context, state) {
           switch (state.requestState) {
             case RequestState.initial:
-              return const Center(
-                child: Text('initial'),
-              );
+              return const SizedBox();
             case RequestState.loading:
               if (productListtt!.isNotEmpty && bannertListtt!.isNotEmpty) {
                 return CustomScrollView(

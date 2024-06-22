@@ -57,9 +57,9 @@ class GlobalShowDialog {
                 ),
                 TextButton(
                   onPressed: onPressForRefuse,
-                  child: Text(
+                  child: const Text(
                     'رفض',
-                    style: TextStyle(fontSize: 20),
+                    style: TextStyle(fontSize: 20,color: Colors.grey),
                   ),
                 ),
               ],

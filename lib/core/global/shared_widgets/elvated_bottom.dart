@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:matgary/core/global/theme/app_color/app_color_light.dart';
 
 class GlobalElevatedButton extends StatelessWidget {
@@ -14,8 +15,8 @@ class GlobalElevatedButton extends StatelessWidget {
     required this.onPress,
     this.backGroundColor = AppColorsLight.orangeColor3,
     this.bottomSize= const Size(325, 55),
-    this.bottomPadding=const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-    this.bottomText="Log in",
+    this.bottomPadding= const EdgeInsets.symmetric(vertical: 15),
+    this.bottomText="تسجبل الدخول",
     this.fontSize = 16,
   });
 

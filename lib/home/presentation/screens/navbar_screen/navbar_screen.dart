@@ -30,7 +30,7 @@ class NavBarScreen extends StatelessWidget {
             // package
             appBar: AppBar(
               leading: Container(
-                margin: EdgeInsets.only(left: 15),
+                margin: const EdgeInsets.only(left: 15),
                 child: IconButton(
                   iconSize: 30,
                     onPressed: () {

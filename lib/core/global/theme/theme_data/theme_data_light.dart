@@ -4,8 +4,7 @@ import 'package:matgary/core/global/theme/app_color/app_color_light.dart';
 ThemeData getThemeDataLight() => ThemeData(
       primaryColor: AppColorsLight.primaryColor,
       progressIndicatorTheme: const ProgressIndicatorThemeData(
-
-        color:  AppColorsLight.orangeColor3,
+        color: AppColorsLight.orangeColor3,
       ),
       scaffoldBackgroundColor: AppColorsLight.backgroundColor,
       appBarTheme: const AppBarTheme(
@@ -32,5 +31,10 @@ ThemeData getThemeDataLight() => ThemeData(
             color: AppColorsLight.grayColor,
             fontFamily: 'Poppins',
             fontWeight: FontWeight.bold),
+      ),
+      textSelectionTheme: const TextSelectionThemeData(
+        cursorColor: AppColorsLight.orangeColor3,
+        selectionColor: AppColorsLight.orangeColor3,
+        selectionHandleColor: AppColorsLight.orangeColor3,
       ),
     );

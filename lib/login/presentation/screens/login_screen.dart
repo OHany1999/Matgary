@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:matgary/core/global/app_shared_pref.dart';
 import 'package:matgary/core/global/shared_widgets/elvated_bottom.dart';
 import 'package:matgary/core/global/shared_widgets/textField.dart';
@@ -35,36 +36,36 @@ class LoginScreen extends StatelessWidget {
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(30.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 const SizedBox(height: 150),
                 Center(
                   child: Text(
-                    "Log in",
+                    "تسجيل الدخول",
                     style: Theme.of(context).textTheme.headlineLarge,
                   ),
                 ),
                 const SizedBox(height: 100),
                 Text(
-                  'E-mail',
-                  style: Theme.of(context).textTheme.bodyMedium,
+                  'البريد الالكتروني',
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 20),
                 ),
                 const SizedBox(height: 10),
                 GlobalTextField(
                   textEditingController: _controllerUsername,
                   keyboardType: TextInputType.emailAddress,
-                  prefixIcon: null,
+                  suffixIcon: null,
                   validator: (String? value) {
                     if (value == null || value.isEmpty) {
-                      return "Please enter username.";
+                      return "يجب ادخال البريد الالكتروني";
                     }
                     return null;
                   },
                 ),
                 const SizedBox(height: 30),
                 Text(
-                  'Password',
-                  style: Theme.of(context).textTheme.bodyMedium,
+                  'كلمة السر',
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 20),
                 ),
                 const SizedBox(height: 10),
                 BlocBuilder<PasswordObsBloc, PasswordObscureState>(
@@ -73,17 +74,17 @@ class LoginScreen extends StatelessWidget {
                     focusNode: _focusNodePassword,
                     obscureText: state.obscurePassword,
                     keyboardType: TextInputType.visiblePassword,
-                    prefixIcon: null,
-                    addSuffixIcon: true,
-                    suffixIconImage: state.obscurePassword
+                    suffixIcon: null,
+                    addPrefixIcon: true,
+                    addPrefixIconImage: state.obscurePassword
                         ? const Icon(Icons.visibility_outlined)
                         : const Icon(Icons.visibility_off_outlined),
-                    suffixIconOnPress: () {
+                    addPrefixIconOnPress: () {
                       context.read<PasswordObsBloc>().add('+');
                     },
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
-                        return "Please enter password.";
+                        return "يجب ادخال الباسورد";
                       }
                       return null;
                     },
@@ -100,7 +101,10 @@ class LoginScreen extends StatelessWidget {
                       print(state.requestState);
                       switch (state.requestState) {
                         case RequestState.initial:
-                          return GlobalElevatedButton(onPress: () {
+                          return GlobalElevatedButton(
+                            bottomPadding: EdgeInsets.symmetric(vertical: 5.h),
+                            fontSize: 22,
+                              onPress: () {
                             if (_formKey.currentState?.validate() ?? false) {
                               context.read<LoginBloc>().add(GetLoginEvent(
                                   email: _controllerUsername.text,
@@ -112,7 +116,10 @@ class LoginScreen extends StatelessWidget {
                             color: AppColorsLight.orangeColor3,
                           );
                         case RequestState.success:
-                          return GlobalElevatedButton(onPress: () {
+                          return GlobalElevatedButton(
+                              bottomPadding: EdgeInsets.symmetric(vertical: 5.h),
+                              fontSize: 22,
+                              onPress: () {
                             if (_formKey.currentState?.validate() ?? false) {
                               context.read<LoginBloc>().add(GetLoginEvent(
                                   email: _controllerUsername.text,
@@ -124,7 +131,10 @@ class LoginScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              GlobalElevatedButton(onPress: () {
+                              GlobalElevatedButton(
+                                  bottomPadding: EdgeInsets.symmetric(vertical: 5.h),
+                                  fontSize: 22,
+                                  onPress: () {
                                 if (_formKey.currentState?.validate() ??
                                     false) {
                                   context.read<LoginBloc>().add(GetLoginEvent(
@@ -156,7 +166,7 @@ class LoginScreen extends StatelessWidget {
                           );
                         } else {
                           ToastMessages.showToast(
-                              message: 'Wrong Email or Password');
+                              message: 'هناك خطأ في البريد الالكتروني او كلمة السر');
                         }
                       }
                     },
