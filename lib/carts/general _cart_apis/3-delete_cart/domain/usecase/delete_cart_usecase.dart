@@ -2,17 +2,17 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:matgary/carts/general%20_cart_apis/3-delete_cart/domain/repository/base_delete_cart_repository.dart';
 import 'package:matgary/core/error/failure.dart';
-import 'package:matgary/core/global/shared_models_and_entites/cart/upate_and_remove_cart_entity.dart';
+import 'package:matgary/core/global/shared_models_and_entites/cart/Success_entity.dart';
 import 'package:matgary/core/usecase/base_usecase.dart';
 
 class DeleteCartUseCase
-    extends BaseUseCase<UpdateAndDeleteCartEntity, DeleteCartParameters> {
+    extends BaseUseCase<SuccessEntity, DeleteCartParameters> {
   final BaseDeleteCartRepository baseDeleteCartRepository;
 
   DeleteCartUseCase(this.baseDeleteCartRepository);
 
   @override
-  Future<Either<Failure, UpdateAndDeleteCartEntity>> call(
+  Future<Either<Failure, SuccessEntity>> call(
       DeleteCartParameters parameters) async {
     return await baseDeleteCartRepository.getDeleteCartData(parameters);
   }

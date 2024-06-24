@@ -1,12 +1,12 @@
 
-import 'package:matgary/core/global/shared_models_and_entites/cart/upate_and_remove_cart_entity.dart';
+import 'package:matgary/core/global/shared_models_and_entites/cart/Success_entity.dart';
 
-class UpdateAndDeleteCartModel extends UpdateAndDeleteCartEntity {
-  UpdateAndDeleteCartModel(
+class SuccessModel extends SuccessEntity {
+  SuccessModel(
       {required super.status, required super.message, required super.data});
 
-  factory UpdateAndDeleteCartModel.fromJson(Map<String, dynamic> json) =>
-      UpdateAndDeleteCartModel(
+  factory SuccessModel.fromJson(Map<String, dynamic> json) =>
+      SuccessModel(
         status: json['status'],
         message: json['message'],
         data: json['data'] != null ? DataModel.fromJson(json['data']) : null,

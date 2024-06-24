@@ -3,7 +3,7 @@ import 'package:matgary/carts/general%20_cart_apis/3-delete_cart/data/datasource
 import 'package:matgary/carts/general%20_cart_apis/3-delete_cart/domain/repository/base_delete_cart_repository.dart';
 import 'package:matgary/carts/general%20_cart_apis/3-delete_cart/domain/usecase/delete_cart_usecase.dart';
 import 'package:matgary/core/error/failure.dart';
-import 'package:matgary/core/global/shared_models_and_entites/cart/upate_and_remove_cart_entity.dart';
+import 'package:matgary/core/global/shared_models_and_entites/cart/Success_entity.dart';
 
 class DeleteCartRepository extends BaseDeleteCartRepository{
   final BaseDeleteCartRemoteDataSource baseDeleteCartRemoteDataSource;
@@ -11,7 +11,7 @@ class DeleteCartRepository extends BaseDeleteCartRepository{
   DeleteCartRepository(this.baseDeleteCartRemoteDataSource);
 
   @override
-  Future<Either<Failure, UpdateAndDeleteCartEntity>> getDeleteCartData(DeleteCartParameters parameters)async {
+  Future<Either<Failure, SuccessEntity>> getDeleteCartData(DeleteCartParameters parameters)async {
   try{
   final result = await baseDeleteCartRemoteDataSource.getDeleteCartData(parameters);
   return Right(result);

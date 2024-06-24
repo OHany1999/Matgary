@@ -1,6 +1,6 @@
 
 import 'package:equatable/equatable.dart';
-import 'package:matgary/core/global/shared_models_and_entites/cart/upate_and_remove_cart_entity.dart';
+import 'package:matgary/core/global/shared_models_and_entites/cart/Success_entity.dart';
 
 
 enum UpdateCartRequestState{
@@ -12,7 +12,7 @@ enum UpdateCartRequestState{
 
 
 class UpdateCartState extends Equatable {
-  final UpdateAndDeleteCartEntity? updateCartEntity;
+  final SuccessEntity? updateCartEntity;
   final UpdateCartRequestState updateCartRequestState;
   final String updateCartErrorMessage;
 
@@ -26,7 +26,7 @@ class UpdateCartState extends Equatable {
 
 
   UpdateCartState copyWith({
-    UpdateAndDeleteCartEntity? updateCartEntity,
+    SuccessEntity? updateCartEntity,
     UpdateCartRequestState? updateCartRequestState,
     String? updateCartErrorMessage,
   }) {

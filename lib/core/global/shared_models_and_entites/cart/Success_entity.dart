@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
 
-class UpdateAndDeleteCartEntity extends Equatable{
+class SuccessEntity extends Equatable{
   final bool? status;
   final String? message;
   final DataEntity? data;
 
-  UpdateAndDeleteCartEntity({
+  SuccessEntity({
     required this.status,
     required this.message,
     required this.data,
