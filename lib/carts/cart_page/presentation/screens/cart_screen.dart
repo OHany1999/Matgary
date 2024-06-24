@@ -16,6 +16,7 @@ class CartScreen extends StatelessWidget {
 
   List<CartItemEntity>? localCartItemEntity = [];
   int? localTotal = 0;
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -33,23 +34,31 @@ class CartScreen extends StatelessWidget {
               case GetCartRequestState.initial:
                 return Container();
               case GetCartRequestState.loading:
-                if(localCartItemEntity!.isNotEmpty && localTotal != 0){
+                if (localCartItemEntity!.isNotEmpty && localTotal != 0) {
                   return SafeArea(
                       child: Stack(
-                        children: [
-                          const Center(child: CircularProgressIndicator()),
-                          ShowCartWidget(localCartItemEntity: localCartItemEntity,localTotal: localTotal,isActive: true,),
-                        ],
-                      ));
-                }else{
+                    children: [
+                      const Center(child: CircularProgressIndicator()),
+                      ShowCartWidget(
+                        localCartItemEntity: localCartItemEntity,
+                        localTotal: localTotal,
+                        isActive: true,
+                      ),
+                    ],
+                  ));
+                } else {
                   return const Center(child: CircularProgressIndicator());
                 }
 
               case GetCartRequestState.success:
-                 localTotal = state.getCartEntity!.data!.total;
+                localTotal = state.getCartEntity!.data!.total;
                 localCartItemEntity = state.getCartEntity!.data!.cartItems;
                 return SafeArea(
-                    child: ShowCartWidget(localCartItemEntity: localCartItemEntity,localTotal: localTotal,isActive: false,));
+                    child: ShowCartWidget(
+                      localCartItemEntity: localCartItemEntity,
+                      localTotal: localTotal,
+                      isActive: false,
+                    ));
               case GetCartRequestState.error:
                 return ErrorWidgetWithReload(onPress: () {
                   context.read<GetCartBloc>().add(GetCartEvent());

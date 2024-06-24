@@ -11,6 +11,7 @@ import 'package:matgary/carts/cart_page/presentation/controller/get_cats_bloc/ge
 import 'package:matgary/carts/general%20_cart_apis/2-update_cart/presentation/controller/update_cart_bloc/update_cart_bloc.dart';
 import 'package:matgary/carts/general%20_cart_apis/2-update_cart/presentation/controller/update_cart_bloc/update_cart_event.dart';
 import 'package:matgary/core/global/shared_widgets/elvated_bottom.dart';
+import 'package:matgary/core/global/theme/app_color/app_color_light.dart';
 import 'package:matgary/core/global/toast/toast.dart';
 
 class ShowCartWidget extends StatelessWidget {
@@ -24,11 +25,17 @@ class ShowCartWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Expanded(
-          child: SingleChildScrollView(
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height - 140.h,
-              child: ListView.builder(
+        SingleChildScrollView(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height - 140.h,
+            child: RefreshIndicator(
+              color: AppColorsLight.orangeColor3,
+              onRefresh: () {
+                return Future(() => context.read<GetCartBloc>().add(GetCartEvent(),),);
+              },
+              child: ListView.separated(
+                // to make RefreshIndicator working with listview
+                physics: const AlwaysScrollableScrollPhysics(),
                 itemCount: localCartItemEntity!.length,
                 itemBuilder: (context, index) {
                   return Container(
@@ -81,13 +88,13 @@ class ShowCartWidget extends StatelessWidget {
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.only(top: 10,left: 5),
+                              margin: const EdgeInsets.only(top: 10,left: 5),
                               width: 150.w,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  IconButton(
-                                    padding: EdgeInsets.only(bottom: 15),
+                                  localCartItemEntity![index].quantity! <= 1 ? IconButton(onPressed: (){}, icon: const Icon(Icons.delete)) :IconButton(
+                                    padding: const EdgeInsets.only(bottom: 15),
                                     iconSize: 30,
                                     onPressed: (){
                                       if(isActive == false){
@@ -102,7 +109,7 @@ class ShowCartWidget extends StatelessWidget {
                                       }
 
                                     },
-                                    icon: Icon(Icons.minimize,),
+                                    icon: const Icon(Icons.minimize,),
                                   ),
                                   Text(
                                     localCartItemEntity![index].quantity.toString(),
@@ -121,7 +128,7 @@ class ShowCartWidget extends StatelessWidget {
                                         print('not active');
                                       }
                                     },
-                                    icon: Icon(Icons.add,),
+                                    icon: const Icon(Icons.add,),
                                   ),
                                 ],
                               ),
@@ -132,6 +139,7 @@ class ShowCartWidget extends StatelessWidget {
                     ),
                   );
                 },
+                separatorBuilder:(context, index)=>Container(margin: const EdgeInsets.only(right: 18,left: 18,top: 15),height: 1.0,color: Colors.grey,) ,
               ),
             ),
           ),
@@ -151,7 +159,7 @@ class ShowCartWidget extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                margin: EdgeInsets.only(top: 20),
+                margin: const EdgeInsets.only(top: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
