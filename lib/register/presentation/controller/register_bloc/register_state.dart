@@ -39,3 +39,18 @@ class RegisterState extends Equatable {
         registerErrorMessage,
       ];
 }
+
+/////////////////////////////////////////////////
+
+class PasswordRegisterObscureState extends Equatable {
+  final bool obscurePassword ;
+
+
+  const PasswordRegisterObscureState({this.obscurePassword = true});
+
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [obscurePassword];
+}
+

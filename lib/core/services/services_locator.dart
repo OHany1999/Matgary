@@ -47,6 +47,11 @@ import 'package:matgary/product_details/domain/usecase/add_favorite_usecase.dart
 import 'package:matgary/product_details/domain/usecase/get_product_details_usecase.dart';
 import 'package:matgary/product_details/presentation/controller/add_and_remove_favorite_bloc/add_and_remove_favorite_bloc.dart';
 import 'package:matgary/product_details/presentation/controller/product_details_bloc/product_details_bloc.dart';
+import 'package:matgary/register/data/datasource/register_datasource.dart';
+import 'package:matgary/register/data/repository/register_repository.dart';
+import 'package:matgary/register/domain/repository/base_register_repository.dart';
+import 'package:matgary/register/domain/usecase/register_usecase.dart';
+import 'package:matgary/register/presentation/controller/register_bloc/register_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../carts/cart_page/data/repository/get_cats_repository.dart';
@@ -188,6 +193,20 @@ class ServicesLocator {
     sl.registerLazySingleton<BaseHomeRepository>(() => HomeRepository(sl()));
     /// DATA SOURCE For Home
     sl.registerLazySingleton<BaseHomeRemoteDataSource>(() => HomeRemoteDataSource());
+/////////////////////////////////////////////////////////////////////
+
+    // Register
+    sl.registerFactory(() => RegisterBloc(sl()));
+
+
+    /// USE CASES For Register
+    sl.registerLazySingleton(() => RegisterUseCase(sl()));
+    /// Repository For Register
+    sl.registerLazySingleton<BaseRegisterRepository>(() => RegisterRepository(sl()));
+    /// DATA SOURCE For Register
+    sl.registerLazySingleton<BaseRegisterRemoteDataSource>(() => RegisterRemoteDataSource());
+
+
 
     //////////////////////////////////////////////////////////
 

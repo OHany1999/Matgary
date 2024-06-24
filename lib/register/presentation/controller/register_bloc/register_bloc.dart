@@ -27,3 +27,20 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     );
   }
 }
+
+
+//////////////////////////////////////////////////////////
+class PasswordRegisterObsBloc extends Bloc<String, PasswordRegisterObscureState> {
+  PasswordRegisterObsBloc():super(const PasswordRegisterObscureState()){
+    on<String>(_obscure);
+  }
+
+
+
+
+  FutureOr<void> _obscure(String event, Emitter<PasswordRegisterObscureState> emit) {
+    if(event == '+') {
+      emit(PasswordRegisterObscureState(obscurePassword: !state.obscurePassword));
+    }
+  }
+}

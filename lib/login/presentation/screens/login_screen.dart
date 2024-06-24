@@ -20,7 +20,7 @@ class LoginScreen extends StatelessWidget {
   final AppPreferences _appPref = sl<AppPreferences>();
   final GlobalKey<FormState> _formKey = GlobalKey();
   final FocusNode _focusNodePassword = FocusNode();
-  final TextEditingController _controllerUsername = TextEditingController();
+  final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
 
   @override
@@ -52,7 +52,7 @@ class LoginScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 GlobalTextField(
-                  textEditingController: _controllerUsername,
+                  textEditingController: _controllerEmail,
                   keyboardType: TextInputType.emailAddress,
                   suffixIcon: null,
                   validator: (String? value) {
@@ -77,8 +77,8 @@ class LoginScreen extends StatelessWidget {
                     suffixIcon: null,
                     addPrefixIcon: true,
                     addPrefixIconImage: state.obscurePassword
-                        ? const Icon(Icons.visibility_outlined)
-                        : const Icon(Icons.visibility_off_outlined),
+                        ? const Icon(Icons.visibility_off_outlined)
+                        : const Icon(Icons.visibility_outlined),
                     addPrefixIconOnPress: () {
                       context.read<PasswordObsBloc>().add('+');
                     },
@@ -107,7 +107,7 @@ class LoginScreen extends StatelessWidget {
                               onPress: () {
                             if (_formKey.currentState?.validate() ?? false) {
                               context.read<LoginBloc>().add(GetLoginEvent(
-                                  email: _controllerUsername.text,
+                                  email: _controllerEmail.text,
                                   password: _controllerPassword.text));
                             }
                           });
@@ -122,7 +122,7 @@ class LoginScreen extends StatelessWidget {
                               onPress: () {
                             if (_formKey.currentState?.validate() ?? false) {
                               context.read<LoginBloc>().add(GetLoginEvent(
-                                  email: _controllerUsername.text,
+                                  email: _controllerEmail.text,
                                   password: _controllerPassword.text));
                             }
                           });
@@ -138,17 +138,10 @@ class LoginScreen extends StatelessWidget {
                                 if (_formKey.currentState?.validate() ??
                                     false) {
                                   context.read<LoginBloc>().add(GetLoginEvent(
-                                      email: _controllerUsername.text,
+                                      email: _controllerEmail.text,
                                       password: _controllerPassword.text));
                                 }
                               }),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Text(
-                                state.loginMessage,
-                                textAlign: TextAlign.center,
-                              )
                             ],
                           );
                       }
