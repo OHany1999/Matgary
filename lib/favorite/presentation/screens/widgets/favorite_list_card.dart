@@ -7,6 +7,7 @@ import 'package:matgary/carts/general%20_cart_apis/1-add_or_remove_cart/presenta
 import 'package:matgary/carts/general%20_cart_apis/1-add_or_remove_cart/presentation/controller/add_or_remove_cart_bloc/add_or_remove_cart_state.dart';
 import 'package:matgary/core/global/shared_widgets/elvated_bottom.dart';
 import 'package:matgary/core/global/shared_widgets/show_dialog.dart';
+import 'package:matgary/core/global/theme/app_color/app_color_light.dart';
 import 'package:matgary/core/global/toast/toast.dart';
 import 'package:matgary/home/domain/entities/home_entity.dart';
 import 'package:matgary/product_details/presentation/controller/add_and_remove_favorite_bloc/add_and_remove_favorite_bloc.dart';
@@ -77,9 +78,9 @@ class FavoriteListCard extends StatelessWidget {
 
                   },
                   icon: const Icon(
-                    Icons.delete_forever,
+                    Icons.delete,
                     size: 35,
-                    color: Colors.red,
+                    color: AppColorsLight.orangeColor3,
                   ),
                 ),
                 const SizedBox(
@@ -161,7 +162,7 @@ class FavoriteListCard extends StatelessWidget {
                   ):Container(
                     margin: const EdgeInsets.only(right: 20, top: 20),
                     child: GlobalElevatedButton(
-                      backGroundColor: Colors.red,
+                      backGroundColor: AppColorsLight.grayColor,
                       bottomText: 'حذف من العربة',
                       onPress: () {
                         context.read<AddOrRemoveCartBloc>().add(GetAddOrRemoveCartEvent(id: localDataEntityList![index].id!));

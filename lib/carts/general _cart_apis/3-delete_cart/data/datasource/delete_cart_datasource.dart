@@ -19,7 +19,6 @@ class DeleteCartRemoteDataSource extends BaseDeleteCartRemoteDataSource {
   ApiConstance.delete_cart_Path(id: parameters.id),
   options: Options(headers: {
   'lang':'ar',
-  'Content-Type':'Content-Type',
   'Authorization':'${_appPref.getToken()}',
   }),
 

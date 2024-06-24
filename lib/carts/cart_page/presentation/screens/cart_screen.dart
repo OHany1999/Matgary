@@ -6,6 +6,7 @@ import 'package:matgary/carts/cart_page/presentation/controller/get_cats_bloc/ge
 import 'package:matgary/carts/cart_page/presentation/controller/get_cats_bloc/get_cats_state.dart';
 import 'package:matgary/carts/cart_page/presentation/screens/widgets/show_cart_widget.dart';
 import 'package:matgary/carts/general%20_cart_apis/2-update_cart/presentation/controller/update_cart_bloc/update_cart_bloc.dart';
+import 'package:matgary/carts/general%20_cart_apis/3-delete_cart/presentation/controller/delete_cart_bloc/delete_cart_bloc.dart';
 import 'package:matgary/core/global/shared_widgets/error_widget.dart';
 import 'package:matgary/core/services/services_locator.dart';
 
@@ -24,6 +25,7 @@ class CartScreen extends StatelessWidget {
         BlocProvider(
             create: (context) => sl<GetCartBloc>()..add(GetCartEvent())),
         BlocProvider(create: (context) => sl<UpdateCartBloc>()),
+        BlocProvider(create: (context) => sl<DeleteCartBloc>()),
       ],
       child: Scaffold(
         body: BlocBuilder<GetCartBloc, GetCartState>(

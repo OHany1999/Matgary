@@ -1,4 +1,3 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +9,9 @@ import 'package:matgary/carts/cart_page/presentation/controller/get_cats_bloc/ge
 import 'package:matgary/carts/cart_page/presentation/controller/get_cats_bloc/get_cats_event.dart';
 import 'package:matgary/carts/general%20_cart_apis/2-update_cart/presentation/controller/update_cart_bloc/update_cart_bloc.dart';
 import 'package:matgary/carts/general%20_cart_apis/2-update_cart/presentation/controller/update_cart_bloc/update_cart_event.dart';
+import 'package:matgary/carts/general%20_cart_apis/3-delete_cart/presentation/controller/delete_cart_bloc/delete_cart_bloc.dart';
+import 'package:matgary/carts/general%20_cart_apis/3-delete_cart/presentation/controller/delete_cart_bloc/delete_cart_event.dart';
+import 'package:matgary/carts/general%20_cart_apis/3-delete_cart/presentation/controller/delete_cart_bloc/delete_cart_state.dart';
 import 'package:matgary/core/global/shared_widgets/elvated_bottom.dart';
 import 'package:matgary/core/global/theme/app_color/app_color_light.dart';
 import 'package:matgary/core/global/toast/toast.dart';
@@ -19,7 +21,11 @@ class ShowCartWidget extends StatelessWidget {
   List<CartItemEntity>? localCartItemEntity;
   int? localTotal;
 
-  ShowCartWidget({super.key, required this.localCartItemEntity,required this.localTotal,required this.isActive});
+  ShowCartWidget(
+      {super.key,
+      required this.localCartItemEntity,
+      required this.localTotal,
+      required this.isActive});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +37,11 @@ class ShowCartWidget extends StatelessWidget {
             child: RefreshIndicator(
               color: AppColorsLight.orangeColor3,
               onRefresh: () {
-                return Future(() => context.read<GetCartBloc>().add(GetCartEvent(),),);
+                return Future(
+                  () => context.read<GetCartBloc>().add(
+                        GetCartEvent(),
+                      ),
+                );
               },
               child: ListView.separated(
                 // to make RefreshIndicator working with listview
@@ -61,10 +71,14 @@ class ShowCartWidget extends StatelessWidget {
                         Column(
                           children: [
                             Container(
-                              margin: const EdgeInsets.only(top: 15,),
+                              margin: const EdgeInsets.only(
+                                top: 15,
+                              ),
                               width: 140.w,
                               child: Text(
-                                localCartItemEntity![index].product!.name
+                                localCartItemEntity![index]
+                                    .product!
+                                    .name
                                     .toString(),
                                 maxLines: 2,
                                 textAlign: TextAlign.center,
@@ -88,31 +102,63 @@ class ShowCartWidget extends StatelessWidget {
                               ),
                             ),
                             Container(
-                              margin: const EdgeInsets.only(top: 10,left: 5),
+                              margin: const EdgeInsets.only(top: 10, left: 5),
                               width: 150.w,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  localCartItemEntity![index].quantity! <= 1 ? IconButton(onPressed: (){}, icon: const Icon(Icons.delete)) :IconButton(
-                                    padding: const EdgeInsets.only(bottom: 15),
-                                    iconSize: 30,
-                                    onPressed: (){
-                                      if(isActive == false){
-                                        if(localCartItemEntity![index].quantity! <= 1){
-                                          ToastMessages.showToast(message: 'عدد 1 اقل كمية يمكن ادخالها');
-                                        }else{
-                                          context.read<UpdateCartBloc>().add(GetUpdateCartEvent(quantity: localCartItemEntity![index].quantity! - 1, id: localCartItemEntity![index].id!));
-                                          context.read<GetCartBloc>().add(GetCartEvent());
-                                        }
-                                      }else{
-                                        print('not active');
-                                      }
-
-                                    },
-                                    icon: const Icon(Icons.minimize,),
-                                  ),
+                                  localCartItemEntity![index].quantity! <= 1
+                                      ? BlocListener<DeleteCartBloc,
+                                          DeleteCartState>(
+                                          listener: (context, state) {
+                                            switch (
+                                                state.deleteCartRequestState) {
+                                              case DeleteCartRequestState
+                                                    .initial:
+                                                print('delete initial');
+                                              case DeleteCartRequestState
+                                                    .loading:
+                                                print('delete loading');
+                                              case DeleteCartRequestState
+                                                    .success:
+                                                print('delete success');
+                                              case DeleteCartRequestState.error:
+                                                print(state
+                                                    .deleteCartErrorMessage);
+                                            }
+                                          },
+                                          child: IconButton(
+                                              onPressed: () {
+                                                context
+                                                    .read<DeleteCartBloc>()
+                                                    .add(GetDeleteCartEvent(
+                                                        id: localCartItemEntity![
+                                                                index]
+                                                            .id!));
+                                                context
+                                                    .read<GetCartBloc>()
+                                                    .add(GetCartEvent());
+                                              },
+                                              icon: const Icon(Icons.delete)),
+                                        )
+                                      : IconButton(
+                                          padding:
+                                              const EdgeInsets.only(bottom: 15),
+                                          iconSize: 30,
+                                          onPressed: () {
+                                            if (isActive == false) {
+                                              context.read<UpdateCartBloc>().add(GetUpdateCartEvent(quantity: localCartItemEntity![index].quantity! - 1, id: localCartItemEntity![index].id!));
+                                              context.read<GetCartBloc>().add(GetCartEvent());
+                                            }
+                                          },
+                                          icon: const Icon(
+                                            Icons.minimize,
+                                          ),
+                                        ),
                                   Text(
-                                    localCartItemEntity![index].quantity.toString(),
+                                    localCartItemEntity![index]
+                                        .quantity
+                                        .toString(),
                                     style: Theme.of(context)
                                         .textTheme
                                         .headlineLarge!
@@ -120,15 +166,26 @@ class ShowCartWidget extends StatelessWidget {
                                   ),
                                   IconButton(
                                     iconSize: 30,
-                                    onPressed: (){
-                                      if(isActive == false){
-                                        context.read<UpdateCartBloc>().add(GetUpdateCartEvent(quantity: localCartItemEntity![index].quantity! + 1, id: localCartItemEntity![index].id!));
-                                        context.read<GetCartBloc>().add(GetCartEvent());
-                                      }else{
+                                    onPressed: () {
+                                      if (isActive == false) {
+                                        context.read<UpdateCartBloc>().add(
+                                            GetUpdateCartEvent(
+                                                quantity:
+                                                    localCartItemEntity![index]
+                                                            .quantity! +
+                                                        1,
+                                                id: localCartItemEntity![index]
+                                                    .id!));
+                                        context
+                                            .read<GetCartBloc>()
+                                            .add(GetCartEvent());
+                                      } else {
                                         print('not active');
                                       }
                                     },
-                                    icon: const Icon(Icons.add,),
+                                    icon: const Icon(
+                                      Icons.add,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -139,7 +196,11 @@ class ShowCartWidget extends StatelessWidget {
                     ),
                   );
                 },
-                separatorBuilder:(context, index)=>Container(margin: const EdgeInsets.only(right: 18,left: 18,top: 15),height: 1.0,color: Colors.grey,) ,
+                separatorBuilder: (context, index) => Container(
+                  margin: const EdgeInsets.only(right: 18, left: 18, top: 15),
+                  height: 1.0,
+                  color: Colors.grey,
+                ),
               ),
             ),
           ),
