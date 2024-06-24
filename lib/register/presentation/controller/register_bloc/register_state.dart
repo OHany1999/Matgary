@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:matgary/core/global/shared_models_and_entites/cart/Success_entity.dart';
+import 'package:matgary/register/domain/entities/register_entity.dart';
+
 
 enum RegisterRequestState {
   initial,
@@ -9,23 +10,23 @@ enum RegisterRequestState {
 }
 
 class RegisterState extends Equatable {
-  final SuccessEntity? successEntity;
+  final RegisterEntity? registerEntity;
   final RegisterRequestState registerRequestState;
   final String registerErrorMessage;
 
   const RegisterState({
-    this.successEntity,
+    this.registerEntity,
     this.registerRequestState = RegisterRequestState.initial,
     this.registerErrorMessage = '',
   });
 
   RegisterState copyWith({
-    SuccessEntity? successEntity,
+    RegisterEntity? RegisterEntity,
     RegisterRequestState? registerRequestState,
     String? registerErrorMessage,
   }) {
     return RegisterState(
-      successEntity: successEntity ?? this.successEntity,
+      registerEntity: RegisterEntity ?? this.registerEntity,
       registerRequestState: registerRequestState ?? this.registerRequestState,
       registerErrorMessage: registerErrorMessage ?? this.registerErrorMessage,
     );
@@ -34,7 +35,7 @@ class RegisterState extends Equatable {
   @override
   // TODO: implement props
   List<Object?> get props => [
-        successEntity,
+        RegisterEntity,
         registerRequestState,
         registerErrorMessage,
       ];

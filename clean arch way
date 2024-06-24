@@ -117,8 +117,6 @@ Data Folder
 
 4-model
 
-
-
 import 'dart:math';
 
 import 'package:matgary/home/domain/entities/home_entity.dart';

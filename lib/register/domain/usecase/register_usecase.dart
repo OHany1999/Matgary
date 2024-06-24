@@ -1,17 +1,17 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:matgary/core/error/failure.dart';
-import 'package:matgary/core/global/shared_models_and_entites/cart/Success_entity.dart';
 import 'package:matgary/core/usecase/base_usecase.dart';
+import 'package:matgary/register/domain/entities/register_entity.dart';
 import 'package:matgary/register/domain/repository/base_register_repository.dart';
 
-class RegisterUseCase extends BaseUseCase<SuccessEntity, RegisterParameters> {
+class RegisterUseCase extends BaseUseCase<RegisterEntity, RegisterParameters> {
   final BaseRegisterRepository baseRegisterRepository;
 
   RegisterUseCase(this.baseRegisterRepository);
 
   @override
-  Future<Either<Failure, SuccessEntity>> call(RegisterParameters parameters) async {
+  Future<Either<Failure, RegisterEntity>> call(RegisterParameters parameters) async {
     return await baseRegisterRepository.getRegisterData(parameters);
   }
 }

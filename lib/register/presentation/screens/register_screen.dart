@@ -7,9 +7,7 @@ import 'package:matgary/core/global/shared_widgets/textField.dart';
 import 'package:matgary/core/global/theme/app_color/app_color_light.dart';
 import 'package:matgary/core/global/toast/toast.dart';
 import 'package:matgary/core/services/services_locator.dart';
-
 import 'package:matgary/home/presentation/screens/navbar_screen/navbar_screen.dart';
-import 'package:matgary/login/presentation/controller/login_bloc.dart';
 import 'package:matgary/register/presentation/controller/register_bloc/register_bloc.dart';
 import 'package:matgary/register/presentation/controller/register_bloc/register_event.dart';
 import 'package:matgary/register/presentation/controller/register_bloc/register_state.dart';
@@ -209,17 +207,17 @@ class RegisterScreen extends StatelessWidget {
                     },
                     listener: (context, state) {
                       if (state.registerRequestState == RegisterRequestState.success) {
-                        if (state.successEntity!.data != null) {
-                          // _appPref.addToken(token: state.successEntity!.data!.token!);
+                        if (state.registerEntity!.data != null) {
+                          _appPref.addToken(token: state.registerEntity!.data!.token!);
                           Navigator.pushNamedAndRemoveUntil(
                             context,
                             NavBarScreen.routeName,
-                            arguments: state.successEntity,
+                            arguments: state.registerEntity,
                                 (Route<dynamic> route) => false,
                           );
                         } else {
                           ToastMessages.showToast(
-                              message: '${state.successEntity!.message}');
+                              message: '${state.registerEntity!.message}');
                         }
                       }
                     },

@@ -1,17 +1,15 @@
 import 'package:dio/dio.dart';
-import 'package:matgary/core/global/app_shared_pref.dart';
-import 'package:matgary/core/global/shared_models_and_entites/cart/Success_model.dart';
 import 'package:matgary/core/network/api_constance.dart';
-import 'package:matgary/core/services/services_locator.dart';
+import 'package:matgary/register/data/model/register_model.dart';
 import 'package:matgary/register/domain/usecase/register_usecase.dart';
 
 abstract class BaseRegisterRemoteDataSource {
-  Future<SuccessModel> getRegisterData(RegisterParameters parameters);
+  Future<RegisterModel> getRegisterData(RegisterParameters parameters);
 }
 
 class RegisterRemoteDataSource extends BaseRegisterRemoteDataSource {
   @override
-  Future<SuccessModel> getRegisterData(RegisterParameters parameters) async {
+  Future<RegisterModel> getRegisterData(RegisterParameters parameters) async {
     Dio dio = Dio();
     final response = await dio.post(
       ApiConstance.registerPath,
@@ -26,6 +24,6 @@ class RegisterRemoteDataSource extends BaseRegisterRemoteDataSource {
         "password": parameters.password
       },
     );
-    return SuccessModel.fromJson(response.data);
+    return RegisterModel.fromJson(response.data);
   }
 }

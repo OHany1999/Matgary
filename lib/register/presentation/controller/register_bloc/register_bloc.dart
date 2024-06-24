@@ -19,11 +19,8 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     final result = await registerUseCase(RegisterParameters(name: event.name, phone: event.phone, email: event.email, password: event.password));
     result.fold(
       (l) => emit(state.copyWith(
-          registerErrorMessage: l.message,
-          registerRequestState: RegisterRequestState.error)),
-      (r) => emit(state.copyWith(
-          successEntity: r,
-          registerRequestState: RegisterRequestState.success)),
+          registerErrorMessage: l.message, registerRequestState: RegisterRequestState.error)),
+      (r) => emit(state.copyWith(RegisterEntity: r, registerRequestState: RegisterRequestState.success)),
     );
   }
 }
