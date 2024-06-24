@@ -250,7 +250,7 @@ class TestRemoteDataSource extends BaseTestRemoteDataSource {
       ApiConstance.loginPath,
        options: Options(headers: {
           'lang':'ar',
-          'Content-Type':'Content-Type',
+          'Content-Type':'application/json',
           'Authorization':'${_appPref.getToken()}',
         }),
       data: {"email": parameters.email, "password": parameters.password},

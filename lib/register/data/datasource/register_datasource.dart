@@ -17,7 +17,7 @@ class RegisterRemoteDataSource extends BaseRegisterRemoteDataSource {
       ApiConstance.registerPath,
       options: Options(headers: {
         'lang': 'ar',
-        'Content-Type': 'Content-Type',
+        'Content-Type': 'application/json',
       }),
       data: {
         "name": parameters.name,
