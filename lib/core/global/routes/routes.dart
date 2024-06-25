@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:matgary/carts/cart_page/presentation/screens/cart_screen.dart';
 import 'package:matgary/category/presentation/screens/category_screen/category_screen.dart';
@@ -14,27 +13,23 @@ import 'package:matgary/register/presentation/screens/register_screen.dart';
 
 final AppPreferences _appPref = sl<AppPreferences>();
 
-Map<String, Widget Function(BuildContext)> myRoutes(){
+Map<String, Widget Function(BuildContext)> myRoutes() {
   return {
-    LoginScreen.routeName: (context)=> LoginScreen(),
-    RegisterScreen.routeName: (context)=> RegisterScreen(),
-    NavBarScreen.routeName:(context)=> NavBarScreen(),
-    HomeScreen.routeName:(context)=> HomeScreen(),
-    CategoryScreen.routeName:(context)=> const CategoryScreen(),
-    FavoriteScreen.routeName:(context)=> FavoriteScreen(),
-    ProductDetailsScreen.routeName:(context)=> const ProductDetailsScreen(),
-    CartScreen.routeName:(context)=>  CartScreen(),
+    LoginScreen.routeName: (context) => LoginScreen(),
+    RegisterScreen.routeName: (context) => RegisterScreen(),
+    NavBarScreen.routeName: (context) => NavBarScreen(),
+    HomeScreen.routeName: (context) => HomeScreen(),
+    CategoryScreen.routeName: (context) => const CategoryScreen(),
+    FavoriteScreen.routeName: (context) => FavoriteScreen(),
+    ProductDetailsScreen.routeName: (context) => const ProductDetailsScreen(),
+    CartScreen.routeName: (context) => CartScreen(),
   };
-
 }
 
-String myInitialRoute(){
-  // if(_appPref.getToken() == null){
-  //   return LoginScreen.routeName;
-  // }else{
-  //   return NavBarScreen.routeName;
-  // }
-  return RegisterScreen.routeName;
-
-
+String myInitialRoute() {
+  if (_appPref.getToken() == null) {
+    return LoginScreen.routeName;
+  } else {
+    return NavBarScreen.routeName;
+  }
 }

@@ -12,6 +12,7 @@ import 'package:matgary/home/presentation/screens/navbar_screen/navbar_screen.da
 import 'package:matgary/login/presentation/controller/login_bloc.dart';
 import 'package:matgary/login/presentation/controller/login_event.dart';
 import 'package:matgary/login/presentation/controller/login_state.dart';
+import 'package:matgary/register/presentation/screens/register_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -164,6 +165,39 @@ class LoginScreen extends StatelessWidget {
                       }
                     },
                   ),
+                ),
+                SizedBox(height: 10.h,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(right: 5.w),
+                      child: GestureDetector(
+                        onTap: (){
+                           Navigator.pushNamedAndRemoveUntil(
+                              context, RegisterScreen.routeName, (route) => false);
+                        },
+                        child: Text(
+                          'سجل حساب جديد',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(
+                            fontSize: 16,
+                            decoration: TextDecoration.underline,
+                            decorationColor: AppColorsLight.orangeColor3,
+                            color: AppColorsLight.orangeColor3,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Text(
+                      'ليس لديك حساب؟',
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
