@@ -284,13 +284,15 @@ class _ShowCartWidgetState extends State<ShowCartWidget> with TickerProviderStat
                 fontSize: 20,
                 onPress: () {
                   showDialog(context: context, builder: (BuildContext context){
-                    return AlertDialog(
-                      title: Text("Success"),
-                      content: Column(
-                        children: [
-                          Text("Saved successfully",),
-                          Lottie.asset(LottieFiles.$89782_done_icon_with_long_drop_shadow,controller: _controller,),
-                        ],
+                    return Container(
+                      margin: EdgeInsets.symmetric(vertical: 250.h, horizontal: 10.w),
+                      child: AlertDialog(
+                        content: Column(
+                          children: [
+                            Text("تم تأكيد طلبك شكرا!",),
+                            Lottie.asset(LottieFiles.$89782_done_icon_with_long_drop_shadow,controller: _controller,width: 40.w,height: 40.h),
+                          ],
+                        ),
                       ),
                     );
                   });

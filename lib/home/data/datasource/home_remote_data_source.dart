@@ -15,7 +15,8 @@ class HomeRemoteDataSource extends BaseHomeRemoteDataSource {
     Dio dio = Dio();
     final response = await dio.get(
       ApiConstance.homePath,
-      options: Options(headers: {
+      options: Options(
+          headers: {
         'Authorization':'${_appPref.getToken()}',
       }),
     );
