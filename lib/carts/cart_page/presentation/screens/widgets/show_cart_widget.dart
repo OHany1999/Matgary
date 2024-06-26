@@ -14,9 +14,12 @@ import 'package:matgary/carts/general%20_cart_apis/3-delete_cart/presentation/co
 import 'package:matgary/carts/general%20_cart_apis/3-delete_cart/presentation/controller/delete_cart_bloc/delete_cart_state.dart';
 import 'package:matgary/core/global/shared_widgets/elvated_bottom.dart';
 import 'package:matgary/core/global/theme/app_color/app_color_light.dart';
-import 'package:matgary/core/global/toast/toast.dart';
+import 'package:flutter_animated_icons/icons8.dart';
+import 'package:flutter_animated_icons/lottiefiles.dart';
+import 'package:flutter_animated_icons/useanimations.dart';
+import 'package:lottie/lottie.dart';
 
-class ShowCartWidget extends StatelessWidget {
+class ShowCartWidget extends StatefulWidget {
   bool isActive;
   List<CartItemEntity>? localCartItemEntity;
   int? localTotal;
@@ -26,6 +29,27 @@ class ShowCartWidget extends StatelessWidget {
       required this.localCartItemEntity,
       required this.localTotal,
       required this.isActive});
+
+  @override
+  State<ShowCartWidget> createState() => _ShowCartWidgetState();
+}
+
+class _ShowCartWidgetState extends State<ShowCartWidget> with TickerProviderStateMixin {
+  bool isPlay = false;
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    _controller = AnimationController(duration:const Duration(seconds: 2),vsync: this);
+    super.initState();
+  }
+
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +70,7 @@ class ShowCartWidget extends StatelessWidget {
               child: ListView.separated(
                 // to make RefreshIndicator working with listview
                 physics: const AlwaysScrollableScrollPhysics(),
-                itemCount: localCartItemEntity!.length,
+                itemCount: widget.localCartItemEntity!.length,
                 itemBuilder: (context, index) {
                   return Container(
                     width: MediaQuery.of(context).size.width,
@@ -58,7 +82,7 @@ class ShowCartWidget extends StatelessWidget {
                           width: MediaQuery.of(context).size.width - 220,
                           height: 150.h,
                           fit: BoxFit.fitHeight,
-                          imageUrl: localCartItemEntity![index].product!.image!,
+                          imageUrl: widget.localCartItemEntity![index].product!.image!,
                           placeholder: (context, url) => const Icon(
                             Icons.image,
                             size: 80,
@@ -76,7 +100,7 @@ class ShowCartWidget extends StatelessWidget {
                               ),
                               width: 140.w,
                               child: Text(
-                                localCartItemEntity![index]
+                                widget.localCartItemEntity![index]
                                     .product!
                                     .name
                                     .toString(),
@@ -92,7 +116,7 @@ class ShowCartWidget extends StatelessWidget {
                               margin: const EdgeInsets.only(top: 10, left: 20),
                               width: 140.w,
                               child: Text(
-                                '${localCartItemEntity![index].product!.price.toString()} جنية',
+                                '${widget.localCartItemEntity![index].product!.price.toString()} جنية',
                                 maxLines: 2,
                                 textAlign: TextAlign.start,
                                 style: Theme.of(context)
@@ -107,7 +131,7 @@ class ShowCartWidget extends StatelessWidget {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  localCartItemEntity![index].quantity! <= 1
+                                  widget.localCartItemEntity![index].quantity! <= 1
                                       ? BlocListener<DeleteCartBloc,
                                           DeleteCartState>(
                                           listener: (context, state) {
@@ -132,7 +156,7 @@ class ShowCartWidget extends StatelessWidget {
                                                 context
                                                     .read<DeleteCartBloc>()
                                                     .add(GetDeleteCartEvent(
-                                                        id: localCartItemEntity![
+                                                        id: widget.localCartItemEntity![
                                                                 index]
                                                             .id!));
                                                 context
@@ -146,8 +170,8 @@ class ShowCartWidget extends StatelessWidget {
                                               const EdgeInsets.only(bottom: 15),
                                           iconSize: 30,
                                           onPressed: () {
-                                            if (isActive == false) {
-                                              context.read<UpdateCartBloc>().add(GetUpdateCartEvent(quantity: localCartItemEntity![index].quantity! - 1, id: localCartItemEntity![index].id!));
+                                            if (widget.isActive == false) {
+                                              context.read<UpdateCartBloc>().add(GetUpdateCartEvent(quantity: widget.localCartItemEntity![index].quantity! - 1, id: widget.localCartItemEntity![index].id!));
                                               context.read<GetCartBloc>().add(GetCartEvent());
                                             }
                                           },
@@ -156,7 +180,7 @@ class ShowCartWidget extends StatelessWidget {
                                           ),
                                         ),
                                   Text(
-                                    localCartItemEntity![index]
+                                    widget.localCartItemEntity![index]
                                         .quantity
                                         .toString(),
                                     style: Theme.of(context)
@@ -167,14 +191,14 @@ class ShowCartWidget extends StatelessWidget {
                                   IconButton(
                                     iconSize: 30,
                                     onPressed: () {
-                                      if (isActive == false) {
+                                      if (widget.isActive == false) {
                                         context.read<UpdateCartBloc>().add(
                                             GetUpdateCartEvent(
                                                 quantity:
-                                                    localCartItemEntity![index]
+                                                    widget.localCartItemEntity![index]
                                                             .quantity! +
                                                         1,
-                                                id: localCartItemEntity![index]
+                                                id: widget.localCartItemEntity![index]
                                                     .id!));
                                         context
                                             .read<GetCartBloc>()
@@ -234,7 +258,7 @@ class ShowCartWidget extends StatelessWidget {
                               .copyWith(fontSize: 20.0),
                         ),
                         Text(
-                          localTotal.toString(),
+                          widget.localTotal.toString(),
                           style: Theme.of(context)
                               .textTheme
                               .headlineLarge!
@@ -258,7 +282,28 @@ class ShowCartWidget extends StatelessWidget {
               GlobalElevatedButton(
                 bottomText: 'الدفع',
                 fontSize: 20,
-                onPress: () {},
+                onPress: () {
+                  showDialog(context: context, builder: (BuildContext context){
+                    return AlertDialog(
+                      title: Text("Success"),
+                      content: Column(
+                        children: [
+                          Text("Saved successfully",),
+                          Lottie.asset(Icons8.add,controller: _controller,),
+                        ],
+                      ),
+                    );
+                  });
+                  if(isPlay){
+                    isPlay = false;
+                    _controller.reverse();
+                  }else{
+                    isPlay = true;
+                    _controller.forward();
+                  }
+
+
+                },
                 bottomSize: const Size(300, 40),
                 bottomPadding:
                     const EdgeInsets.symmetric(horizontal: 40, vertical: 5),

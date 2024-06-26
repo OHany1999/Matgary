@@ -17,7 +17,7 @@ class AddOrderRemoteDataSource extends BaseAddOrderRemoteDataSource {
       ApiConstance.addOrderPath,
       options: Options(headers: {
         'lang': 'ar',
-        'Content-Type': 'Content-Type',
+        'Content-Type': 'application/json',
         'Authorization': '${_appPref.getToken()}',
       }),
       data: {"address_id": 35, "payment_method": 1, "use_points": false},
