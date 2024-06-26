@@ -289,19 +289,14 @@ class _ShowCartWidgetState extends State<ShowCartWidget> with TickerProviderStat
                       content: Column(
                         children: [
                           Text("Saved successfully",),
-                          Lottie.asset(Icons8.add,controller: _controller,),
+                          Lottie.asset(LottieFiles.$89782_done_icon_with_long_drop_shadow,controller: _controller,),
                         ],
                       ),
                     );
                   });
-                  if(isPlay){
-                    isPlay = false;
-                    _controller.reverse();
-                  }else{
-                    isPlay = true;
-                    _controller.forward();
-                  }
-
+                  isPlay = !isPlay;
+                  _controller.reset();
+                  _controller.forward();
 
                 },
                 bottomSize: const Size(300, 40),
