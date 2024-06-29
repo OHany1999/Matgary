@@ -18,7 +18,7 @@ class CartScreen extends StatelessWidget {
   CartScreen({super.key});
 
   List<CartItemEntity>? localCartItemEntity = [];
-  int? localTotal = 0;
+  double? localTotal = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +62,7 @@ class CartScreen extends StatelessWidget {
                     child: localTotal == 0
                         ? SizedBox(
                             width: MediaQuery.of(context).size.width,
-                            child:  Column(
+                            child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 const Icon(
@@ -70,8 +70,16 @@ class CartScreen extends StatelessWidget {
                                   size: 80,
                                   color: AppColorsLight.orangeColor3,
                                 ),
-                                const SizedBox(height: 5,),
-                                Text('لايوجد منتجات في العربة',style: Theme.of(context).textTheme.headlineLarge!.copyWith(fontSize: 28),)
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  'لايوجد منتجات في العربة',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineLarge!
+                                      .copyWith(fontSize: 28),
+                                )
                               ],
                             ),
                           )

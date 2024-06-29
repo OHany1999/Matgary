@@ -19,8 +19,8 @@ class GetCartEntity extends Equatable{
 
 class GetCartDataEntity extends Equatable{
   final List<CartItemEntity>? cartItems;
-  final int? subTotal;
-  final int? total;
+  final dynamic subTotal;
+  final dynamic total;
 
   GetCartDataEntity({
     required this.cartItems,
@@ -53,8 +53,8 @@ class CartItemEntity extends Equatable{
 
 class ProductEntity extends Equatable{
   final int? id;
-  final int? price;
-  final int? oldPrice;
+  final dynamic price;
+  final dynamic oldPrice;
   final int? discount;
   final String? image;
   final String? name;

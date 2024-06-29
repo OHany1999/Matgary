@@ -17,15 +17,13 @@ import 'package:matgary/carts/general%20_cart_apis/4-add_order/presentation/cont
 import 'package:matgary/carts/general%20_cart_apis/4-add_order/presentation/controller/add_order_bloc/add_order_state.dart';
 import 'package:matgary/core/global/shared_widgets/elvated_bottom.dart';
 import 'package:matgary/core/global/theme/app_color/app_color_light.dart';
-import 'package:flutter_animated_icons/icons8.dart';
 import 'package:flutter_animated_icons/lottiefiles.dart';
-import 'package:flutter_animated_icons/useanimations.dart';
 import 'package:lottie/lottie.dart';
 
 class ShowCartWidget extends StatefulWidget {
   bool isActive;
   List<CartItemEntity>? localCartItemEntity;
-  int? localTotal;
+  double? localTotal;
 
   ShowCartWidget(
       {super.key,

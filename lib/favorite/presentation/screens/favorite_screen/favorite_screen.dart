@@ -47,7 +47,29 @@ class FavoriteScreen extends StatelessWidget {
                   context.read<HomeBloc>().add(const GetHomeEvent());
                   return Future(() => null);
                 },
-                child: CustomScrollView(
+                child:localDataEntityList!.isEmpty? SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.remove_shopping_cart,
+                        size: 80,
+                        color: AppColorsLight.orangeColor3,
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        'لايوجد منتجات في المفضلة',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineLarge!
+                            .copyWith(fontSize: 28),
+                      )
+                    ],
+                  ),
+                ) :CustomScrollView(
                   slivers: [
                     BlocConsumer<AddAndRemoveFavoriteBloc,AddFavoriteState>(
                       buildWhen: (previous, current) =>previous.addFavoriteRequestState != current.addFavoriteRequestState,

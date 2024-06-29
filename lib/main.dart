@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize:const Size(360, 690),
       child: MaterialApp(
-        title: 'matgary',
+        title: 'متجري',
         debugShowCheckedModeBanner: false,
         routes: myRoutes(),
         initialRoute: myInitialRoute(),
