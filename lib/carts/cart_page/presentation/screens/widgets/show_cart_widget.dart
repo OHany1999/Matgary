@@ -23,7 +23,7 @@ import 'package:lottie/lottie.dart';
 class ShowCartWidget extends StatefulWidget {
   bool isActive;
   List<CartItemEntity>? localCartItemEntity;
-  double? localTotal;
+  dynamic localTotal;
 
   ShowCartWidget(
       {super.key,

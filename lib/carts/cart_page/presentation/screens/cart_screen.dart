@@ -18,7 +18,7 @@ class CartScreen extends StatelessWidget {
   CartScreen({super.key});
 
   List<CartItemEntity>? localCartItemEntity = [];
-  double? localTotal = 0;
+  dynamic localTotal = 0;
 
   @override
   Widget build(BuildContext context) {
