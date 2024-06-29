@@ -71,10 +71,7 @@ class NavBarScreen extends StatelessWidget {
                   icon: Icon(Icons.favorite, size: 30),
                   label: 'المفضلة',
                 ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.category, size: 30),
-                  label: 'فئات',
-                ),
+
                 BottomNavigationBarItem(
                   icon: Icon(Icons.home, size: 30),
                   label: 'الرئيسية',
@@ -94,7 +91,6 @@ class NavBarScreen extends StatelessWidget {
 
   List<Widget> homeWidget = [
     FavoriteScreen(),
-    const CategoryScreen(),
     HomeScreen(),
   ];
 }
