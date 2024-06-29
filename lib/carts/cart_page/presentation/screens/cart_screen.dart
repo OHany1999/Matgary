@@ -7,7 +7,9 @@ import 'package:matgary/carts/cart_page/presentation/controller/get_cats_bloc/ge
 import 'package:matgary/carts/cart_page/presentation/screens/widgets/show_cart_widget.dart';
 import 'package:matgary/carts/general%20_cart_apis/2-update_cart/presentation/controller/update_cart_bloc/update_cart_bloc.dart';
 import 'package:matgary/carts/general%20_cart_apis/3-delete_cart/presentation/controller/delete_cart_bloc/delete_cart_bloc.dart';
+import 'package:matgary/carts/general%20_cart_apis/4-add_order/presentation/controller/add_order_bloc/add_order_bloc.dart';
 import 'package:matgary/core/global/shared_widgets/error_widget.dart';
+import 'package:matgary/core/global/theme/app_color/app_color_light.dart';
 import 'package:matgary/core/services/services_locator.dart';
 
 class CartScreen extends StatelessWidget {
@@ -26,6 +28,7 @@ class CartScreen extends StatelessWidget {
             create: (context) => sl<GetCartBloc>()..add(GetCartEvent())),
         BlocProvider(create: (context) => sl<UpdateCartBloc>()),
         BlocProvider(create: (context) => sl<DeleteCartBloc>()),
+        BlocProvider(create: (context) => sl<AddOrderBloc>()),
       ],
       child: Scaffold(
         body: BlocBuilder<GetCartBloc, GetCartState>(
@@ -56,11 +59,27 @@ class CartScreen extends StatelessWidget {
                 localTotal = state.getCartEntity!.data!.total;
                 localCartItemEntity = state.getCartEntity!.data!.cartItems;
                 return SafeArea(
-                    child: ShowCartWidget(
-                      localCartItemEntity: localCartItemEntity,
-                      localTotal: localTotal,
-                      isActive: false,
-                    ));
+                    child: localTotal == 0
+                        ? SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            child:  Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(
+                                  Icons.remove_shopping_cart,
+                                  size: 80,
+                                  color: AppColorsLight.orangeColor3,
+                                ),
+                                const SizedBox(height: 5,),
+                                Text('لايوجد منتجات في العربة',style: Theme.of(context).textTheme.headlineLarge!.copyWith(fontSize: 28),)
+                              ],
+                            ),
+                          )
+                        : ShowCartWidget(
+                            localCartItemEntity: localCartItemEntity,
+                            localTotal: localTotal,
+                            isActive: false,
+                          ));
               case GetCartRequestState.error:
                 return ErrorWidgetWithReload(onPress: () {
                   context.read<GetCartBloc>().add(GetCartEvent());

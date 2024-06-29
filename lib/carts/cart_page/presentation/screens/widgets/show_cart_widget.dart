@@ -12,6 +12,9 @@ import 'package:matgary/carts/general%20_cart_apis/2-update_cart/presentation/co
 import 'package:matgary/carts/general%20_cart_apis/3-delete_cart/presentation/controller/delete_cart_bloc/delete_cart_bloc.dart';
 import 'package:matgary/carts/general%20_cart_apis/3-delete_cart/presentation/controller/delete_cart_bloc/delete_cart_event.dart';
 import 'package:matgary/carts/general%20_cart_apis/3-delete_cart/presentation/controller/delete_cart_bloc/delete_cart_state.dart';
+import 'package:matgary/carts/general%20_cart_apis/4-add_order/presentation/controller/add_order_bloc/add_order_bloc.dart';
+import 'package:matgary/carts/general%20_cart_apis/4-add_order/presentation/controller/add_order_bloc/add_order_event.dart';
+import 'package:matgary/carts/general%20_cart_apis/4-add_order/presentation/controller/add_order_bloc/add_order_state.dart';
 import 'package:matgary/core/global/shared_widgets/elvated_bottom.dart';
 import 'package:matgary/core/global/theme/app_color/app_color_light.dart';
 import 'package:flutter_animated_icons/icons8.dart';
@@ -34,16 +37,17 @@ class ShowCartWidget extends StatefulWidget {
   State<ShowCartWidget> createState() => _ShowCartWidgetState();
 }
 
-class _ShowCartWidgetState extends State<ShowCartWidget> with TickerProviderStateMixin {
+class _ShowCartWidgetState extends State<ShowCartWidget>
+    with TickerProviderStateMixin {
   bool isPlay = false;
   late AnimationController _controller;
 
   @override
   void initState() {
-    _controller = AnimationController(duration:const Duration(seconds: 2),vsync: this);
+    _controller =
+        AnimationController(duration: const Duration(seconds: 2), vsync: this);
     super.initState();
   }
-
 
   @override
   void dispose() {
@@ -82,7 +86,8 @@ class _ShowCartWidgetState extends State<ShowCartWidget> with TickerProviderStat
                           width: MediaQuery.of(context).size.width - 220,
                           height: 150.h,
                           fit: BoxFit.fitHeight,
-                          imageUrl: widget.localCartItemEntity![index].product!.image!,
+                          imageUrl: widget
+                              .localCartItemEntity![index].product!.image!,
                           placeholder: (context, url) => const Icon(
                             Icons.image,
                             size: 80,
@@ -100,9 +105,7 @@ class _ShowCartWidgetState extends State<ShowCartWidget> with TickerProviderStat
                               ),
                               width: 140.w,
                               child: Text(
-                                widget.localCartItemEntity![index]
-                                    .product!
-                                    .name
+                                widget.localCartItemEntity![index].product!.name
                                     .toString(),
                                 maxLines: 2,
                                 textAlign: TextAlign.center,
@@ -131,7 +134,9 @@ class _ShowCartWidgetState extends State<ShowCartWidget> with TickerProviderStat
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  widget.localCartItemEntity![index].quantity! <= 1
+                                  widget.localCartItemEntity![index]
+                                              .quantity! <=
+                                          1
                                       ? BlocListener<DeleteCartBloc,
                                           DeleteCartState>(
                                           listener: (context, state) {
@@ -156,7 +161,8 @@ class _ShowCartWidgetState extends State<ShowCartWidget> with TickerProviderStat
                                                 context
                                                     .read<DeleteCartBloc>()
                                                     .add(GetDeleteCartEvent(
-                                                        id: widget.localCartItemEntity![
+                                                        id: widget
+                                                            .localCartItemEntity![
                                                                 index]
                                                             .id!));
                                                 context
@@ -171,8 +177,21 @@ class _ShowCartWidgetState extends State<ShowCartWidget> with TickerProviderStat
                                           iconSize: 30,
                                           onPressed: () {
                                             if (widget.isActive == false) {
-                                              context.read<UpdateCartBloc>().add(GetUpdateCartEvent(quantity: widget.localCartItemEntity![index].quantity! - 1, id: widget.localCartItemEntity![index].id!));
-                                              context.read<GetCartBloc>().add(GetCartEvent());
+                                              context
+                                                  .read<UpdateCartBloc>()
+                                                  .add(GetUpdateCartEvent(
+                                                      quantity: widget
+                                                              .localCartItemEntity![
+                                                                  index]
+                                                              .quantity! -
+                                                          1,
+                                                      id: widget
+                                                          .localCartItemEntity![
+                                                              index]
+                                                          .id!));
+                                              context
+                                                  .read<GetCartBloc>()
+                                                  .add(GetCartEvent());
                                             }
                                           },
                                           icon: const Icon(
@@ -180,8 +199,7 @@ class _ShowCartWidgetState extends State<ShowCartWidget> with TickerProviderStat
                                           ),
                                         ),
                                   Text(
-                                    widget.localCartItemEntity![index]
-                                        .quantity
+                                    widget.localCartItemEntity![index].quantity
                                         .toString(),
                                     style: Theme.of(context)
                                         .textTheme
@@ -194,11 +212,13 @@ class _ShowCartWidgetState extends State<ShowCartWidget> with TickerProviderStat
                                       if (widget.isActive == false) {
                                         context.read<UpdateCartBloc>().add(
                                             GetUpdateCartEvent(
-                                                quantity:
-                                                    widget.localCartItemEntity![index]
-                                                            .quantity! +
-                                                        1,
-                                                id: widget.localCartItemEntity![index]
+                                                quantity: widget
+                                                        .localCartItemEntity![
+                                                            index]
+                                                        .quantity! +
+                                                    1,
+                                                id: widget
+                                                    .localCartItemEntity![index]
                                                     .id!));
                                         context
                                             .read<GetCartBloc>()
@@ -231,13 +251,14 @@ class _ShowCartWidgetState extends State<ShowCartWidget> with TickerProviderStat
         ),
         Container(
           height: 100.h,
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                color: Colors.white,
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: Offset(0, 3), // changes position of shadow
+                blurStyle: BlurStyle.outer,
+                color: Colors.grey.shade500,
+                spreadRadius: 10,
+                blurRadius: 10,
+                offset: Offset(0, 15.h),
               ),
             ],
           ),
@@ -279,31 +300,65 @@ class _ShowCartWidgetState extends State<ShowCartWidget> with TickerProviderStat
               SizedBox(
                 height: 15.h,
               ),
-              GlobalElevatedButton(
-                bottomText: 'الدفع',
-                fontSize: 20,
-                onPress: () {
-                  showDialog(context: context, builder: (BuildContext context){
-                    return Container(
-                      margin: EdgeInsets.symmetric(vertical: 250.h, horizontal: 10.w),
-                      child: AlertDialog(
-                        content: Column(
-                          children: [
-                            Text("تم تأكيد طلبك شكرا!",),
-                            Lottie.asset(LottieFiles.$89782_done_icon_with_long_drop_shadow,controller: _controller,width: 40.w,height: 40.h),
-                          ],
-                        ),
-                      ),
-                    );
-                  });
-                  isPlay = !isPlay;
-                  _controller.reset();
-                  _controller.forward();
-
+              BlocListener<AddOrderBloc, AddOrderState>(
+                listener: (context, state) {
+                  switch (state.addOrderRequestState) {
+                    case AddOrderRequestState.initial:
+                      null;
+                    case AddOrderRequestState.loading:
+                      null;
+                    case AddOrderRequestState.success:
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Container(
+                              margin: EdgeInsets.symmetric(
+                                  vertical: 250.h, horizontal: 10.w),
+                              child: AlertDialog(
+                                backgroundColor: Colors.white,
+                                elevation: 0,
+                                content: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "! تم تأكيد طلبك شكرا",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium!
+                                          .copyWith(fontSize: 20),
+                                    ),
+                                    SizedBox(
+                                      height: 6.h,
+                                    ),
+                                    Lottie.asset(
+                                        LottieFiles
+                                            .$89782_done_icon_with_long_drop_shadow,
+                                        controller: _controller,
+                                        width: 40.w,
+                                        height: 40.h),
+                                  ],
+                                ),
+                              ),
+                            );
+                          });
+                      isPlay = !isPlay;
+                      _controller.reset();
+                      _controller.forward();
+                    case AddOrderRequestState.error:
+                      print(state.addOrderRequestState);
+                  }
                 },
-                bottomSize: const Size(300, 40),
-                bottomPadding:
-                    const EdgeInsets.symmetric(horizontal: 40, vertical: 5),
+                child: GlobalElevatedButton(
+                  bottomText: 'الدفع',
+                  fontSize: 20,
+                  onPress: () {
+                    context.read<AddOrderBloc>().add(GetAddOrderEvent());
+                    context.read<GetCartBloc>().add(GetCartEvent());
+                  },
+                  bottomSize: const Size(300, 40),
+                  bottomPadding:
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 5),
+                ),
               ),
             ],
           ),
